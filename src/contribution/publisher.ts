@@ -12,7 +12,7 @@ import {withLease} from '../state/lease.js';
 export interface PublishedPR {number:number;url:string;sha:string;}
 export interface Fork {fullName:string;cloneUrl:string;}
 export interface PublishIntent {id:string;sessionId:string;approvalId:string;payloadDigest:string;createdAt:string;date:string;stage:'planned'|'forked'|'committed'|'pushed'|'opened';fork?:Fork;commitSha?:string;pr?:PublishedPR;}
-export interface PublicationBackend {fork(proposal:Proposal):Promise<Fork>;commit(session:Session,proposal:Proposal,date:string):Promise<string>;push(session:Session,fork:Fork,sha:string,branch:string):Promise<void>;open(proposal:Proposal,fork:Fork,sha:string):Promise<PublishedPR>;findExisting?(proposal:Proposal,fork:Fork,sha:string):Promise<PublishedPR|undefined>;}
+export interface PublicationBackend {preflight?(proposal:Proposal):Promise<void>;fork(proposal:Proposal):Promise<Fork>;commit(session:Session,proposal:Proposal,date:string):Promise<string>;push(session:Session,fork:Fork,sha:string,branch:string):Promise<void>;open(proposal:Proposal,fork:Fork,sha:string):Promise<PublishedPR>;findExisting?(proposal:Proposal,fork:Fork,sha:string):Promise<PublishedPR|undefined>;}
 export class GitHubPublicationBackend implements PublicationBackend {
   constructor(readonly client:GitHubClient,private auth:Credentials){}
   async fork(p:Proposal):Promise<Fork>{
@@ -63,6 +63,7 @@ export class Publisher {
     approvals.authorize(approvalId,id,'publish',payload,intent.id);approvals.reserve(approvalId,intent.id);intent.approvalId=approvalId;
     this.store.put('publish-intents',id,intent);
     s=await this.recheck(id);const p=s.proposal!;
+    await this.backend.preflight?.(p);
     const save=(stage:PublishIntent['stage'])=>{intent.stage=stage;this.store.put('publish-intents',id,intent);this.store.event(id,'publication-stage',{stage,approvalId,intentId:intent.id});};
     this.store.mutate(id,x=>{x.state='FORK_BRANCH_PUSH_PR';});
     if(!intent.fork){assertLease();approvals.authorize(approvalId,id,'publish',payload,intent.id);intent.fork=await this.backend.fork(p);save('forked');}

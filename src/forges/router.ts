@@ -10,6 +10,7 @@ import {preSubmissionRecheck} from '../contribution/recheck.js';
 import {ForgeConfigSchema,JsonForgeClient,type ForgeConfig} from './http.js';
 import {GitLabEngine,GitLabFacade,GitLabPublication} from './gitlab.js';
 import {selectCandidate} from '../discovery/ranking.js';
+import {ForgejoEngine,ForgejoPublication} from './forgejo.js';
 export interface DiscoveryProvider {repositories(p:Preferences,signal?:AbortSignal):Promise<Repository[]>;find(repos:Repository[],p:Preferences,signal?:AbortSignal):Promise<{candidates:IssueEvidence[],selected?:IssueEvidence,ranked:IssueEvidence[],message:string}>;verify(repo:Repository,number:number,signal?:AbortSignal,relaxations?:Relaxable[]):Promise<IssueEvidence>;}
 export interface Provider {engine:DiscoveryProvider;client:GitHubClient;auth:Credentials;publisher:Publisher;recheck:(id:string)=>Promise<import('../core/models.js').Session>;}
 export function forgeConfigurations(store:Store):ForgeConfig[]{return z.array(ForgeConfigSchema).max(10).parse(process.env.MERGEPILOT_FORGES?JSON.parse(process.env.MERGEPILOT_FORGES):store.read('config','forges')??[]).filter(c=>c.enabled);}
@@ -18,13 +19,13 @@ export async function provider(store:Store,repo?:Repository):Promise<Provider>{
     const auth=await credentials(),client=new GitHubClient(auth),engine=new DiscoveryEngine(client,store),recheck=(id:string)=>preSubmissionRecheck(store,id,client);return {engine,client,auth,recheck,publisher:new Publisher(store,new GitHubPublicationBackend(client,auth),recheck)};
   }
   const config=forgeConfigurations(store).find(c=>c.kind===repo.forge&&c.host===repo.host);if(!config)throw new Error('Forge instance is not explicitly configured');const token=process.env[config.tokenEnv];if(!token)throw new Error('Configured forge credential is unavailable');
-  if(config.kind!=='gitlab')throw new Error('Forge adapter is unavailable');
+  if(config.kind==='forgejo'){const engine=new ForgejoEngine(new JsonForgeClient(config,token),store),client=engine.facade,auth:Credentials={kind:'token',token:async()=>token},recheck=(id:string)=>preSubmissionRecheck(store,id,client,undefined,engine.verify.bind(engine));return {engine,client,auth,recheck,publisher:new Publisher(store,new ForgejoPublication(engine,auth),recheck)};}
   const engine=new GitLabEngine(new JsonForgeClient(config,token),store),client=new GitLabFacade(engine),auth:Credentials={kind:'token',token:async()=>token},recheck=(id:string)=>preSubmissionRecheck(store,id,client,undefined,engine.verify.bind(engine));
   return {engine,client,auth,recheck,publisher:new Publisher(store,new GitLabPublication(engine,auth),recheck)};
 }
 export async function discoverAcrossForges(store:Store,p:Preferences,signal?:AbortSignal){const groups:Repository[][]=[],errors:{forge:string,error:string}[]=[];
   try{groups.push(await (await provider(store)).engine.repositories(p,signal));}catch(error){signal?.throwIfAborted();errors.push({forge:'github',error:String(error)});}
-  for(const config of forgeConfigurations(store)){try{if(config.kind!=='gitlab')continue;const token=process.env[config.tokenEnv];if(!token)throw new Error('Configured token missing');groups.push(await new GitLabEngine(new JsonForgeClient(config,token),store).repositories(p,signal));}catch(error){signal?.throwIfAborted();errors.push({forge:config.host,error:String(error)});}}
+  for(const config of forgeConfigurations(store)){try{const token=process.env[config.tokenEnv];if(!token)throw new Error('Configured token missing');const api=new JsonForgeClient(config,token);groups.push(await (config.kind==='gitlab'?new GitLabEngine(api,store):new ForgejoEngine(api,store)).repositories(p,signal));}catch(error){signal?.throwIfAborted();errors.push({forge:config.host,error:String(error)});}}
   const repositories:Repository[]=[];for(let i=0;i<30&&repositories.length<30;i++)for(const group of groups)if(group[i]&&repositories.length<30)repositories.push(group[i]!);
   if(!repositories.length&&errors.length)throw new Error(errors.map(e=>e.forge+': '+e.error).join('; '));return {repositories,errors};
 }
