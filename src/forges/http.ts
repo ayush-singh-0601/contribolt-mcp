@@ -6,6 +6,13 @@ export type ForgeConfig=z.infer<typeof ForgeConfigSchema>;
 export class JsonForgeClient {
   private budget=new SearchBudget();
   constructor(readonly config:ForgeConfig,readonly token:string,private fetcher:typeof fetch=fetch){}
+  async supportsDraftPullRequests():Promise<boolean>{
+    this.budget.take();const response=await this.fetcher(`https://${this.config.host}/swagger.v1.json`,{redirect:'error',signal:AbortSignal.timeout(15000)});
+    if(!response.ok)throw new ForgeError('Instance API capability schema unavailable',response.status);
+    const text=await response.text();if(Buffer.byteLength(text)>8*1024*1024)throw new Error('Instance capability schema exceeds size limit');
+    const schema=JSON.parse(text) as {definitions?:Record<string,{properties?:Record<string,unknown>}>;components?:{schemas?:Record<string,{properties?:Record<string,unknown>}>}};
+    return !!(schema.definitions?.CreatePullRequestOption?.properties?.draft??schema.components?.schemas?.CreatePullRequestOption?.properties?.draft);
+  }
   async request<T>(method:string,path:string,body?:unknown,params:Record<string,unknown>={},signal?:AbortSignal):Promise<T>{
     if(!path.startsWith('/')||path.startsWith('//')||path.includes('://'))throw new Error('Invalid forge API path');
     const url=new URL(`https://${this.config.host}${this.config.kind==='gitlab'?'/api/v4':'/api/v1'}${path}`);
