@@ -10,4 +10,4 @@ Install adapters outside contribution repositories. Inspect their complete code 
 
 `conformAdapter` provides runtime interface/command validation for extension authors. Missing capabilities should return no command plus an environment requirement, never a fabricated passing check. Bootstrap commands must use kind `bootstrap`, require network consent where applicable, and remain separate from test evidence.
 
-The CI workflow validates the package on Linux, macOS and Windows. Actual ecosystem runs and compatibility observations are recorded separately in the release verification report.
+The CI workflow defines package validation on Linux, macOS and Windows; remote job results are still pending. Actual ecosystem runs and compatibility observations are recorded separately in the release verification report.

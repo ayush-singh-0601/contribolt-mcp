@@ -1,0 +1,35 @@
+{
+  "ecosystem": "C",
+  "checkedAt": "2026-10-25T21:01:14.346Z",
+  "forge": "controlled fixture responses",
+  "command": {
+    "executable": "sh",
+    "args": [
+      "test.sh"
+    ]
+  },
+  "baseline": {
+    "status": "FAIL",
+    "exitCode": 134,
+    "output": "regression: main.c:4: main: Assertion `increment(1) == 2' failed.\ntest.sh: line 6:   684 Aborted                    (core dumped) ./out/regression\n",
+    "capturedOutputHash": "d45f3ae7f895d0db416bdae45df3127bc1a43849aa7d1cf898bdcfa965de9736",
+    "normalizedOutputHash": "d45f3ae7f895d0db416bdae45df3127bc1a43849aa7d1cf898bdcfa965de9736"
+  },
+  "fixed": {
+    "status": "PASS",
+    "exitCode": 0,
+    "output": "2 C regression checks passed\n",
+    "capturedOutputHash": "13f1adb3ef34a8021bc2b4eaf50b6d00e698f70dc8a5379b08c46afd86afe763",
+    "normalizedOutputHash": "13f1adb3ef34a8021bc2b4eaf50b6d00e698f70dc8a5379b08c46afd86afe763"
+  },
+  "stages": [
+    "discovered",
+    "verified",
+    "reproduced",
+    "implemented",
+    "tested",
+    "PR prepared",
+    "dry-run preview"
+  ],
+  "publicWrites": 0
+}
