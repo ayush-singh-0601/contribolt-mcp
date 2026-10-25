@@ -23,12 +23,14 @@ import {registerRevisions} from './mcp/revision-tools.js';
 import {adapterIntegrity,conformAdapter,type TrustedAdapter} from './languages/extensions.js';
 import {realpathSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
+import {httpCommands,runHttpCommand} from './http/cli.js';
 async function main(){
   const command=process.argv[2]??'mcp';
   if(command==='--version'){console.log(VERSION);return;}
   if(command==='--help'||command==='help'){console.log('MergePilot MCP\n  mergepilot mcp       Start STDIO server\n  mergepilot --version\nState and approvals remain local.');return;}
-  if(!['mcp','run-check','approve','watch','trust-adapter'].includes(command))throw new Error('Unknown command; use --help');
+  if(!['mcp','run-check','approve','watch','trust-adapter',...httpCommands].includes(command))throw new Error('Unknown command; use --help');
   const store=new Store(process.env.MERGEPILOT_DATA_DIR??join(homedir(),'.local','share','mergepilot'));
+  if(httpCommands.has(command)){await runHttpCommand(command,store,process.argv.slice(3));return;}
   if(command==='trust-adapter'){
     if(!process.stdin.isTTY||!process.stdout.isTTY)throw new Error('Adapter trust requires an interactive user terminal');const file=realpathSync(process.argv[3]??'');
     if(store.list().some(s=>s.workspace&&file.startsWith(s.workspace+'/')))throw new Error('Executable adapters must come from trusted user configuration outside contribution repositories');
