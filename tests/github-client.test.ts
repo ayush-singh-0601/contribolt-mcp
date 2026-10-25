@@ -1,0 +1,3 @@
+import {it,expect} from 'vitest';
+import {GitHubClient,ForgeError} from '../src/github/client.js';
+it('does not retry uncertain public writes and reports throttling',async()=>{let calls=0;const fetcher=(async()=>{calls++;return new Response('{"message":"failed"}',{status:500,headers:{'content-type':'application/json'}});}) as typeof fetch;const client=new GitHubClient({kind:'token',token:async()=>'token'},fetcher,async()=>{});await expect(client.request('POST','/repos/o/r/pulls',{})).rejects.toBeInstanceOf(ForgeError);expect(calls).toBe(1);await expect(client.request('GET','https://evil.invalid')).rejects.toThrow('relative');});
