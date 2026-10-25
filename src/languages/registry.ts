@@ -1,3 +1,4 @@
+import {rust} from './adapters/rust.js';
 import {go} from './adapters/go.js';
 import {python} from './adapters/python.js';
 import {javascript} from './adapters/javascript.js';
@@ -9,4 +10,4 @@ export class AdapterRegistry {
   detect(repo:RepositoryContext):LanguageAdapter[]{const found=this.adapters.filter(a=>a.detect(repo).matched);return found.length?found:[genericAdapter];}
   list():string[]{return this.adapters.map(a=>a.id).concat('generic');}
 }
-export function builtinRegistry():AdapterRegistry{return new AdapterRegistry().add(javascript).add(python).add(go);}
+export function builtinRegistry():AdapterRegistry{return new AdapterRegistry().add(javascript).add(python).add(go).add(rust);}
