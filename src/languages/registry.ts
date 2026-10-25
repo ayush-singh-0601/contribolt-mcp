@@ -1,3 +1,4 @@
+import {dart} from './adapters/dart.js';
 import {swift} from './adapters/swift.js';
 import {php} from './adapters/php.js';
 import {ruby} from './adapters/ruby.js';
@@ -17,4 +18,4 @@ export class AdapterRegistry {
   detect(repo:RepositoryContext):LanguageAdapter[]{const found=this.adapters.filter(a=>a.detect(repo).matched);return found.length?found:[genericAdapter];}
   list():string[]{return this.adapters.map(a=>a.id).concat('generic');}
 }
-export function builtinRegistry():AdapterRegistry{return new AdapterRegistry().add(javascript).add(python).add(go).add(rust).add(java).add(kotlin).add(cpp).add(dotnet).add(ruby).add(php).add(swift);}
+export function builtinRegistry():AdapterRegistry{return new AdapterRegistry().add(javascript).add(python).add(go).add(rust).add(java).add(kotlin).add(cpp).add(dotnet).add(ruby).add(php).add(swift).add(dart);}
