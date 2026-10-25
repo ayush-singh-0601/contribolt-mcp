@@ -1,3 +1,5 @@
+import {enforceContributionLimits} from './limits.js';
+import {policyKey} from '../repository/policy-store.js';
 import {randomUUID} from 'node:crypto';
 import type {Store} from '../state/store.js';
 import type {Session,Proposal} from '../core/models.js';
@@ -64,6 +66,7 @@ export class Publisher {
     this.store.put('publish-intents',id,intent);
     s=await this.recheck(id);const p=s.proposal!;
     await this.backend.preflight?.(p);
+    enforceContributionLimits(this.store,s);
     const save=(stage:PublishIntent['stage'])=>{intent.stage=stage;this.store.put('publish-intents',id,intent);this.store.event(id,'publication-stage',{stage,approvalId,intentId:intent.id});};
     this.store.mutate(id,x=>{x.state='FORK_BRANCH_PUSH_PR';});
     if(!intent.fork){assertLease();approvals.authorize(approvalId,id,'publish',payload,intent.id);intent.fork=await this.backend.fork(p);save('forked');}
@@ -72,6 +75,7 @@ export class Publisher {
     if(!intent.pr){await this.recheck(id);assertLease();approvals.authorize(approvalId,id,'publish',await publicationPayload(this.store,this.store.get(id)),intent.id);intent.pr=await this.backend.open(p,intent.fork,intent.commitSha);save('opened');}
     const pr=intent.pr;
     this.store.mutate(id,x=>{x.prUrl=pr.url;x.prNumber=pr.number;x.commitSha=pr.sha;x.state='REVIEW_ROUTING';x.publishApproved=false;});
+    if(s.repository)this.store.put('publication-cooldowns',policyKey(s.repository),{sessionId:id,at:Date.now()});
     approvals.consume(approvalId,intent.id);return pr;
   }
 }

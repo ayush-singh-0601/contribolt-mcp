@@ -5,6 +5,7 @@ export function readiness(session:Session,inspection:PatchInspection):Readiness 
   const blockers=[...inspection.blockers],limitations=[...inspection.warnings];
   if(session.stopped)blockers.push('Session stopped');
   if(!['ALLOWED','ALLOWED_WITH_DISCLOSURE'].includes(session.policyDecision))blockers.push('Policy gate unresolved or prohibited');
+  for(const required of session.requiredChecks)if(!session.commands.some(c=>c.kind===required))blockers.push('Project-required check is unavailable: '+required);
   const critique=session.analysis?.critique;
   if(!critique||critique.patchHash!==inspection.patchHash)blockers.push('A current independent patch critique is required');
   if(critique?.findings.length)blockers.push(...critique.findings.map(f=>'Unresolved critique: '+f));

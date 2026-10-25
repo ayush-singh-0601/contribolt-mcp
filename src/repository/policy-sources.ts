@@ -6,7 +6,7 @@ const categories=/(^|\/)(README[^/]*|CONTRIBUTING[^/]*|CODE_OF_CONDUCT[^/]*|SECU
 export async function policySources(client:GitHubClient,repo:Repository,signal?:AbortSignal):Promise<{documents:PolicyDocument[],complete:boolean,commit:string}>{
   const head=await client.request<{sha:string}>('GET',`/repos/${repo.fullName}/commits/${encodeURIComponent(repo.defaultBranch)}`,{},signal);
   const tree=await client.request<{tree:{path:string,type:string,size?:number}[],truncated:boolean}>('GET',`/repos/${repo.fullName}/git/trees/${head.sha}`,{recursive:'1'},signal);
-  const paths=tree.tree.filter(f=>f.type==='blob'&&(categories.test(f.path)||/^\.github\/(?:instructions|ISSUE_TEMPLATE|PULL_REQUEST_TEMPLATE)\//.test(f.path)));
+  const paths=tree.tree.filter(f=>f.type==='blob'&&(f.path==='.mergepilot/policy.json'||categories.test(f.path)||/^\.github\/(?:instructions|ISSUE_TEMPLATE|PULL_REQUEST_TEMPLATE)\//.test(f.path)));
   let complete=!tree.truncated&&paths.length<=80;
   const documents:PolicyDocument[]=[];
   const fetchDoc=async(fullName:string,path:string,ref:string,org=false)=>{
@@ -14,6 +14,7 @@ export async function policySources(client:GitHubClient,repo:Repository,signal?:
     catch(error){signal?.throwIfAborted();if(!(org&&error instanceof ForgeError&&error.status===404))complete=false;}
   };
   for(const path of paths.slice(0,80))await fetchDoc(repo.fullName,path.path,head.sha);
+  await fetchDoc(repo.fullName.split('/')[0]+'/.github','.mergepilot/policy.json','HEAD',true);
   if(!documents.some(d=>/CONTRIBUTING/i.test(d.path))){const owner=repo.fullName.split('/')[0]!;for(const path of ['CONTRIBUTING.md','.github/CONTRIBUTING.md','README.md'])await fetchDoc(owner+'/.github',path,'HEAD',true);}
   return {documents,complete,commit:head.sha};
 }
