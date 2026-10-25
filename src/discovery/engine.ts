@@ -1,3 +1,4 @@
+import {policyKey} from '../repository/policy-store.js';
 import type {Store} from '../state/store.js';
 import type {GitHubClient} from '../github/client.js';
 import type {Repository,IssueEvidence,Preferences} from '../core/models.js';
@@ -19,7 +20,7 @@ export class DiscoveryEngine {
   async verify(repo:Repository,number:number,signal?:AbortSignal,relaxations:Relaxable[]=[]):Promise<IssueEvidence>{
     let issue=await refreshIssue(this.client,repo,number,signal);
     const author=await officialAuthor(this.client,repo,issue,signal),linked=await linkedPullRequests(this.client,repo,number,signal),competing=await competingWork(this.client,issue,signal),sources=await policySources(this.client,repo,signal),policy=classifyPolicy(sources.documents,sources.complete);
-    this.store.put('policies',repo.fullName,{...sources,decision:policy});
+    this.store.put('policies',policyKey(repo),{...sources,decision:policy});
     this.store.put('competing-evidence',issue.url,{...competing,checkedAt:issue.checkedAt});
     issue={...issue,officialProvenance:author.verdict,knownLinkedPRs:linked.urls,competingPRs:competing.confirmed,competingPRScanComplete:linked.complete&&competing.complete&&!competing.possible.length,reserved:reservation(issue.body,issue.labels,linked.reservations),repositoryPolicy:policy.policy,evidence:[...author.evidence,...policy.evidence],evidenceUrls:[...new Set([...issue.evidenceUrls,...author.evidence.map(e=>e.source),...policy.evidence.map(e=>e.source),...linked.urls,...competing.confirmed,...competing.possible])],confidence:policy.policy==='ALLOWED'?'medium':'high'};
     return eligibility(repo,issue,relaxations);
