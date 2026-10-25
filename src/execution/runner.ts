@@ -17,7 +17,7 @@ export async function executeCheck(store:Store,sessionId:string,checkId:string,c
   const result=await runProcess(command,signal);
   const after=await patchFingerprint(session.workspace),id=randomUUID();
   const output=String(redact(result.output)),outputPath=store.artifact(sessionId,`check-${id}.log`,output);
-  const check:QualityCheck={id:command.id,name:command.name,status:result.unavailable?'UNAVAILABLE':result.cancelled?'SKIPPED':result.exitCode===0&&before===after?'PASS':'FAIL',command,exitCode:result.exitCode,outputPath,outputHash:createHash('sha256').update(output).digest('hex'),patchHash:before,startedAt,finishedAt:new Date().toISOString(),explanation:before!==after?'Command changed the tested patch; rerun after inspection':result.reason,verified:true};
+  const check:QualityCheck={id:command.id,name:command.name,status:result.unavailable?'UNAVAILABLE':result.cancelled?'SKIPPED':result.exitCode===0&&before===after&&!(command.executable==='gofmt'&&result.output.trim())?'PASS':'FAIL',command,exitCode:result.exitCode,outputPath,outputHash:createHash('sha256').update(output).digest('hex'),patchHash:before,startedAt,finishedAt:new Date().toISOString(),explanation:before!==after?'Command changed the tested patch; rerun after inspection':result.reason,verified:true};
   const record:ExecutionRecord={id,sessionId,consent,check,commandHash:createHash('sha256').update(JSON.stringify(command)).digest('hex')};
   store.put('executions',id,record);store.event(sessionId,'command-executed',{executionId:id,commandId:command.id,status:check.status,consent});return record;
 }
