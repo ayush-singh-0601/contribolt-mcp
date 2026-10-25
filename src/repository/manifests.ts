@@ -1,17 +1,115 @@
-import {z} from 'zod';
-import type {Repository,Policy} from '../core/models.js';
-import type {PolicyDecision} from './policies.js';
-import type {PolicyDocument} from './policy-sources.js';
-export const AcceptanceManifest=z.object({schemaVersion:z.literal(1),maintainers:z.array(z.string()).default([]),repositories:z.array(z.string()).optional(),excludedRepositories:z.array(z.string()).default([]),ai:z.enum(['allowed','allowed_with_disclosure','requires_approval','human_only','prohibited','unspecified']).default('unspecified'),externalPullRequests:z.boolean().optional(),requirePriorDiscussion:z.boolean().default(false),disclosure:z.string().max(4000).optional(),allowedLabels:z.array(z.string()).default([]),blockedLabels:z.array(z.string()).default([]),reservedLabels:z.array(z.string()).default([]),requiredChecks:z.array(z.enum(['test','lint','format_check','typecheck','build'])).default([]),requireDraft:z.boolean().default(false),allowAutoClosingReferences:z.boolean().optional(),cooldownHours:z.number().min(0).max(8760).default(24),preferredAreas:z.array(z.string()).default([]),reviewerConventions:z.string().max(4000).optional()}).strict();
-export function applyManifests(base:PolicyDecision,docs:PolicyDocument[],complete:boolean,repo?:Repository):PolicyDecision{
-  const result:PolicyDecision={...base,disclosures:[...base.disclosures],blockers:[...base.blockers],requiredChecks:[],blockedLabels:[],reservedLabels:[],allowedLabelGroups:[],cooldownHours:24};
-  for(const doc of docs.filter(d=>d.path==='.mergepilot/policy.json').sort((a,b)=>Number(b.organizationDefault)-Number(a.organizationDefault))){
-    let m:z.infer<typeof AcceptanceManifest>;try{m=AcceptanceManifest.parse(JSON.parse(doc.text));}catch{if(result.policy!=='PROHIBITED')result.policy='UNKNOWN';result.blockers.push('Invalid versioned acceptance policy: '+doc.url);continue;}
-    if((m.repositories&&(!repo||!m.repositories.includes(repo.fullName)))||repo&&m.excludedRepositories.includes(repo.fullName)||m.externalPullRequests===false||['prohibited','human_only'].includes(m.ai)){result.policy='PROHIBITED';result.blockers.push('Authoritative acceptance policy prohibits this contribution: '+doc.url);}
-    else if(result.policy!=='PROHIBITED'&&complete){if(m.ai==='requires_approval'||m.requirePriorDiscussion){result.policy='NEEDS_HUMAN_APPROVAL';result.blockers.push('Maintainer approval is required by '+doc.url);}else if(result.policy==='UNKNOWN'&&m.externalPullRequests===true&&['allowed','allowed_with_disclosure'].includes(m.ai)){result.policy='ALLOWED';result.blockers=result.blockers.filter(b=>b!=='Contribution acceptance policy unresolved');}}
-    if(m.ai==='allowed_with_disclosure'||m.disclosure){result.disclosures.push(m.disclosure??'Disclose AI assistance as required by '+doc.url);if(result.policy==='ALLOWED')result.policy='ALLOWED_WITH_DISCLOSURE';}
-    result.requiredChecks=[...new Set([...(result.requiredChecks??[]),...m.requiredChecks])];result.blockedLabels!.push(...m.blockedLabels);result.reservedLabels!.push(...m.reservedLabels);if(m.allowedLabels.length)result.allowedLabelGroups!.push(m.allowedLabels);result.requireDraft||=m.requireDraft;if(m.allowAutoClosingReferences===false)result.allowAutoClosingReferences=false;result.cooldownHours=Math.max(result.cooldownHours??24,m.cooldownHours);
+import { z } from 'zod';
+import type { Repository, Policy } from '../core/models.js';
+import type { PolicyDecision } from './policies.js';
+import type { PolicyDocument } from './policy-sources.js';
+export const AcceptanceManifest = z
+  .object({
+    schemaVersion: z.literal(1),
+    maintainers: z.array(z.string()).default([]),
+    repositories: z.array(z.string()).optional(),
+    excludedRepositories: z.array(z.string()).default([]),
+    ai: z
+      .enum([
+        'allowed',
+        'allowed_with_disclosure',
+        'requires_approval',
+        'human_only',
+        'prohibited',
+        'unspecified',
+      ])
+      .default('unspecified'),
+    externalPullRequests: z.boolean().optional(),
+    requirePriorDiscussion: z.boolean().default(false),
+    disclosure: z.string().max(4000).optional(),
+    allowedLabels: z.array(z.string()).default([]),
+    blockedLabels: z.array(z.string()).default([]),
+    reservedLabels: z.array(z.string()).default([]),
+    requiredChecks: z
+      .array(z.enum(['test', 'lint', 'format_check', 'typecheck', 'build']))
+      .default([]),
+    requireDraft: z.boolean().default(false),
+    allowAutoClosingReferences: z.boolean().optional(),
+    cooldownHours: z.number().min(0).max(8760).default(24),
+    preferredAreas: z.array(z.string()).default([]),
+    reviewerConventions: z.string().max(4000).optional(),
+  })
+  .strict();
+export function applyManifests(
+  base: PolicyDecision,
+  docs: PolicyDocument[],
+  complete: boolean,
+  repo?: Repository,
+): PolicyDecision {
+  const result: PolicyDecision = {
+    ...base,
+    disclosures: [...base.disclosures],
+    blockers: [...base.blockers],
+    requiredChecks: [],
+    blockedLabels: [],
+    reservedLabels: [],
+    allowedLabelGroups: [],
+    cooldownHours: 24,
+  };
+  for (const doc of docs
+    .filter((d) => d.path === '.mergepilot/policy.json')
+    .sort((a, b) => Number(b.organizationDefault) - Number(a.organizationDefault))) {
+    let m: z.infer<typeof AcceptanceManifest>;
+    try {
+      m = AcceptanceManifest.parse(JSON.parse(doc.text));
+    } catch {
+      if (result.policy !== 'PROHIBITED') result.policy = 'UNKNOWN';
+      result.blockers.push('Invalid versioned acceptance policy: ' + doc.url);
+      continue;
+    }
+    if (
+      (m.repositories && (!repo || !m.repositories.includes(repo.fullName))) ||
+      (repo && m.excludedRepositories.includes(repo.fullName)) ||
+      m.externalPullRequests === false ||
+      ['prohibited', 'human_only'].includes(m.ai)
+    ) {
+      result.policy = 'PROHIBITED';
+      result.blockers.push(
+        'Authoritative acceptance policy prohibits this contribution: ' + doc.url,
+      );
+    } else if (result.policy !== 'PROHIBITED' && complete) {
+      if (m.ai === 'requires_approval' || m.requirePriorDiscussion) {
+        result.policy = 'NEEDS_HUMAN_APPROVAL';
+        result.blockers.push('Maintainer approval is required by ' + doc.url);
+      } else if (
+        result.policy === 'UNKNOWN' &&
+        m.externalPullRequests === true &&
+        ['allowed', 'allowed_with_disclosure'].includes(m.ai)
+      ) {
+        result.policy = 'ALLOWED';
+        result.blockers = result.blockers.filter(
+          (b) => b !== 'Contribution acceptance policy unresolved',
+        );
+      }
+    }
+    if (m.ai === 'allowed_with_disclosure' || m.disclosure) {
+      result.disclosures.push(m.disclosure ?? 'Disclose AI assistance as required by ' + doc.url);
+      if (result.policy === 'ALLOWED') result.policy = 'ALLOWED_WITH_DISCLOSURE';
+    }
+    result.requiredChecks = [...new Set([...(result.requiredChecks ?? []), ...m.requiredChecks])];
+    result.blockedLabels!.push(...m.blockedLabels);
+    result.reservedLabels!.push(...m.reservedLabels);
+    if (m.allowedLabels.length) result.allowedLabelGroups!.push(m.allowedLabels);
+    result.requireDraft ||= m.requireDraft;
+    if (m.allowAutoClosingReferences === false) result.allowAutoClosingReferences = false;
+    result.cooldownHours = Math.max(result.cooldownHours ?? 24, m.cooldownHours);
   }
   return result;
 }
-export function issueAcceptance(policy:PolicyDecision,labels:string[]):Policy{const values=new Set(labels.map(l=>l.toLowerCase()));if([...policy.blockedLabels??[],...policy.reservedLabels??[]].some(l=>values.has(l.toLowerCase()))||(policy.allowedLabelGroups??[]).some(group=>!group.some(l=>values.has(l.toLowerCase()))))return 'PROHIBITED';return policy.policy;}
+export function issueAcceptance(policy: PolicyDecision, labels: string[]): Policy {
+  const values = new Set(labels.map((l) => l.toLowerCase()));
+  if (
+    [...(policy.blockedLabels ?? []), ...(policy.reservedLabels ?? [])].some((l) =>
+      values.has(l.toLowerCase()),
+    ) ||
+    (policy.allowedLabelGroups ?? []).some(
+      (group) => !group.some((l) => values.has(l.toLowerCase())),
+    )
+  )
+    return 'PROHIBITED';
+  return policy.policy;
+}

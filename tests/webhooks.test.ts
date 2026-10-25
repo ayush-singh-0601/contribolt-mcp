@@ -1,7 +1,48 @@
-import {it,expect} from 'vitest';
-import {createHmac,randomUUID} from 'node:crypto';
-import {WebhookReceiver,verifyWebhook} from '../src/github/webhooks.js';
-import {Store} from '../src/state/store.js';
-import {PreferencesSchema,RepoSchema} from '../src/core/models.js';
-import {fixture} from './helpers.js';
-it('authenticates installation scope and deduplicates events without public writes',()=>{const f=fixture(),db=new Store(f.root),secret='test-secret-'.repeat(4);try{const s=db.create(PreferencesSchema.parse({}));db.mutate(s.id,x=>{x.repository=RepoSchema.parse({id:'1',fullName:'o/r',url:'https://github.com/o/r',cloneUrl:'https://github.com/o/r.git',defaultBranch:'main',public:true,archived:false,fork:false,hasIssues:true,updatedAt:new Date().toISOString()});x.publishApproved=true;});const raw=Buffer.from(JSON.stringify({installation:{id:42},repository:{id:1,full_name:'o/r',private:false}})),signature='sha256='+createHmac('sha256',secret).update(raw).digest('hex'),delivery=randomUUID(),receiver=new WebhookReceiver(db,secret,42);expect(()=>verifyWebhook(raw,'sha256='+'0'.repeat(64),secret)).toThrow('signature');expect(receiver.receive(raw,'issues',signature,delivery).affected).toBe(1);expect(receiver.receive(raw,'issues',signature,delivery).duplicate).toBe(true);expect(db.get(s.id).publishApproved).toBe(false);expect(()=>new WebhookReceiver(db,secret,99).receive(raw,'issues',signature,randomUUID())).toThrow('installation');}finally{db.close();f.cleanup();}});
+import { it, expect } from 'vitest';
+import { createHmac, randomUUID } from 'node:crypto';
+import { WebhookReceiver, verifyWebhook } from '../src/github/webhooks.js';
+import { Store } from '../src/state/store.js';
+import { PreferencesSchema, RepoSchema } from '../src/core/models.js';
+import { fixture } from './helpers.js';
+it('authenticates installation scope and deduplicates events without public writes', () => {
+  const f = fixture(),
+    db = new Store(f.root),
+    secret = 'test-secret-'.repeat(4);
+  try {
+    const s = db.create(PreferencesSchema.parse({}));
+    db.mutate(s.id, (x) => {
+      x.repository = RepoSchema.parse({
+        id: '1',
+        fullName: 'o/r',
+        url: 'https://github.com/o/r',
+        cloneUrl: 'https://github.com/o/r.git',
+        defaultBranch: 'main',
+        public: true,
+        archived: false,
+        fork: false,
+        hasIssues: true,
+        updatedAt: new Date().toISOString(),
+      });
+      x.publishApproved = true;
+    });
+    const raw = Buffer.from(
+        JSON.stringify({
+          installation: { id: 42 },
+          repository: { id: 1, full_name: 'o/r', private: false },
+        }),
+      ),
+      signature = 'sha256=' + createHmac('sha256', secret).update(raw).digest('hex'),
+      delivery = randomUUID(),
+      receiver = new WebhookReceiver(db, secret, 42);
+    expect(() => verifyWebhook(raw, 'sha256=' + '0'.repeat(64), secret)).toThrow('signature');
+    expect(receiver.receive(raw, 'issues', signature, delivery).affected).toBe(1);
+    expect(receiver.receive(raw, 'issues', signature, delivery).duplicate).toBe(true);
+    expect(db.get(s.id).publishApproved).toBe(false);
+    expect(() =>
+      new WebhookReceiver(db, secret, 99).receive(raw, 'issues', signature, randomUUID()),
+    ).toThrow('installation');
+  } finally {
+    db.close();
+    f.cleanup();
+  }
+});

@@ -1,3 +1,26 @@
-import {defineAdapter,command,has,text,type RepositoryContext} from '../adapter.js';
-export function jvmCommands(r:RepositoryContext,id:string){const maven=has(r,'pom.xml'),exe=maven?(has(r,'mvnw')?'./mvnw':'mvn'):(has(r,'gradlew')?'./gradlew':'gradle'),source=maven?'pom.xml':has(r,'build.gradle.kts')?'build.gradle.kts':'build.gradle';return [command(r,id,'test',exe,maven?['test']:['test','--no-daemon'],source),command(r,id,'build',exe,maven?['package','-DskipTests']:['assemble','--no-daemon'],source)];}
-export const java=defineAdapter({id:'java',matches:f=>/^(pom\.xml|build\.gradle(?:\.kts)?)$/.test(f),tools:['java'],requirements:r=>[text(r,'.java-version')||'Project-supported JDK; wrapper bootstrap can require network'],commands:r=>jvmCommands(r,'java')});
+import { defineAdapter, command, has, text, type RepositoryContext } from '../adapter.js';
+export function jvmCommands(r: RepositoryContext, id: string) {
+  const maven = has(r, 'pom.xml'),
+    exe = maven ? (has(r, 'mvnw') ? './mvnw' : 'mvn') : has(r, 'gradlew') ? './gradlew' : 'gradle',
+    source = maven ? 'pom.xml' : has(r, 'build.gradle.kts') ? 'build.gradle.kts' : 'build.gradle';
+  return [
+    command(r, id, 'test', exe, maven ? ['test'] : ['test', '--no-daemon'], source),
+    command(
+      r,
+      id,
+      'build',
+      exe,
+      maven ? ['package', '-DskipTests'] : ['assemble', '--no-daemon'],
+      source,
+    ),
+  ];
+}
+export const java = defineAdapter({
+  id: 'java',
+  matches: (f) => /^(pom\.xml|build\.gradle(?:\.kts)?)$/.test(f),
+  tools: ['java'],
+  requirements: (r) => [
+    text(r, '.java-version') || 'Project-supported JDK; wrapper bootstrap can require network',
+  ],
+  commands: (r) => jvmCommands(r, 'java'),
+});

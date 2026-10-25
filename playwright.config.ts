@@ -1,10 +1,10 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
-  testDir: "tests/browser",
+  testDir: 'tests/browser',
   use: { headless: true },
-  reporter: "list",
+  reporter: 'list',
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"] } },
-    { name: "mobile", use: { ...devices["Pixel 7"] } },
+    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
+    { name: 'mobile', use: { ...devices['Pixel 7'] } },
   ],
 });

@@ -1,3 +1,16 @@
-import {it,expect} from 'vitest';
-import {similarity,fileReferences} from '../src/discovery/similarity.js';
-it('exposes code overlap as advisory evidence without claiming certainty',()=>{const result=similarity({title:'Pagination drops filters',body:'`src/search/pagination.ts` loses `filterState`.'},{title:'Preserve search filter state',body:'Update `filterState` handling.',files:['src/search/pagination.ts']});expect(result.fileOverlap).toEqual(['src/search/pagination.ts']);expect(result.verdict).toBe('possible_overlap');expect(result.explanation).toContain('not proof');expect(fileReferences('`src/a.ts:12`')).toEqual(['src/a.ts']);});
+import { it, expect } from 'vitest';
+import { similarity, fileReferences } from '../src/discovery/similarity.js';
+it('exposes code overlap as advisory evidence without claiming certainty', () => {
+  const result = similarity(
+    { title: 'Pagination drops filters', body: '`src/search/pagination.ts` loses `filterState`.' },
+    {
+      title: 'Preserve search filter state',
+      body: 'Update `filterState` handling.',
+      files: ['src/search/pagination.ts'],
+    },
+  );
+  expect(result.fileOverlap).toEqual(['src/search/pagination.ts']);
+  expect(result.verdict).toBe('possible_overlap');
+  expect(result.explanation).toContain('not proof');
+  expect(fileReferences('`src/a.ts:12`')).toEqual(['src/a.ts']);
+});
