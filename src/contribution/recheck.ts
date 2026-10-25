@@ -5,6 +5,9 @@ import type {Store} from '../state/store.js';
 import type {GitHubClient} from '../github/client.js';
 import type {IssueEvidence,Session} from '../core/models.js';
 import type {Relaxable} from '../discovery/eligibility.js';
+import {eligibility} from '../discovery/eligibility.js';
+import type {ApprovalRequest} from '../security/approvals.js';
+import type {PublishIntent} from './publisher.js';
 import {DiscoveryEngine} from '../discovery/engine.js';
 import {inspectPatch} from './quality.js';
 import {readiness} from './readiness.js';
@@ -22,10 +25,17 @@ export async function preSubmissionRecheck(store:Store,id:string,client:GitHubCl
   const actor=await client.request<{login:string}>('GET','/user',{},signal);if(actor.login!==s.proposal.actor)throw new Error('Authenticated actor differs from the approved publication identity');
   const metadata=await client.request<{archived:boolean,private:boolean,default_branch:string}>('GET',`/repos/${s.repository.fullName}`,{},signal);
   if(metadata.archived||metadata.private||metadata.default_branch!==s.proposal.base)throw new Error('Repository availability or base branch changed');
-  const fresh=await new DiscoveryEngine(client,store).verify(s.repository,s.selectedIssue.issueNumber,signal,store.read<Relaxable[]>('relaxations',id)??[]);
-  if(s.prUrl){fresh.knownLinkedPRs=fresh.knownLinkedPRs.filter(url=>url!==s.prUrl);fresh.competingPRs=fresh.competingPRs.filter(url=>url!==s.prUrl);}
+  const relaxed=store.read<Relaxable[]>('relaxations',id)??[];
+  let fresh=await new DiscoveryEngine(client,store).verify(s.repository,s.selectedIssue.issueNumber,signal,relaxed);
+  let expectedUpstream=s.proposal.baseSha;
+  if(s.prUrl){
+    const original=store.read<PublishIntent>('publish-intents',id),grant=original?store.read<ApprovalRequest>('approvals',original.approvalId):undefined;
+    expectedUpstream=(grant?.payload as {proposal?:{baseSha:string}}|undefined)?.proposal?.baseSha??expectedUpstream;
+    const ownAssignee=fresh.assignees.every(a=>a===s.proposal?.actor);
+    fresh=eligibility(s.repository,{...fresh,knownLinkedPRs:fresh.knownLinkedPRs.filter(url=>url!==s.prUrl),competingPRs:fresh.competingPRs.filter(url=>url!==s.prUrl)},[...relaxed,'comments',...(ownAssignee?['assignees' as const]:[])]);
+  }
   const policy=store.read<{commit:string}>('policies',s.repository.fullName);if(!policy)throw new Error('Fresh policy evidence unavailable');
-  assertFreshEligibility(fresh,s.proposal.baseSha,policy.commit);
+  assertFreshEligibility(fresh,expectedUpstream,policy.commit);
   store.event(id,'pre-submission-rechecked',{checkedAt:fresh.checkedAt,issueUrl:fresh.url,patchHash:inspection.patchHash});
   return store.mutate(id,x=>{x.selectedIssue=fresh;});
 }
