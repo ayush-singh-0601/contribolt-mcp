@@ -18,7 +18,7 @@ export function planEnvironment(root:string,index:RepositoryIndex,registry:Adapt
   const commands:CheckCommand[]=[],environments:{scope:string,adapter:string,plan:EnvironmentPlan,missing:string[]}[]=[],limitations:string[]=[];
   for(const scope of projectScopes(index,affected)){
     const context:RepositoryContext={root,scope,files:index.files,content:index.content};
-    for(const adapter of registry.detect(context)){const plan=adapter.planEnvironment(context),checks=adapter.commands(context);commands.push(...checks);const missing=plan.tools.filter(tool=>!executableAvailable(tool,join(root,scope)));environments.push({scope,adapter:adapter.id,plan,missing});if(!checks.length)limitations.push(`${adapter.id} (${scope||'root'}): no runnable repository-prescribed checks discovered`);if(missing.length)limitations.push(`${scope||'root'}: unavailable tools ${missing.join(', ')}`);}
+    for(const adapter of registry.detect(context)){const plan=adapter.planEnvironment(context),checks=adapter.commands(context);commands.push(...plan.bootstrap,...checks);const missing=plan.tools.filter(tool=>!executableAvailable(tool,join(root,scope)));environments.push({scope,adapter:adapter.id,plan,missing});if(!checks.length)limitations.push(`${adapter.id} (${scope||'root'}): no runnable repository-prescribed checks discovered`);if(missing.length)limitations.push(`${scope||'root'}: unavailable tools ${missing.join(', ')}`);}
   }
-  return {commands:[...new Map(commands.map(c=>[c.id,c])).values()],environments,limitations};
+  return {commands:[...new Map(commands.map(c=>[JSON.stringify([c.cwd,c.executable,c.args]),c])).values()],environments,limitations};
 }
