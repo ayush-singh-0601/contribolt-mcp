@@ -1,3 +1,4 @@
+import {cpp} from './adapters/cpp.js';
 import {kotlin} from './adapters/kotlin.js';
 import {java} from './adapters/java.js';
 import {rust} from './adapters/rust.js';
@@ -12,4 +13,4 @@ export class AdapterRegistry {
   detect(repo:RepositoryContext):LanguageAdapter[]{const found=this.adapters.filter(a=>a.detect(repo).matched);return found.length?found:[genericAdapter];}
   list():string[]{return this.adapters.map(a=>a.id).concat('generic');}
 }
-export function builtinRegistry():AdapterRegistry{return new AdapterRegistry().add(javascript).add(python).add(go).add(rust).add(java).add(kotlin);}
+export function builtinRegistry():AdapterRegistry{return new AdapterRegistry().add(javascript).add(python).add(go).add(rust).add(java).add(kotlin).add(cpp);}
