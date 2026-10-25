@@ -6,9 +6,9 @@ import {randomUUID} from 'node:crypto';
 import type {Repository} from '../core/models.js';
 import {safeHttps,sanitizedEnvironment,within} from '../security/boundaries.js';
 const exec=promisify(execFile);
-export async function git(root:string,args:string[],signal?:AbortSignal):Promise<string>{
+export async function git(root:string,args:string[],signal?:AbortSignal,extraEnv:NodeJS.ProcessEnv={}):Promise<string>{
   if(existsSync(join(root,'.git'))&&lstatSync(join(root,'.git')).isSymbolicLink())throw new Error('Refusing symbolic-link Git metadata');
-  const env={...sanitizedEnvironment(),GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:process.platform==='win32'?'NUL':'/dev/null',GIT_TERMINAL_PROMPT:'0',GIT_LFS_SKIP_SMUDGE:'1'};
+  const env={...sanitizedEnvironment(),GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:process.platform==='win32'?'NUL':'/dev/null',GIT_TERMINAL_PROMPT:'0',GIT_LFS_SKIP_SMUDGE:'1',...extraEnv};
   const result=await exec('git',['-c','core.hooksPath='+join(root,'.mergepilot-disabled-hooks'),'-c','protocol.ext.allow=never','-c','protocol.file.allow=never','-C',root,...args],{env,encoding:'utf8',maxBuffer:8*1024*1024,timeout:120000,signal});return result.stdout;
 }
 export async function createWorkspace(dataRoot:string,repo:Repository,signal?:AbortSignal):Promise<{root:string,sha:string}>{
