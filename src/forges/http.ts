@@ -107,7 +107,9 @@ export class JsonForgeClient {
         signal,
       );
       if (!Array.isArray(values)) throw new Error('Invalid forge list response');
-      items.push(...values.slice(0, limit - items.length));
+      const remaining = limit - items.length;
+      items.push(...values.slice(0, remaining));
+      if (values.length > remaining) return { items, complete: false };
       if (values.length < 100) return { items, complete: true };
     }
     return { items, complete: false };

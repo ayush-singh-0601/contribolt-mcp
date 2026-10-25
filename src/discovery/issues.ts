@@ -1,5 +1,6 @@
 import { IssueSchema, type IssueEvidence, type Repository } from '../core/models.js';
 import type { GitHubClient } from '../github/client.js';
+import type { Relaxable } from './eligibility.js';
 export interface RawIssue {
   number: number;
   html_url: string;
@@ -45,10 +46,14 @@ export async function issueCandidates(
   repo: Repository,
   limit = 30,
   signal?: AbortSignal,
+  relaxed: Relaxable[] = [],
 ): Promise<IssueEvidence[]> {
   const result = await client.pages<RawIssue>(
     '/search/issues',
-    { q: `repo:${repo.fullName} is:issue is:open comments:0 no:assignee`, sort: 'updated' },
+    {
+      q: `repo:${repo.fullName} is:issue is:open${relaxed.includes('comments') ? '' : ' comments:0'}${relaxed.includes('assignees') ? '' : ' no:assignee'}`,
+      sort: 'updated',
+    },
     limit,
     signal,
   );

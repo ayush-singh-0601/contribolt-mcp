@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, timingSafeEqual, createHash } from 'node:crypto';
 import { z } from 'zod';
 import type { Store } from '../state/store.js';
 import { policyKey } from '../repository/policy-store.js';
@@ -56,26 +56,34 @@ export class WebhookReceiver {
     const payload = Payload.parse(JSON.parse(raw.toString('utf8')));
     if (payload.installation.id !== this.installationId)
       throw new Error('Webhook installation is not configured');
-    const inserted = this.store.db
-      .prepare(`INSERT OR IGNORE INTO records(namespace,key,data) VALUES('webhook-deliveries',?,?)`)
-      .run(
+    const payloadHash = createHash('sha256').update(event).update(raw).digest('hex'),
+      previous = this.store.read<{ state?: string; payloadHash?: string }>(
+        'webhook-deliveries',
         delivery,
-        JSON.stringify({
-          event,
-          at: new Date().toISOString(),
-          installationId: this.installationId,
-        }),
       );
-    if (inserted.changes !== 1) return { duplicate: true, affected: 0, ignored: false };
-    if (!events.has(event)) return { duplicate: false, affected: 0, ignored: true };
+    if (previous?.payloadHash && previous.payloadHash !== payloadHash)
+      throw new Error('Webhook delivery identity changed');
+    if (previous && previous.state !== 'pending')
+      return { duplicate: true, affected: 0, ignored: false };
+    const record = {
+      event,
+      payloadHash,
+      installationId: this.installationId,
+      at: new Date().toISOString(),
+    };
+    this.store.put('webhook-deliveries', delivery, { ...record, state: 'pending' });
+    const complete = (affected: number, ignored: boolean) => {
+      this.store.put('webhook-deliveries', delivery, { ...record, state: 'applied' });
+      return { duplicate: false, affected, ignored };
+    };
+    if (!events.has(event)) return complete(0, true);
     if (event === 'installation')
       this.store.put('app-status', String(this.installationId), {
         active: payload.action !== 'deleted' && payload.action !== 'suspend',
         account: payload.installation.account?.login,
         checkedAt: new Date().toISOString(),
       });
-    if (!payload.repository || payload.repository.private)
-      return { duplicate: false, affected: 0, ignored: true };
+    if (!payload.repository || payload.repository.private) return complete(0, true);
     let affected = 0;
     for (const s of this.store.list()) {
       if (
@@ -105,6 +113,6 @@ export class WebhookReceiver {
       });
       affected++;
     }
-    return { duplicate: false, affected, ignored: false };
+    return complete(affected, false);
   }
 }

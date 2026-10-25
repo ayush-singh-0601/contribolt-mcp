@@ -5,6 +5,7 @@ import { CommandSchema, type CheckCommand, type QualityCheck } from '../core/mod
 import { within, sanitizedEnvironment } from '../security/boundaries.js';
 import { patchFingerprint } from '../git/patch.js';
 import { redact } from '../core/audit.js';
+import { processInvocation } from './spawn.js';
 export interface ExecutionConsent {
   source: 'host-approved-execution' | 'interactive-cli';
   network: boolean;
@@ -40,18 +41,20 @@ export async function executeCheck(
     id = randomUUID();
   const output = String(redact(result.output)),
     outputPath = store.artifact(sessionId, `check-${id}.log`, output);
+  const silentTest = command.kind === 'test' && result.exitCode === 0 && !result.output.trim();
   const check: QualityCheck = {
     id: command.id,
     name: command.name,
-    status: result.unavailable
-      ? 'UNAVAILABLE'
-      : result.cancelled
-        ? 'SKIPPED'
-        : result.exitCode === 0 &&
-            before === after &&
-            !(command.executable === 'gofmt' && result.output.trim())
-          ? 'PASS'
-          : 'FAIL',
+    status:
+      result.unavailable || silentTest
+        ? 'UNAVAILABLE'
+        : result.cancelled
+          ? 'SKIPPED'
+          : result.exitCode === 0 &&
+              before === after &&
+              !(command.executable === 'gofmt' && result.output.trim())
+            ? 'PASS'
+            : 'FAIL',
     command,
     exitCode: result.exitCode,
     outputPath,
@@ -60,7 +63,11 @@ export async function executeCheck(
     startedAt,
     finishedAt: new Date().toISOString(),
     explanation:
-      before !== after ? 'Command changed the tested patch; rerun after inspection' : result.reason,
+      before !== after
+        ? 'Command changed the tested patch; rerun after inspection'
+        : silentTest
+          ? 'Test command produced no verifiable output; enable a test reporter and rerun'
+          : result.reason,
     verified: true,
   };
   const record: ExecutionRecord = {
@@ -90,16 +97,31 @@ export async function runProcess(
   reason?: string;
 }> {
   signal?.throwIfAborted();
+  let invocation: ReturnType<typeof processInvocation>;
+  try {
+    invocation = processInvocation(command);
+  } catch (error) {
+    return {
+      exitCode: null,
+      output: '',
+      unavailable: true,
+      cancelled: false,
+      reason: String(error),
+    };
+  }
   return new Promise((resolve) => {
     let output = '',
       cancelled = false,
       unavailable = false,
       reason: string | undefined,
       finished = false;
-    const child = spawn(command.executable, command.args, {
+    let forceTimer: ReturnType<typeof setTimeout> | undefined;
+    const child = spawn(invocation.executable, invocation.args, {
       cwd: command.cwd,
       env: sanitizedEnvironment(process.env, ['RUSTUP_HOME']),
       shell: false,
+      windowsVerbatimArguments:
+        process.platform === 'win32' && /(?:^|[\\/])cmd(?:\.exe)?$/i.test(invocation.executable),
       stdio: ['ignore', 'pipe', 'pipe'],
       detached: process.platform !== 'win32',
     });
@@ -111,6 +133,15 @@ export async function runProcess(
       } catch {
         /* Process may already have exited. */
       }
+      if (!forceTimer)
+        forceTimer = setTimeout(() => {
+          try {
+            if (process.platform !== 'win32' && child.pid) process.kill(-child.pid, 'SIGKILL');
+            else child.kill('SIGKILL');
+          } catch {
+            /* Already exited. */
+          }
+        }, 2000);
     };
     const timer = setTimeout(() => {
       reason = 'Command timed out';
@@ -129,11 +160,12 @@ export async function runProcess(
       if (finished) return;
       finished = true;
       clearTimeout(timer);
+      if (forceTimer) clearTimeout(forceTimer);
       signal?.removeEventListener('abort', stop);
       resolve({ exitCode, output, unavailable, cancelled, reason });
     };
     child.on('error', (error: NodeJS.ErrnoException) => {
-      unavailable = error.code === 'ENOENT';
+      unavailable = ['ENOENT', 'EACCES', 'EPERM'].includes(error.code ?? '');
       reason = error.message;
       output += error.message;
       done(null);

@@ -53,6 +53,7 @@ export const SummarySchema = z
     outcome: z.enum(['opened', 'merged', 'closed_without_merge']).optional(),
     milestones: z.record(z.string(), z.boolean()),
     rejectionCounts: z.record(z.string(), z.number().int().nonnegative()).default({}),
+    negativeMetrics: z.record(z.string().max(100), z.number().int().nonnegative()).default({}),
     relaxations: z.array(z.string().max(100)).max(4).default([]),
     evidence: z
       .array(
@@ -147,11 +148,12 @@ export function summarize(store: Store, s: Session): SessionSummary {
         ci_passing:
           !!monitor?.complete &&
           !!monitor.ci.length &&
-          monitor.ci.every((c) => ['success', 'passed', 'neutral', 'skipped'].includes(c.status)),
+          monitor.ci.every((c) => ['success', 'passed'].includes(c.status)),
         reviews_observed: monitor?.feedback.some((f) => f.kind === 'review' && !f.bot) ?? false,
         merged: outcome?.outcome === 'merged',
       },
       rejectionCounts: counts,
+      negativeMetrics: store.read<Record<string, number>>('negative-metrics', s.id) ?? {},
       relaxations: store.read<string[]>('relaxations', s.id) ?? [],
       evidence: (s.selectedIssue?.evidence ?? s.policySources)
         .filter((e) => {
@@ -206,12 +208,15 @@ export function exportMetadata(store: Store, deviceId: string, ids: string[]): S
 }
 export function aggregateMetadata(items: SessionSummary[]) {
   const funnel: Record<string, number> = {},
-    rejections: Record<string, number> = {};
+    rejections: Record<string, number> = {},
+    negativeMetrics: Record<string, number> = {};
   for (const s of items) {
     for (const [stage, reached] of Object.entries(s.milestones))
       if (reached) funnel[stage] = (funnel[stage] ?? 0) + 1;
     for (const [reason, count] of Object.entries(s.rejectionCounts))
       rejections[reason] = (rejections[reason] ?? 0) + count;
+    for (const [kind, count] of Object.entries(s.negativeMetrics))
+      negativeMetrics[kind] = (negativeMetrics[kind] ?? 0) + count;
   }
   return {
     sessions: items.length,
@@ -219,6 +224,7 @@ export function aggregateMetadata(items: SessionSummary[]) {
     synced: items.filter((s) => s.source === 'synced').length,
     funnel,
     rejections,
+    negativeMetrics,
     notice:
       'Synced metadata is reported by its source device and is never execution evidence or publication authorization. Historical outcomes do not guarantee a merge.',
   };

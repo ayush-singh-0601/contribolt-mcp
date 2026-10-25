@@ -3,6 +3,7 @@ import type { Application } from './application.js';
 import { sessionInput } from './registry.js';
 import { provider, discoverAcrossForges, findAcrossForges } from '../forges/router.js';
 import { nextAction } from '../core/workflow.js';
+import type { Relaxable } from '../discovery/eligibility.js';
 export function registerDiscovery(app: Application) {
   app.register({
     name: 'discover_repositories',
@@ -50,6 +51,8 @@ export function registerDiscovery(app: Application) {
         s.repositories,
         s.preferences,
         app.controls.signal(id),
+        app.store.read<Relaxable[]>('relaxations', id) ?? [],
+        app.store.read<string[]>('skipped-issues', id) ?? [],
       );
       const updated = app.store.mutate(
         id,
@@ -87,7 +90,12 @@ export function registerDiscovery(app: Application) {
       if (!number) throw new Error('No selected issue');
       const evidence = await (
         await provider(app.store, s.repository)
-      ).engine.verify(s.repository, number, app.controls.signal(id));
+      ).engine.verify(
+        s.repository,
+        number,
+        app.controls.signal(id),
+        app.store.read<Relaxable[]>('relaxations', id) ?? [],
+      );
       app.store.mutate(
         id,
         (x) => {

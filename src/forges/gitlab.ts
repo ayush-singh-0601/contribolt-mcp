@@ -330,7 +330,13 @@ export class GitLabEngine {
       relaxed,
     );
   }
-  async find(repos: Repository[], p: Preferences, signal?: AbortSignal) {
+  async find(
+    repos: Repository[],
+    p: Preferences,
+    signal?: AbortSignal,
+    relaxed: Relaxable[] = [],
+    skipped: string[] = [],
+  ) {
     const candidates: IssueEvidence[] = [];
     for (const repo of repos) {
       const issues = await this.api.pages<GLIssue>(
@@ -340,11 +346,14 @@ export class GitLabEngine {
         signal,
       );
       for (const issue of issues.items.filter(
-        (i) => i.user_notes_count === 0 && !i.assignees.length,
+        (i) =>
+          (relaxed.includes('comments') || i.user_notes_count === 0) &&
+          (relaxed.includes('assignees') || !i.assignees.length) &&
+          !skipped.includes(i.web_url),
       )) {
         if (candidates.length >= 20) break;
         try {
-          const checked = await this.verify(repo, issue.iid, signal);
+          const checked = await this.verify(repo, issue.iid, signal, relaxed);
           candidates.push(
             checked.eligibility === 'ELIGIBLE' ? scoreCandidate(repo, checked, p) : checked,
           );

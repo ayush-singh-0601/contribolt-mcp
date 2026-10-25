@@ -2,6 +2,7 @@ import { z } from 'zod';
 import type { ProtocolHandler } from './transport.js';
 import { assertBounded } from '../security/boundaries.js';
 import { listPrompts, getPrompt } from './prompts.js';
+import { redact } from '../core/audit.js';
 export const publicToolNames = [
   'start_contribution',
   'set_preferences',
@@ -60,7 +61,7 @@ export class ToolRegistry implements ProtocolHandler {
     const tool = this.tools.get(name);
     if (!tool) throw new Error('Unknown or unavailable tool');
     const parsed = tool.schema.parse(args) as Record<string, unknown>;
-    return tool.handler(parsed);
+    return redact(await tool.handler(parsed));
   }
 }
 export const sessionInput = z.object({ sessionId: z.uuid() }).strict();

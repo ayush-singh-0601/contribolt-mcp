@@ -337,7 +337,13 @@ export class ForgejoEngine {
       relaxed,
     );
   }
-  async find(repos: Repository[], p: Preferences, signal?: AbortSignal) {
+  async find(
+    repos: Repository[],
+    p: Preferences,
+    signal?: AbortSignal,
+    relaxed: Relaxable[] = [],
+    skipped: string[] = [],
+  ) {
     const candidates: IssueEvidence[] = [];
     for (const repo of repos) {
       const issues = await this.api.pages<RawIssue>(
@@ -347,11 +353,15 @@ export class ForgejoEngine {
         signal,
       );
       for (const raw of issues.items.filter(
-        (i) => !i.pull_request && i.comments === 0 && !i.assignees.length,
+        (i) =>
+          !i.pull_request &&
+          (relaxed.includes('comments') || i.comments === 0) &&
+          (relaxed.includes('assignees') || !i.assignees.length) &&
+          !skipped.includes(i.html_url),
       )) {
         if (candidates.length >= 20) break;
         try {
-          const checked = await this.verify(repo, raw.number, signal);
+          const checked = await this.verify(repo, raw.number, signal, relaxed);
           candidates.push(
             checked.eligibility === 'ELIGIBLE' ? scoreCandidate(repo, checked, p) : checked,
           );

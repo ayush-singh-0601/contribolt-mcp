@@ -64,6 +64,14 @@ export async function preSubmissionRecheck(
   let fresh = await (
     verify ?? new DiscoveryEngine(client, store).verify.bind(new DiscoveryEngine(client, store))
   )(s.repository, s.selectedIssue.issueNumber, signal, relaxed);
+  if (
+    fresh.title !== s.selectedIssue.title ||
+    fresh.body !== s.selectedIssue.body ||
+    fresh.authorLogin !== s.selectedIssue.authorLogin
+  )
+    throw new Error(
+      'Issue content changed since analysis; inspect the new requirements and revalidate before publishing',
+    );
   let expectedUpstream = s.proposal.baseSha;
   if (s.prUrl) {
     const original = store.read<PublishIntent>('publish-intents', id),

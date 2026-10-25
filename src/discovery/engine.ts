@@ -3,7 +3,7 @@ import { policyKey } from '../repository/policy-store.js';
 import type { Store } from '../state/store.js';
 import type { GitHubClient } from '../github/client.js';
 import type { Repository, IssueEvidence, Preferences } from '../core/models.js';
-import { SearchBudget } from './budget.js';
+import { SearchBudget, EvidenceCache } from './budget.js';
 import { discoverRepositories } from './repositories.js';
 import { inspectHealth } from './health.js';
 import { issueCandidates, refreshIssue } from './issues.js';
@@ -22,6 +22,17 @@ export class DiscoveryEngine {
   ) {}
   async repositories(preferences: Preferences, signal?: AbortSignal): Promise<Repository[]> {
     const excluded = this.store.read<string[]>('config', 'excludedRepositories') ?? [];
+    signal?.throwIfAborted();
+    return new EvidenceCache(this.store, 'github.com:public-repositories').read(
+      JSON.stringify({ preferences, excluded }),
+      () => this.loadRepositories(preferences, excluded, signal),
+    );
+  }
+  private async loadRepositories(
+    preferences: Preferences,
+    excluded: string[],
+    signal?: AbortSignal,
+  ): Promise<Repository[]> {
     const repos = await discoverRepositories(
       this.client,
       preferences,
@@ -93,7 +104,13 @@ export class DiscoveryEngine {
     };
     return eligibility(repo, issue, relaxations);
   }
-  async find(repos: Repository[], preferences: Preferences, signal?: AbortSignal) {
+  async find(
+    repos: Repository[],
+    preferences: Preferences,
+    signal?: AbortSignal,
+    relaxed: Relaxable[] = [],
+    skipped: string[] = [],
+  ) {
     const candidates: IssueEvidence[] = [];
     let investigated = 0;
     for (const repo of repos.filter((r) => !r.exclusions.length)) {
@@ -102,12 +119,14 @@ export class DiscoveryEngine {
         repo,
         Math.min(30, 150 - candidates.length),
         signal,
+        relaxed,
       );
       for (const initial of found) {
         signal?.throwIfAborted();
+        if (skipped.includes(initial.url)) continue;
         if (investigated++ >= 20) break;
         try {
-          const verified = await this.verify(repo, initial.issueNumber, signal);
+          const verified = await this.verify(repo, initial.issueNumber, signal, relaxed);
           candidates.push(
             verified.eligibility === 'ELIGIBLE'
               ? scoreCandidate(repo, verified, preferences)

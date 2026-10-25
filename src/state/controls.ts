@@ -20,6 +20,7 @@ export class SessionControls {
     });
   }
   resume(id: string): Session {
+    this.store.put('approval-revocations', id, Date.now());
     this.cancellations.delete(id);
     return this.store.mutate(id, (s) => {
       s.stopped = false;
@@ -28,6 +29,16 @@ export class SessionControls {
     });
   }
   skip(id: string): Session {
+    const current = this.store.get(id);
+    if (current.prUrl)
+      throw new Error('Published sessions must be monitored or stopped, not replaced');
+    if (current.selectedIssue)
+      this.store.put('skipped-issues', id, [
+        ...new Set([
+          ...(this.store.read<string[]>('skipped-issues', id) ?? []),
+          current.selectedIssue.url,
+        ]),
+      ]);
     this.cancellations.get(id)?.abort();
     this.cancellations.delete(id);
     this.store.put('approval-revocations', id, Date.now());
@@ -49,6 +60,8 @@ export class SessionControls {
       s.analysis = undefined;
       s.validation = [];
       s.commands = [];
+      s.requiredChecks = [];
+      s.repositoryCommitSha = undefined;
       s.proposal = undefined;
       s.publishApproved = false;
       s.policyDecision = 'UNKNOWN';
