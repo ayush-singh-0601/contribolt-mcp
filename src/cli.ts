@@ -1,25 +1,15 @@
 #!/usr/bin/env node
+import {createApplication} from './mcp/bootstrap.js';
 import {serveStdio} from './mcp/transport.js';
 import {VERSION} from './index.js';
-import {Application} from './mcp/application.js';
 import {Store} from './state/store.js';
 import {serveOfficialSdk} from './mcp/sdk.js';
 import {homedir} from 'node:os';
 import {join} from 'node:path';
-import {registerDiscovery} from './mcp/discovery-tools.js';
-import {registerAnalysis} from './mcp/analysis-tools.js';
-import {registerExecution} from './mcp/execution-tools.js';
 import {executeCheck} from './execution/runner.js';
-import {registerQuality} from './mcp/quality-tools.js';
-import {registerPreparation} from './mcp/preparation-tools.js';
-import {registerApprovals} from './mcp/approval-tools.js';
 import {Approvals} from './security/approvals.js';
 import {createInterface} from 'node:readline/promises';
-import {registerPublication} from './mcp/publication-tools.js';
-import {registerReviews} from './mcp/review-tools.js';
-import {registerMonitoring} from './mcp/monitoring-tools.js';
 import {setTimeout as delay} from 'node:timers/promises';
-import {registerRevisions} from './mcp/revision-tools.js';
 import {adapterIntegrity,conformAdapter,type TrustedAdapter} from './languages/extensions.js';
 import {realpathSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
@@ -49,17 +39,7 @@ async function main(){
     if(!id||!check||!flags.includes('--host-approved')||flags.some(f=>!['--host-approved','--allow-network'].includes(f)))throw new Error('run-check requires session id, check id and --host-approved from an approved host environment');
     try{const result=await executeCheck(store,id,check,{source:'host-approved-execution',network:flags.includes('--allow-network')});console.log(JSON.stringify({executionId:result.id,check:result.check}));}finally{store.close();}return;
   }
-  const application=new Application(store);
-  registerDiscovery(application);
-  registerAnalysis(application);
-  registerExecution(application);
-  registerQuality(application);
-  registerPreparation(application);
-  registerApprovals(application);
-  registerPublication(application);
-  registerReviews(application);
-  registerMonitoring(application);
-  registerRevisions(application);
+  const application=createApplication(store);
   if(command==='watch'){
     const id=process.argv[3];if(!id)throw new Error('watch requires a published session id');const stop=new AbortController();process.once('SIGINT',()=>stop.abort());
     try{while(!stop.signal.aborted&&!store.get(id).stopped){const snapshot=await application.callTool('monitor_pull_request',{sessionId:id}) as {outcome:string,nextPollAt:number};console.log(JSON.stringify(snapshot));if(snapshot.outcome!=='opened')break;try{await delay(Math.max(1000,snapshot.nextPollAt-Date.now()),undefined,{signal:stop.signal});}catch{break;}}}finally{store.close();}return;

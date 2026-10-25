@@ -7,7 +7,7 @@ import {git,assertClean} from '../git/workspace.js';
 import {within,safeHttps} from '../security/boundaries.js';
 import type {GitHubClient} from '../github/client.js';
 import type {Credentials} from '../github/auth.js';
-import {GitHubPublicationBackend,type PublishIntent} from './publisher.js';
+import {GitHubPublicationBackend,type PublishIntent,type Fork} from './publisher.js';
 import {preSubmissionRecheck} from './recheck.js';
 import {withLease} from '../state/lease.js';
 export const RevisionPlanSchema=z.object({analysis:AnalysisSchema,feedbackIds:z.array(z.string()).min(1),reviewedHeadSha:z.string().regex(/^[a-f0-9]{40,64}$/)}).strict();
@@ -29,7 +29,8 @@ export async function planRevision(store:Store,id:string,input:unknown,client:Gi
   return {plan,nextAction:'Host agent: implement the approved revision in the isolated workspace'};
 }
 interface RevisionIntent {approvalId:string;digest:string;date:string;sha?:string;finished?:boolean;}
-export async function publishRevision(store:Store,id:string,approvalId:string,client:GitHubClient,auth:Credentials,recheck:()=>Promise<Session>=()=>preSubmissionRecheck(store,id,client)):Promise<unknown>{return withLease(store,'publish:'+id,async assertLease=>{
+export type RevisionPush=(session:Session,fork:Fork,sha:string,branch:string)=>Promise<void>;
+export async function publishRevision(store:Store,id:string,approvalId:string,client:GitHubClient,auth:Credentials,recheck:()=>Promise<Session>=()=>preSubmissionRecheck(store,id,client),pushOverride?:RevisionPush):Promise<unknown>{return withLease(store,'publish:'+id,async assertLease=>{
   const s=store.get(id);if(s.stopped||s.dryRun||!s.prUrl||!s.prNumber||!s.proposal||!s.workspace)throw new Error('Active approved revision proposal required');
   const payload=await publicationPayload(store,s),approvals=new Approvals(store),key=id+':'+s.proposal.patchHash;
   const intent=store.read<RevisionIntent>('revision-intents',key)??{approvalId,digest:digest(payload),date:new Date().toISOString()};if(intent.finished)return {prUrl:s.prUrl,commitSha:intent.sha,recovered:true};
@@ -38,7 +39,7 @@ export async function publishRevision(store:Store,id:string,approvalId:string,cl
   await recheck();const backend=new GitHubPublicationBackend(client,auth);
   if(!intent.sha){intent.sha=await backend.commit(s,s.proposal,intent.date);store.put('revision-intents',key,intent);}
   const ref=await client.request<{object:{sha:string}}>('GET',`/repos/${original.fork.fullName}/git/ref/heads/${encodeURIComponent(s.proposal.branch)}`);
-  if(ref.object.sha!==intent.sha){if(ref.object.sha!==s.proposal.baseSha)throw new Error('Remote branch changed; refusing to overwrite review work');assertLease();approvals.authorize(approvalId,id,'revision_publish',await publicationPayload(store,store.get(id)),key);const token=await auth.token();await git(s.workspace,['-c','credential.helper=','push','--',original.fork.cloneUrl,`${intent.sha}:refs/heads/${s.proposal.branch}`],undefined,{GIT_CONFIG_COUNT:'1',GIT_CONFIG_KEY_0:`http.https://${s.repository!.host}/.extraheader`,GIT_CONFIG_VALUE_0:'AUTHORIZATION: basic '+Buffer.from((s.repository!.forge==='gitlab'?'oauth2':s.repository!.forge==='forgejo'?s.proposal.actor:'x-access-token')+':'+token).toString('base64')});}
+  if(ref.object.sha!==intent.sha){if(ref.object.sha!==s.proposal.baseSha)throw new Error('Remote branch changed; refusing to overwrite review work');assertLease();approvals.authorize(approvalId,id,'revision_publish',await publicationPayload(store,store.get(id)),key);if(pushOverride)await pushOverride(s,original.fork,intent.sha,s.proposal.branch);else {const token=await auth.token();await git(s.workspace,['-c','credential.helper=','push','--',original.fork.cloneUrl,`${intent.sha}:refs/heads/${s.proposal.branch}`],undefined,{GIT_CONFIG_COUNT:'1',GIT_CONFIG_KEY_0:`http.https://${s.repository!.host}/.extraheader`,GIT_CONFIG_VALUE_0:'AUTHORIZATION: basic '+Buffer.from((s.repository!.forge==='gitlab'?'oauth2':s.repository!.forge==='forgejo'?s.proposal.actor:'x-access-token')+':'+token).toString('base64')});}}
   assertLease();const current=await client.request<{title:string,body:string,head:{sha:string}}>('GET',`/repos/${s.repository!.fullName}/pulls/${s.prNumber}`);if(current.head.sha!==intent.sha)throw new Error('Revision push was not confirmed');
   if(current.title!==s.proposal.title||current.body!==s.proposal.body){approvals.authorize(approvalId,id,'revision_publish',await publicationPayload(store,store.get(id)),key);await client.request('PATCH',`/repos/${s.repository!.fullName}/pulls/${s.prNumber}`,{title:s.proposal.title,body:s.proposal.body});}
   intent.finished=true;store.put('revision-intents',key,intent);store.mutate(id,x=>{x.commitSha=intent.sha;x.publishApproved=false;x.state='REVIEW_MONITORING';});store.remove('monitor',id);approvals.consume(approvalId,key);store.event(id,'revision-published',{approvalId,commitSha:intent.sha,prUrl:s.prUrl});return {prUrl:s.prUrl,commitSha:intent.sha};
