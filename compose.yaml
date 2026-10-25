@@ -1,0 +1,29 @@
+services:
+  mergepilot:
+    build: .
+    command: ["serve", "--host", "0.0.0.0", "--port", "5178", "--origin", "https://${MERGEPILOT_DOMAIN:?Set MERGEPILOT_DOMAIN}", "--trust-proxy"]
+    environment:
+      MERGEPILOT_DATA_DIR: /data
+      MERGEPILOT_WEBHOOK_SECRET: ${MERGEPILOT_WEBHOOK_SECRET:-}
+      MERGEPILOT_INSTALLATION_ID: ${MERGEPILOT_INSTALLATION_ID:-}
+    volumes:
+      - mergepilot-data:/data
+    expose: ["5178"]
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+  proxy:
+    image: caddy:2-alpine
+    environment:
+      MERGEPILOT_DOMAIN: ${MERGEPILOT_DOMAIN:?Set MERGEPILOT_DOMAIN}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [mergepilot]
+    restart: unless-stopped
+volumes:
+  mergepilot-data:
+  caddy-data:
+  caddy-config:
