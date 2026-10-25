@@ -20,12 +20,21 @@ import {registerReviews} from './mcp/review-tools.js';
 import {registerMonitoring} from './mcp/monitoring-tools.js';
 import {setTimeout as delay} from 'node:timers/promises';
 import {registerRevisions} from './mcp/revision-tools.js';
+import {adapterIntegrity,conformAdapter,type TrustedAdapter} from './languages/extensions.js';
+import {realpathSync} from 'node:fs';
+import {pathToFileURL} from 'node:url';
 async function main(){
   const command=process.argv[2]??'mcp';
   if(command==='--version'){console.log(VERSION);return;}
   if(command==='--help'||command==='help'){console.log('MergePilot MCP\n  mergepilot mcp       Start STDIO server\n  mergepilot --version\nState and approvals remain local.');return;}
-  if(!['mcp','run-check','approve','watch'].includes(command))throw new Error('Unknown command; use --help');
+  if(!['mcp','run-check','approve','watch','trust-adapter'].includes(command))throw new Error('Unknown command; use --help');
   const store=new Store(process.env.MERGEPILOT_DATA_DIR??join(homedir(),'.local','share','mergepilot'));
+  if(command==='trust-adapter'){
+    if(!process.stdin.isTTY||!process.stdout.isTTY)throw new Error('Adapter trust requires an interactive user terminal');const file=realpathSync(process.argv[3]??'');
+    if(store.list().some(s=>s.workspace&&file.startsWith(s.workspace+'/')))throw new Error('Executable adapters must come from trusted user configuration outside contribution repositories');
+    const hash=adapterIntegrity(file),terminal=createInterface({input:process.stdin,output:process.stdout});
+    try{const answer=await terminal.question(`Trust executable adapter ${file} (sha256 ${hash}) with the MCP server’s privileges? Type trust to continue: `);if(answer!=='trust')throw new Error('Adapter trust declined');if(adapterIntegrity(file)!==hash)throw new Error('Adapter changed during review');const module=await import(pathToFileURL(file).href);const adapter=conformAdapter(module.default),entries=store.read<TrustedAdapter[]>('config','trustedAdapters')??[];store.put('config','trustedAdapters',[...entries.filter(e=>e.id!==adapter.id),{schemaVersion:1,id:adapter.id,file,sha256:hash,trustedAt:new Date().toISOString()}]);console.log('Trusted adapter recorded.');}finally{terminal.close();store.close();}return;
+  }
   if(command==='approve'){
     if(!process.stdin.isTTY||!process.stdout.isTTY)throw new Error('Approval requires a human interactive terminal; piped confirmations are refused');
     const approvals=new Approvals(store),request=approvals.get(process.argv[3]??'');
