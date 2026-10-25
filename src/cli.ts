@@ -7,6 +7,7 @@ import {serveOfficialSdk} from './mcp/sdk.js';
 import {homedir} from 'node:os';
 import {join} from 'node:path';
 import {registerDiscovery} from './mcp/discovery-tools.js';
+import {registerAnalysis} from './mcp/analysis-tools.js';
 async function main(){
   const command=process.argv[2]??'mcp';
   if(command==='--version'){console.log(VERSION);return;}
@@ -15,6 +16,7 @@ async function main(){
   const store=new Store(process.env.MERGEPILOT_DATA_DIR??join(homedir(),'.local','share','mergepilot'));
   const application=new Application(store);
   registerDiscovery(application);
+  registerAnalysis(application);
   process.once('SIGTERM',()=>{store.close();process.exit(0);});
   if(await serveOfficialSdk(application))return;
   console.error('Official MCP SDK v2 unavailable; using the tested 2025-06-18 compatibility transport. Install @modelcontextprotocol/server for the 2026 protocol.');
