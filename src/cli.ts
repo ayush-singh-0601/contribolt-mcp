@@ -14,9 +14,11 @@ import {adapterIntegrity,conformAdapter,type TrustedAdapter} from './languages/e
 import {realpathSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {httpCommands,runHttpCommand} from './http/cli.js';
+import {configureCommand} from './integrations/cli.js';
 async function main(){
   const command=process.argv[2]??'mcp';
   if(command==='--version'){console.log(VERSION);return;}
+  if(command==='configure'){configureCommand(process.argv.slice(3));return;}
   if(command==='--help'||command==='help'){console.log('MergePilot MCP\n  mergepilot mcp       Start STDIO server\n  mergepilot --version\nState and approvals remain local.');return;}
   if(!['mcp','run-check','approve','watch','trust-adapter',...httpCommands].includes(command))throw new Error('Unknown command; use --help');
   const store=new Store(process.env.MERGEPILOT_DATA_DIR??join(homedir(),'.local','share','mergepilot'));
