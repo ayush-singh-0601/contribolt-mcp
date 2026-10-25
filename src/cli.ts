@@ -16,6 +16,7 @@ import {registerApprovals} from './mcp/approval-tools.js';
 import {Approvals} from './security/approvals.js';
 import {createInterface} from 'node:readline/promises';
 import {registerPublication} from './mcp/publication-tools.js';
+import {registerReviews} from './mcp/review-tools.js';
 async function main(){
   const command=process.argv[2]??'mcp';
   if(command==='--version'){console.log(VERSION);return;}
@@ -42,6 +43,7 @@ async function main(){
   registerPreparation(application);
   registerApprovals(application);
   registerPublication(application);
+  registerReviews(application);
   process.once('SIGTERM',()=>{store.close();process.exit(0);});
   if(await serveOfficialSdk(application))return;
   console.error('Official MCP SDK v2 unavailable; using the tested 2025-06-18 compatibility transport. Install @modelcontextprotocol/server for the 2026 protocol.');
