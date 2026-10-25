@@ -17,11 +17,13 @@ import {Approvals} from './security/approvals.js';
 import {createInterface} from 'node:readline/promises';
 import {registerPublication} from './mcp/publication-tools.js';
 import {registerReviews} from './mcp/review-tools.js';
+import {registerMonitoring} from './mcp/monitoring-tools.js';
+import {setTimeout as delay} from 'node:timers/promises';
 async function main(){
   const command=process.argv[2]??'mcp';
   if(command==='--version'){console.log(VERSION);return;}
   if(command==='--help'||command==='help'){console.log('MergePilot MCP\n  mergepilot mcp       Start STDIO server\n  mergepilot --version\nState and approvals remain local.');return;}
-  if(!['mcp','run-check','approve'].includes(command))throw new Error('Unknown command; use --help');
+  if(!['mcp','run-check','approve','watch'].includes(command))throw new Error('Unknown command; use --help');
   const store=new Store(process.env.MERGEPILOT_DATA_DIR??join(homedir(),'.local','share','mergepilot'));
   if(command==='approve'){
     if(!process.stdin.isTTY||!process.stdout.isTTY)throw new Error('Approval requires a human interactive terminal; piped confirmations are refused');
@@ -44,6 +46,11 @@ async function main(){
   registerApprovals(application);
   registerPublication(application);
   registerReviews(application);
+  registerMonitoring(application);
+  if(command==='watch'){
+    const id=process.argv[3];if(!id)throw new Error('watch requires a published session id');const stop=new AbortController();process.once('SIGINT',()=>stop.abort());
+    try{while(!stop.signal.aborted&&!store.get(id).stopped){const snapshot=await application.callTool('monitor_pull_request',{sessionId:id}) as {outcome:string,nextPollAt:number};console.log(JSON.stringify(snapshot));if(snapshot.outcome!=='opened')break;try{await delay(Math.max(1000,snapshot.nextPollAt-Date.now()),undefined,{signal:stop.signal});}catch{break;}}}finally{store.close();}return;
+  }
   process.once('SIGTERM',()=>{store.close();process.exit(0);});
   if(await serveOfficialSdk(application))return;
   console.error('Official MCP SDK v2 unavailable; using the tested 2025-06-18 compatibility transport. Install @modelcontextprotocol/server for the 2026 protocol.');
