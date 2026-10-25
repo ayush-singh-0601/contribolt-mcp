@@ -1,3 +1,4 @@
+import {policyKey} from '../repository/policy-store.js';
 import type {Store} from '../state/store.js';
 import type {GitHubClient} from '../github/client.js';
 import {ForgeError} from '../github/client.js';
@@ -11,8 +12,8 @@ export function codeOwners(text:string,files:string[]):string[]{
 export interface RoutingResult {status:'requested'|'auto-routed via CODEOWNERS'|'not possible due to permissions'|'awaiting project triage';reason:string;reviewers:string[];teams:string[];}
 export async function routeReview(store:Store,id:string,client:GitHubClient,approvalId?:string):Promise<RoutingResult>{
   const s=store.get(id);if(!s.prUrl||!s.prNumber||!s.repository||!s.proposal||s.stopped)throw new Error('Active confirmed PR required');
-  const repo=s.repository.fullName,path=`/repos/${repo}/pulls/${s.prNumber}`,policy=store.read<{documents:PolicyDocument[]}>('policies',repo);
-  const docs=policy?.documents??[],ownerFile=['.github/CODEOWNERS','CODEOWNERS','docs/CODEOWNERS'].map(p=>docs.find(d=>d.path===p)).find(Boolean);
+  const repo=s.repository.fullName,path=`/repos/${repo}/pulls/${s.prNumber}`,policy=store.read<{documents:PolicyDocument[]}>('policies',policyKey(s.repository));
+  const docs=policy?.documents??[],ownerFile=['.github/CODEOWNERS','CODEOWNERS','docs/CODEOWNERS','.gitlab/CODEOWNERS','.forgejo/CODEOWNERS'].map(p=>docs.find(d=>d.path===p)).find(Boolean);
   const legitimate=codeOwners(ownerFile?.text??'',s.proposal.files),ownerOrg=repo.split('/')[0];
   const result=(status:RoutingResult['status'],reason:string,reviewers:string[]=[],teams:string[]=[]):RoutingResult=>{store.mutate(id,x=>{x.state='REVIEW_MONITORING';});store.event(id,'review-routing',{status,reason,reviewers,teams});return {status,reason,reviewers,teams};};
   let requested:{users:{login:string}[],teams:{slug:string}[]};

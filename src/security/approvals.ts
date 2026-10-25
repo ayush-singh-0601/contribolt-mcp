@@ -1,3 +1,4 @@
+import {policyKey} from '../repository/policy-store.js';
 import {createHash,randomUUID} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {z} from 'zod';
@@ -19,7 +20,7 @@ export async function publicationPayload(store:Store,s:Session):Promise<unknown>
     try{after=readFileSync(within(s.workspace,file),'utf8');}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;}
     diff+=`\ndiff --git a/${file} b/${file}\n--- a/${file}\n+++ b/${file}\n`+before.split('\n').map(line=>'-'+line).join('\n')+'\n'+after.split('\n').map(line=>'+'+line).join('\n')+'\n';
   }
-  const policy=store.read<{decision:{claUrls:string[],signoff:boolean}}>('policies',s.proposal.repository);
+  const policy=store.read<{decision:{claUrls:string[],signoff:boolean}}>('policies',s.repository?policyKey(s.repository):s.proposal.repository);
   return {proposal:s.proposal,relaxations:store.read<string[]>('relaxations',s.id)??[],requirements:{cla:policy?.decision.claUrls??[],signoff:policy?.decision.signoff??false},diff};
 }
 export class Approvals {
