@@ -1,0 +1,140 @@
+[
+  {
+    "id": "javascript",
+    "files": {
+      "package.json": "{\"name\": \"native-js-fixture\", \"version\": \"1.0.0\", \"type\": \"module\", \"scripts\": {\"test\": \"node --test\"}}\n",
+      "increment.js": "export const increment = (value) => value;\n",
+      "increment.test.js": "import { test } from 'node:test';\nimport assert from 'node:assert/strict';\nimport { increment } from './increment.js';\ntest('increments input', () => assert.equal(increment(1), 2));\n"
+    },
+    "fix": {
+      "increment.js": "export const increment = (value) => value + 1;\n"
+    }
+  },
+  {
+    "id": "python",
+    "files": {
+      "pyproject.toml": "[build-system]\nrequires = [\"setuptools>=68\"]\nbuild-backend = \"setuptools.build_meta\"\n[project]\nname = \"mergepilot-native-fixture\"\nversion = \"0.0.1\"\n[project.optional-dependencies]\ntest = [\"pytest==8.3.5\"]\n[tool.setuptools]\npy-modules = [\"increment\"]\n",
+      "increment.py": "def increment(value):\n    return value\n",
+      "test_increment.py": "from increment import increment\n\ndef test_increment():\n    assert increment(1) == 2\n"
+    },
+    "fix": {
+      "increment.py": "def increment(value):\n    return value + 1\n"
+    }
+  },
+  {
+    "id": "go",
+    "files": {
+      "go.mod": "module example.invalid/nativefixture\n\ngo 1.22\n",
+      "increment.go": "package nativefixture\n\nfunc Increment(value int) int {\n\treturn value\n}\n",
+      "increment_test.go": "package nativefixture\n\nimport \"testing\"\n\nfunc TestIncrement(t *testing.T) {\n\tif Increment(1) != 2 {\n\t\tt.Fatal(\"increment must add one\")\n\t}\n}\n"
+    },
+    "fix": {
+      "increment.go": "package nativefixture\n\nfunc Increment(value int) int {\n\treturn value + 1\n}\n"
+    }
+  },
+  {
+    "id": "rust",
+    "files": {
+      "Cargo.toml": "[package]\nname = \"native-fixture\"\nversion = \"0.1.0\"\nedition = \"2021\"\n",
+      "src/lib.rs": "pub fn increment(value: i32) -> i32 {\n    value\n}\n\n#[cfg(test)]\nmod tests {\n    #[test]\n    fn increments_input() {\n        assert_eq!(super::increment(1), 2);\n    }\n}\n"
+    },
+    "fix": {
+      "src/lib.rs": "pub fn increment(value: i32) -> i32 {\n    value + 1\n}\n\n#[cfg(test)]\nmod tests {\n    #[test]\n    fn increments_input() {\n        assert_eq!(super::increment(1), 2);\n    }\n}\n"
+    },
+    "prepare": [["cargo", ["generate-lockfile"]]]
+  },
+  {
+    "id": "java",
+    "files": {
+      "pom.xml": "<project xmlns=\"http://maven.apache.org/POM/4.0.0\"><modelVersion>4.0.0</modelVersion><groupId>invalid.example</groupId><artifactId>native-fixture</artifactId><version>1.0</version><properties><maven.compiler.source>17</maven.compiler.source><maven.compiler.target>17</maven.compiler.target></properties><dependencies><dependency><groupId>junit</groupId><artifactId>junit</artifactId><version>4.13.2</version><scope>test</scope></dependency></dependencies><build><plugins><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>3.2.5</version></plugin></plugins></build></project>\n",
+      "src/main/java/Increment.java": "public class Increment { public static int increment(int value) { return value; } }\n",
+      "src/test/java/IncrementTest.java": "import org.junit.Test;\nimport static org.junit.Assert.assertEquals;\npublic class IncrementTest { @Test public void incrementsInput() { assertEquals(2, Increment.increment(1)); } }\n"
+    },
+    "fix": {
+      "src/main/java/Increment.java": "public class Increment { public static int increment(int value) { return value + 1; } }\n"
+    }
+  },
+  {
+    "id": "kotlin",
+    "files": {
+      "settings.gradle.kts": "rootProject.name = \"native-fixture\"\n",
+      "build.gradle.kts": "plugins { kotlin(\"jvm\") version \"2.1.20\" }\nrepositories { mavenCentral() }\ndependencies { testImplementation(\"junit:junit:4.13.2\") }\nkotlin { jvmToolchain(17) }\n",
+      "src/main/kotlin/Increment.kt": "fun increment(value: Int): Int = value\n",
+      "src/test/kotlin/IncrementTest.kt": "import org.junit.Test\nimport org.junit.Assert.assertEquals\nclass IncrementTest { @Test fun incrementsInput() { assertEquals(2, increment(1)) } }\n"
+    },
+    "fix": {
+      "src/main/kotlin/Increment.kt": "fun increment(value: Int): Int = value + 1\n"
+    }
+  },
+  {
+    "id": "cpp",
+    "files": {
+      "CMakeLists.txt": "cmake_minimum_required(VERSION 3.16)\nproject(NativeFixture LANGUAGES C)\nenable_testing()\nadd_executable(increment_test increment_test.c)\nadd_test(NAME increment COMMAND increment_test)\n",
+      "increment.h": "static int increment(int value) { return value; }\n",
+      "increment_test.c": "#include \"increment.h\"\n#include <stdio.h>\nint main(void) { if (increment(1) != 2) { fprintf(stderr, \"increment failed\\n\"); return 1; } puts(\"increment passed\"); return 0; }\n"
+    },
+    "fix": {
+      "increment.h": "static int increment(int value) { return value + 1; }\n"
+    },
+    "prepare": [
+      ["cmake", ["-S", ".", "-B", "build"]],
+      ["cmake", ["--build", "build"]]
+    ]
+  },
+  {
+    "id": "dotnet",
+    "files": {
+      "NativeFixture.csproj": "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net8.0</TargetFramework><IsPackable>false</IsPackable><IsTestProject>true</IsTestProject></PropertyGroup><ItemGroup><PackageReference Include=\"Microsoft.NET.Test.Sdk\" Version=\"17.11.1\"/><PackageReference Include=\"xunit\" Version=\"2.9.2\"/><PackageReference Include=\"xunit.runner.visualstudio\" Version=\"2.8.2\"/></ItemGroup></Project>\n",
+      "Increment.cs": "public static class Increment { public static int Apply(int value) => value; }\n",
+      "IncrementTest.cs": "using Xunit;\npublic class IncrementTest { [Fact] public void IncrementsInput() { Assert.Equal(2, Increment.Apply(1)); } }\n"
+    },
+    "fix": {
+      "Increment.cs": "public static class Increment { public static int Apply(int value) => value + 1; }\n"
+    }
+  },
+  {
+    "id": "ruby",
+    "files": {
+      "Gemfile": "source 'https://rubygems.org'\ngem 'rake', '13.2.1'\ngem 'minitest', '5.25.5'\n",
+      "Rakefile": "require 'rake/testtask'\nRake::TestTask.new { |t| t.pattern = 'test_*rb' }\n",
+      "increment.rb": "def increment(value)\n  value\nend\n",
+      "test_increment.rb": "require 'minitest/autorun'\nrequire_relative 'increment'\nclass IncrementTest < Minitest::Test\n  def test_increment\n    assert_equal 2, increment(1)\n  end\nend\n"
+    },
+    "fix": {
+      "increment.rb": "def increment(value)\n  value + 1\nend\n"
+    }
+  },
+  {
+    "id": "php",
+    "files": {
+      "composer.json": "{\"name\": \"fixture/native-check\", \"require\": {\"php\": \">=8.1\"}, \"scripts\": {\"test\": \"@php test.php\", \"lint\": \"@php -l increment.php\"}}\n",
+      "increment.php": "<?php\nfunction increment($value) { return $value; }\n",
+      "test.php": "<?php\nrequire 'increment.php';\nif (increment(1) !== 2) { throw new Exception('increment failed'); }\necho 'increment passed'.PHP_EOL;\n"
+    },
+    "fix": {
+      "increment.php": "<?php\nfunction increment($value) { return $value + 1; }\n"
+    }
+  },
+  {
+    "id": "swift",
+    "files": {
+      "Package.swift": "// swift-tools-version: 5.9\nimport PackageDescription\nlet package = Package(name: \"NativeFixture\", products: [.library(name: \"NativeFixture\", targets: [\"NativeFixture\"])], targets: [.target(name: \"NativeFixture\"), .testTarget(name: \"NativeFixtureTests\", dependencies: [\"NativeFixture\"])])\n",
+      "Sources/NativeFixture/Increment.swift": "public func increment(_ value: Int) -> Int { value }\n",
+      "Tests/NativeFixtureTests/IncrementTests.swift": "import XCTest\n@testable import NativeFixture\nfinal class IncrementTests: XCTestCase { func testIncrement() { XCTAssertEqual(increment(1), 2) } }\n"
+    },
+    "fix": {
+      "Sources/NativeFixture/Increment.swift": "public func increment(_ value: Int) -> Int { value + 1 }\n"
+    }
+  },
+  {
+    "id": "dart",
+    "files": {
+      "pubspec.yaml": "name: native_fixture\nenvironment:\n  sdk: \">=3.4.0 <4.0.0\"\ndev_dependencies:\n  test: 1.25.15\n",
+      "lib/increment.dart": "int increment(int value) => value;\n",
+      "test/increment_test.dart": "import 'package:test/test.dart';\nimport 'package:native_fixture/increment.dart';\n\nvoid main() {\n  test('increments input', () {\n    expect(increment(1), 2);\n  });\n}\n"
+    },
+    "fix": {
+      "lib/increment.dart": "int increment(int value) => value + 1;\n"
+    }
+  }
+]

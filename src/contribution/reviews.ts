@@ -4,6 +4,7 @@ import type { GitHubClient } from '../github/client.js';
 import { ForgeError } from '../github/client.js';
 import { Approvals } from '../security/approvals.js';
 import type { PolicyDocument } from '../repository/policy-sources.js';
+import { withLease } from '../state/lease.js';
 export function codeOwners(text: string, files: string[]): string[] {
   const owners = new Set<string>();
   for (const file of files) {
@@ -43,6 +44,14 @@ export interface RoutingResult {
   teams: string[];
 }
 export async function routeReview(
+  store: Store,
+  id: string,
+  client: GitHubClient,
+  approvalId?: string,
+): Promise<RoutingResult> {
+  return withLease(store, 'review:' + id, () => routeReviewLocked(store, id, client, approvalId));
+}
+async function routeReviewLocked(
   store: Store,
   id: string,
   client: GitHubClient,
@@ -107,9 +116,15 @@ export async function routeReview(
   if (s.dryRun) throw new Error('Dry run prohibits reviewer requests');
   const approvals = new Approvals(store),
     grant = approvals.get(approvalId),
-    payload = grant.payload as { prUrl: string; reviewers: string[]; teams: string[] };
+    payload = grant.payload as {
+      prUrl: string;
+      actor: string;
+      reviewers: string[];
+      teams: string[];
+    };
   if (
     payload.prUrl !== s.prUrl ||
+    payload.actor !== s.proposal.actor ||
     !Array.isArray(payload.reviewers) ||
     !Array.isArray(payload.teams)
   )
@@ -146,12 +161,20 @@ export async function routeReview(
     );
   if (!users.length && !teams.length)
     return result(
-      'requested',
-      'Targets were already requested; repeated pings were suppressed',
-      payload.reviewers,
-      payload.teams,
+      payload.reviewers.every((r) => requested.users.some((u) => u.login === r)) &&
+        payload.teams.every((t) => requested.teams.some((x) => x.slug === t))
+        ? 'requested'
+        : 'awaiting project triage',
+      'Previous attempts are not repeated; only currently observed requests count as confirmed',
+      requested.users.map((u) => u.login),
+      requested.teams.map((t) => t.slug),
     );
   approvals.reserve(approvalId, intent);
+  const actor = await client.request<{ login: string }>('GET', '/user');
+  if (actor.login !== payload.actor)
+    throw new Error('Authenticated actor differs from the approved reviewer-request identity');
+  approvals.authorize(approvalId, id, 'review', payload, intent);
+  store.put('review-targets', id, [...new Set([...previous, ...targets])]);
   try {
     await client.request('POST', path + '/requested_reviewers', {
       reviewers: users,
@@ -165,7 +188,6 @@ export async function routeReview(
       );
     throw error;
   }
-  store.put('review-targets', id, [...new Set([...previous, ...targets])]);
   const confirmed = await client.request<{ users: { login: string }[]; teams: { slug: string }[] }>(
     'GET',
     path + '/requested_reviewers',

@@ -2,8 +2,16 @@ import { existsSync, lstatSync, realpathSync } from 'node:fs';
 import { resolve, relative, dirname, isAbsolute, sep } from 'node:path';
 import { isIP } from 'node:net';
 export function within(root: string, requested: string): string {
-  const base = realpathSync(root),
-    target = resolve(base, requested),
+  const declared = resolve(root),
+    base = realpathSync(root),
+    declaredTarget = resolve(declared, requested),
+    declaredRelative = relative(declared, declaredTarget),
+    target =
+      declaredRelative !== '..' &&
+      !declaredRelative.startsWith('..' + sep) &&
+      !isAbsolute(declaredRelative)
+        ? resolve(base, declaredRelative)
+        : declaredTarget,
     rel = relative(base, target);
   if (rel === '..' || rel.startsWith('..' + sep) || isAbsolute(rel))
     throw new Error('Path escapes approved workspace');
@@ -62,6 +70,14 @@ export function sanitizedEnvironment(
     'TEMP',
     'LANG',
     'LC_ALL',
+    'HOME',
+    'USERPROFILE',
+    'JAVA_HOME',
+    'DOTNET_ROOT',
+    'DOTNET_CLI_HOME',
+    'PUB_CACHE',
+    'GOCACHE',
+    'XDG_CACHE_HOME',
     ...allowed,
   ]);
   return Object.fromEntries(

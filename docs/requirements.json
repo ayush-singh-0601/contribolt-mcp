@@ -4,1887 +4,4075 @@
     "line": 26,
     "section": "1. Executive summary",
     "requirement": "1. **Autonomous discovery:** Never make the developer find a repository or issue first.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-002",
     "line": 27,
     "section": "1. Executive summary",
     "requirement": "2. **Maintainer respect:** Follow the repository's contribution and AI-assistance policies; avoid unsolicited PR floods.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-003",
     "line": 28,
     "section": "1. Executive summary",
     "requirement": "3. **Verified evidence:** Back issue eligibility and implementation decisions with GitHub and repository evidence.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-004",
     "line": 29,
     "section": "1. Executive summary",
     "requirement": "4. **Small, readable changes:** Optimize for maintainability, not code-golf line counts.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-005",
     "line": 30,
     "section": "1. Executive summary",
     "requirement": "5. **Language-agnostic operation:** Detect each repository's language and build system and work through native commands or an adapter.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-006",
     "line": 31,
     "section": "1. Executive summary",
     "requirement": "6. **Human authority over publication:** Local investigation can be automated; public actions require explicit consent.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-007",
     "line": 32,
     "section": "1. Executive summary",
     "requirement": "7. **Truthful reporting:** Never invent passing tests, maintainer status, issue availability, or reviewer requests.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-008",
     "line": 48,
     "section": "2. Target users and jobs to be done",
     "requirement": "- Find an *appropriate repository*, not just an issue in a repo the user already knows.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-009",
     "line": 49,
     "section": "2. Target users and jobs to be done",
     "requirement": "- Distinguish an official maintainer-origin issue from an ordinary community request.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-010",
     "line": 50,
     "section": "2. Target users and jobs to be done",
     "requirement": "- Detect obvious competing work before touching code and again before submission.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-011",
     "line": 51,
     "section": "2. Target users and jobs to be done",
     "requirement": "- Convert a confusing issue into a reproducible, testable change.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-012",
     "line": 52,
     "section": "2. Target users and jobs to be done",
     "requirement": "- Respect documented contribution, style, test, security, and AI-use policies.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-013",
     "line": 53,
     "section": "2. Target users and jobs to be done",
     "requirement": "- Keep review requests compliant and professional.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "tests/workflow-e2e.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "workflow",
+    "notes": "The host follows orchestration prompts; fixture discovery and approval-gated publication exercise the full workflow."
   },
   {
     "id": "PRD-014",
     "line": 82,
     "section": "3. User experience: only 2\u20133 onboarding questions",
     "requirement": "1. Languages/stacks?       TypeScript and Python",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/onboarding/questions.ts",
+      "src/state/controls.ts",
+      "tests/onboarding.test.ts",
+      "tests/profiles.test.ts",
+      "tests/controls.test.ts"
+    ],
+    "feature": "onboarding",
+    "notes": "Three questions/defaults, opt-in profiles, persistent skips, cancellation and next-action guidance. Automatic host progression requires a capable client."
   },
   {
     "id": "PRD-015",
     "line": 83,
     "section": "3. User experience: only 2\u20133 onboarding questions",
     "requirement": "2. Difficulty?             Intermediate",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/onboarding/questions.ts",
+      "src/state/controls.ts",
+      "tests/onboarding.test.ts",
+      "tests/profiles.test.ts",
+      "tests/controls.test.ts"
+    ],
+    "feature": "onboarding",
+    "notes": "Three questions/defaults, opt-in profiles, persistent skips, cancellation and next-action guidance. Automatic host progression requires a capable client."
   },
   {
     "id": "PRD-016",
     "line": 84,
     "section": "3. User experience: only 2\u20133 onboarding questions",
     "requirement": "3. Repository preference?  Active projects, highest merge potential",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/onboarding/questions.ts",
+      "src/state/controls.ts",
+      "tests/onboarding.test.ts",
+      "tests/profiles.test.ts",
+      "tests/controls.test.ts"
+    ],
+    "feature": "onboarding",
+    "notes": "Three questions/defaults, opt-in profiles, persistent skips, cancellation and next-action guidance. Automatic host progression requires a capable client."
   },
   {
     "id": "PRD-017",
     "line": 103,
     "section": "3. User experience: only 2\u20133 onboarding questions",
     "requirement": "- After onboarding, **search and select automatically**; do not return only a list that forces the user to choose.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/onboarding/questions.ts",
+      "src/state/controls.ts",
+      "tests/onboarding.test.ts",
+      "tests/profiles.test.ts",
+      "tests/controls.test.ts"
+    ],
+    "feature": "onboarding",
+    "notes": "Three questions/defaults, opt-in profiles, persistent skips, cancellation and next-action guidance. Automatic host progression requires a capable client."
   },
   {
     "id": "PRD-018",
     "line": 104,
     "section": "3. User experience: only 2\u20133 onboarding questions",
     "requirement": "- Surface the chosen repo and issue with concise evidence, but proceed automatically to non-destructive analysis.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/onboarding/questions.ts",
+      "src/state/controls.ts",
+      "tests/onboarding.test.ts",
+      "tests/profiles.test.ts",
+      "tests/controls.test.ts"
+    ],
+    "feature": "onboarding",
+    "notes": "Three questions/defaults, opt-in profiles, persistent skips, cancellation and next-action guidance. Automatic host progression requires a capable client."
   },
   {
     "id": "PRD-019",
     "line": 105,
     "section": "3. User experience: only 2\u20133 onboarding questions",
     "requirement": "- Offer an escape hatch: `skip this issue`, `find another`, `change preferences`, `stop`.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/onboarding/questions.ts",
+      "src/state/controls.ts",
+      "tests/onboarding.test.ts",
+      "tests/profiles.test.ts",
+      "tests/controls.test.ts"
+    ],
+    "feature": "onboarding",
+    "notes": "Three questions/defaults, opt-in profiles, persistent skips, cancellation and next-action guidance. Automatic host progression requires a capable client."
   },
   {
     "id": "PRD-020",
     "line": 106,
     "section": "3. User experience: only 2\u20133 onboarding questions",
     "requirement": "- Ask additional questions **only** for hard blockers, missing authorization, ambiguity that could cause an incorrect change, or before a consequential GitHub action.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/onboarding/questions.ts",
+      "src/state/controls.ts",
+      "tests/onboarding.test.ts",
+      "tests/profiles.test.ts",
+      "tests/controls.test.ts"
+    ],
+    "feature": "onboarding",
+    "notes": "Three questions/defaults, opt-in profiles, persistent skips, cancellation and next-action guidance. Automatic host progression requires a capable client."
   },
   {
     "id": "PRD-021",
     "line": 107,
     "section": "3. User experience: only 2\u20133 onboarding questions",
     "requirement": "- Maintain a session journal so an interrupted coding CLI can resume without rescanning everything.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/onboarding/questions.ts",
+      "src/state/controls.ts",
+      "tests/onboarding.test.ts",
+      "tests/profiles.test.ts",
+      "tests/controls.test.ts"
+    ],
+    "feature": "onboarding",
+    "notes": "Three questions/defaults, opt-in profiles, persistent skips, cancellation and next-action guidance. Automatic host progression requires a capable client."
   },
   {
     "id": "PRD-022",
     "line": 146,
     "section": "5. Functional requirements",
     "requirement": "- Search across GitHub repositories without requiring a starting repo.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/repositories.ts",
+      "src/discovery/engine.ts",
+      "src/discovery/health.ts",
+      "tests/repositories.test.ts",
+      "tests/repository-preferences.test.ts"
+    ],
+    "feature": "repository_discovery",
+    "notes": "Diversified public searches, exclusions, cached bounded health observations and preference-aware ranking. A live real-repository sample remains outstanding."
   },
   {
     "id": "PRD-023",
     "line": 147,
     "section": "5. Functional requirements",
     "requirement": "- Build diversified candidate sets from topic/language search, relevant issue search, and repositories with suitable open issues. Do not simply search the most-starred projects.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/repositories.ts",
+      "src/discovery/engine.ts",
+      "src/discovery/health.ts",
+      "tests/repositories.test.ts",
+      "tests/repository-preferences.test.ts"
+    ],
+    "feature": "repository_discovery",
+    "notes": "Diversified public searches, exclusions, cached bounded health observations and preference-aware ranking. A live real-repository sample remains outstanding."
   },
   {
     "id": "PRD-024",
     "line": 148,
     "section": "5. Functional requirements",
     "requirement": "- For each candidate, inspect archive status, fork status, default branch, recent commits/releases, recent maintained PRs, issue usage, contribution documentation, and the developer's ability to contribute.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/repositories.ts",
+      "src/discovery/engine.ts",
+      "src/discovery/health.ts",
+      "tests/repositories.test.ts",
+      "tests/repository-preferences.test.ts"
+    ],
+    "feature": "repository_discovery",
+    "notes": "Diversified public searches, exclusions, cached bounded health observations and preference-aware ranking. A live real-repository sample remains outstanding."
   },
   {
     "id": "PRD-025",
     "line": 149,
     "section": "5. Functional requirements",
     "requirement": "- Prefer projects with healthy review activity and clear contribution practices; avoid abandoned, archived, spam-prone, read-only, and inaccessible projects.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/repositories.ts",
+      "src/discovery/engine.ts",
+      "src/discovery/health.ts",
+      "tests/repositories.test.ts",
+      "tests/repository-preferences.test.ts"
+    ],
+    "feature": "repository_discovery",
+    "notes": "Diversified public searches, exclusions, cached bounded health observations and preference-aware ranking. A live real-repository sample remains outstanding."
   },
   {
     "id": "PRD-026",
     "line": 150,
     "section": "5. Functional requirements",
     "requirement": "- Include stars as a secondary metadata signal, **not** a proxy for merge probability.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/repositories.ts",
+      "src/discovery/engine.ts",
+      "src/discovery/health.ts",
+      "tests/repositories.test.ts",
+      "tests/repository-preferences.test.ts"
+    ],
+    "feature": "repository_discovery",
+    "notes": "Diversified public searches, exclusions, cached bounded health observations and preference-aware ranking. A live real-repository sample remains outstanding."
   },
   {
     "id": "PRD-027",
     "line": 151,
     "section": "5. Functional requirements",
     "requirement": "- Enforce configurable repo exclusions and blocklists, with local caching and GitHub rate-limit awareness.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/repositories.ts",
+      "src/discovery/engine.ts",
+      "src/discovery/health.ts",
+      "tests/repositories.test.ts",
+      "tests/repository-preferences.test.ts"
+    ],
+    "feature": "repository_discovery",
+    "notes": "Diversified public searches, exclusions, cached bounded health observations and preference-aware ranking. A live real-repository sample remains outstanding."
   },
   {
     "id": "PRD-028",
     "line": 163,
     "section": "5. Functional requirements",
     "requirement": "1. Issue is open and belongs to a non-archived, contribution-accepting public repository.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-029",
     "line": 164,
     "section": "5. Functional requirements",
     "requirement": "2. Issue is an actual issue, not a pull request.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-030",
     "line": 165,
     "section": "5. Functional requirements",
     "requirement": "3. Its **issue discussion comment count is exactly zero** at verification time. Other timeline events are tracked separately and do not count as discussion comments.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-031",
     "line": 166,
     "section": "5. Functional requirements",
     "requirement": "4. No assignee is present.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-032",
     "line": 167,
     "section": "5. Functional requirements",
     "requirement": "5. Author has verified official provenance: `OWNER`, `MEMBER`, or `COLLABORATOR` association is an initial positive signal. Check membership/current privileges when APIs allow; `MEMBER` by itself is **not proof of maintainership**. If provenance cannot be established, mark `UNKNOWN` and exclude from strict mode.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-033",
     "line": 168,
     "section": "5. Functional requirements",
     "requirement": "6. No known linked or competing pull request, from automated cross-references, closing references, timeline items, and additional repository PR searches by issue number/title/related code.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-034",
     "line": 169,
     "section": "5. Functional requirements",
     "requirement": "7. Not labelled `wontfix`, `duplicate`, `invalid`, `blocked`, or an equivalent project-specific restriction.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-035",
     "line": 170,
     "section": "5. Functional requirements",
     "requirement": "8. Not reserved via documentation, project board, milestone ownership, branch activity, or explicit issue body instructions.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-036",
     "line": 171,
     "section": "5. Functional requirements",
     "requirement": "9. No repository policy prohibits the planned use of AI-assisted contributions or external PRs.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/eligibility.ts",
+      "src/discovery/authorship.ts",
+      "src/discovery/reservations.ts",
+      "tests/eligibility.test.ts",
+      "tests/reservations.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "eligibility",
+    "notes": "Direct metadata and authoritative provenance gate selection. Reservation checks include visible project fields, milestone ownership hints, upstream branches and targeted documentation. Incomplete or unfamiliar project status remains unresolved."
   },
   {
     "id": "PRD-037",
     "line": 191,
     "section": "5. Functional requirements",
     "requirement": "| Dimension | Weight |",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-038",
     "line": 193,
     "section": "5. Functional requirements",
     "requirement": "| Fit to developer language/stack | 20% |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-039",
     "line": 194,
     "section": "5. Functional requirements",
     "requirement": "| Clarity and reproducibility of issue | 20% |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-040",
     "line": 195,
     "section": "5. Functional requirements",
     "requirement": "| Likelihood of small, testable change | 20% |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-041",
     "line": 196,
     "section": "5. Functional requirements",
     "requirement": "| Repository maintenance/review health | 15% |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-042",
     "line": 197,
     "section": "5. Functional requirements",
     "requirement": "| Contribution-policy compatibility | 15% |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-043",
     "line": 198,
     "section": "5. Functional requirements",
     "requirement": "| Recency and issue activity | 10% |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-044",
     "line": 202,
     "section": "5. Functional requirements",
     "requirement": "- Select highest-ranked candidate automatically if it passes a confidence threshold.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-045",
     "line": 203,
     "section": "5. Functional requirements",
     "requirement": "- Use policy compatibility as both hard gate and scoring signal (missing policy evidence lowers confidence; explicit prohibition rejects).",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-046",
     "line": 204,
     "section": "5. Functional requirements",
     "requirement": "- Avoid highly speculative issues; prioritize ones with a concrete testable outcome.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-047",
     "line": 205,
     "section": "5. Functional requirements",
     "requirement": "- Do not claim \"good first issue\" means genuinely easy; estimate complexity from files, build time, scope, and reproducibility.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-048",
     "line": 206,
     "section": "5. Functional requirements",
     "requirement": "- If no candidate passes **all hard requirements**, explicitly say so and offer either a later re-scan or a **user-authorized** relaxation. Never silently loosen `comments:0`, author provenance, assignee, or PR conditions.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/discovery/ranking.ts",
+      "tests/ranking.test.ts",
+      "src/security/approvals.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "candidate_scoring",
+    "notes": "Exact weighted heuristic follows hard gates. Semantic complexity and build effort are host assessments, not reliable predictions from a label."
   },
   {
     "id": "PRD-049",
     "line": 212,
     "section": "5. Functional requirements",
     "requirement": "- `README*`, `CONTRIBUTING*`, `CODE_OF_CONDUCT*`, `SECURITY*`, `LICENSE*`.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/repository/policy-sources.ts",
+      "src/repository/policies.ts",
+      "src/repository/indexing.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts"
+    ],
+    "feature": "repository_analysis",
+    "notes": "Pinned bounded sources, scoped instructions and code/import/history maps guide host investigation. Host reads accessible links, accepted changes and omitted context as needed; no complete semantic call graph is claimed."
   },
   {
     "id": "PRD-050",
     "line": 213,
     "section": "5. Functional requirements",
     "requirement": "- `AGENTS.md`, `CLAUDE.md`, `.github/instructions/`, project-specific agent instructions, and nested scoped instruction files.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/repository/policy-sources.ts",
+      "src/repository/policies.ts",
+      "src/repository/indexing.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts"
+    ],
+    "feature": "repository_analysis",
+    "notes": "Pinned bounded sources, scoped instructions and code/import/history maps guide host investigation. Host reads accessible links, accepted changes and omitted context as needed; no complete semantic call graph is claimed."
   },
   {
     "id": "PRD-051",
     "line": 214,
     "section": "5. Functional requirements",
     "requirement": "- `.github/CODEOWNERS`, `CODEOWNERS`, `.github/PULL_REQUEST_TEMPLATE*`, `.github/ISSUE_TEMPLATE/`.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/repository/policy-sources.ts",
+      "src/repository/policies.ts",
+      "src/repository/indexing.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts"
+    ],
+    "feature": "repository_analysis",
+    "notes": "Pinned bounded sources, scoped instructions and code/import/history maps guide host investigation. Host reads accessible links, accepted changes and omitted context as needed; no complete semantic call graph is claimed."
   },
   {
     "id": "PRD-052",
     "line": 215,
     "section": "5. Functional requirements",
     "requirement": "- `.github/workflows/`, CI config, formatting/lint/test settings, build manifests, lockfiles.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/repository/policy-sources.ts",
+      "src/repository/policies.ts",
+      "src/repository/indexing.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts"
+    ],
+    "feature": "repository_analysis",
+    "notes": "Pinned bounded sources, scoped instructions and code/import/history maps guide host investigation. Host reads accessible links, accepted changes and omitted context as needed; no complete semantic call graph is claimed."
   },
   {
     "id": "PRD-053",
     "line": 216,
     "section": "5. Functional requirements",
     "requirement": "- Relevant source modules, call graph/import paths, tests, previous accepted PRs around the same files, and relevant decisions/discussions.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/repository/policy-sources.ts",
+      "src/repository/policies.ts",
+      "src/repository/indexing.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts"
+    ],
+    "feature": "repository_analysis",
+    "notes": "Pinned bounded sources, scoped instructions and code/import/history maps guide host investigation. Host reads accessible links, accepted changes and omitted context as needed; no complete semantic call graph is claimed."
   },
   {
     "id": "PRD-054",
     "line": 226,
     "section": "5. Functional requirements",
     "requirement": "- Read the full issue, issue forms, attachments/links if accessible, timeline activity, and the relevant code history.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/contribution/plan.ts",
+      "src/mcp/analysis-tools.ts",
+      "tests/plan.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "reproduction",
+    "notes": "Host records expected/actual behavior, source evidence, root cause and focused strategy. Actual native baseline failures are exercised; ambiguity/unreproducibility is explicitly gated."
   },
   {
     "id": "PRD-055",
     "line": 227,
     "section": "5. Functional requirements",
     "requirement": "- Write a precise statement of expected vs actual behavior and likely root cause.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/contribution/plan.ts",
+      "src/mcp/analysis-tools.ts",
+      "tests/plan.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "reproduction",
+    "notes": "Host records expected/actual behavior, source evidence, root cause and focused strategy. Actual native baseline failures are exercised; ambiguity/unreproducibility is explicitly gated."
   },
   {
     "id": "PRD-056",
     "line": 228,
     "section": "5. Functional requirements",
     "requirement": "- Prefer a failing regression test or a deterministic reproduction command before implementing.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/contribution/plan.ts",
+      "src/mcp/analysis-tools.ts",
+      "tests/plan.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "reproduction",
+    "notes": "Host records expected/actual behavior, source evidence, root cause and focused strategy. Actual native baseline failures are exercised; ambiguity/unreproducibility is explicitly gated."
   },
   {
     "id": "PRD-057",
     "line": 229,
     "section": "5. Functional requirements",
     "requirement": "- If reproduction is unavailable, document why and require stronger code evidence; do not fabricate it.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/contribution/plan.ts",
+      "src/mcp/analysis-tools.ts",
+      "tests/plan.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "reproduction",
+    "notes": "Host records expected/actual behavior, source evidence, root cause and focused strategy. Actual native baseline failures are exercised; ambiguity/unreproducibility is explicitly gated."
   },
   {
     "id": "PRD-058",
     "line": 230,
     "section": "5. Functional requirements",
     "requirement": "- Mark `BLOCKED` if the issue is ambiguous, stale, out-of-date, already fixed, or impossible to test with reasonable confidence.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/contribution/plan.ts",
+      "src/mcp/analysis-tools.ts",
+      "tests/plan.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "reproduction",
+    "notes": "Host records expected/actual behavior, source evidence, root cause and focused strategy. Actual native baseline failures are exercised; ambiguity/unreproducibility is explicitly gated."
   },
   {
     "id": "PRD-059",
     "line": 240,
     "section": "5. Functional requirements",
     "requirement": "- Follow style, architecture, naming, API compatibility, types, error handling and dependency rules already in the project.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-060",
     "line": 241,
     "section": "5. Functional requirements",
     "requirement": "- Change only files necessary to solve the issue and meet test/documentation requirements.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-061",
     "line": 242,
     "section": "5. Functional requirements",
     "requirement": "- Prefer an existing helper over a new abstraction; avoid unnecessary new dependencies.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-062",
     "line": 243,
     "section": "5. Functional requirements",
     "requirement": "- Prefer direct, readable logic to condensed clever code. **Line count is a diagnostic, not the objective.**",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-063",
     "line": 244,
     "section": "5. Functional requirements",
     "requirement": "- Create focused regression tests, plus edge-case coverage where necessary.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-064",
     "line": 245,
     "section": "5. Functional requirements",
     "requirement": "- Do not refactor unrelated modules, reformat entire files, or modify unrelated lockfiles.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-065",
     "line": 246,
     "section": "5. Functional requirements",
     "requirement": "- Do not add decorative comments, redundant docstrings, autogenerated fluff or spurious configuration.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-066",
     "line": 247,
     "section": "5. Functional requirements",
     "requirement": "- Inspect baseline behavior before and after the patch; preserve backwards compatibility unless the issue requires a change.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-067",
     "line": 248,
     "section": "5. Functional requirements",
     "requirement": "- Never auto-commit generated secrets, private files, binaries, test artifacts, credentials or untracked developer work.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/prompts.ts",
+      "src/contribution/quality.ts",
+      "src/contribution/critique.ts",
+      "tests/quality.test.ts",
+      "tests/security-recovery.test.ts"
+    ],
+    "feature": "implementation_quality",
+    "notes": "The host edits and critiques semantic correctness; automated checks enforce file scope, known-secret/artifact restrictions, patch identity and unrelated-change boundaries."
   },
   {
     "id": "PRD-068",
     "line": 256,
     "section": "5. Functional requirements",
     "requirement": "1. Detect language mix from repository metadata and files, **not** GitHub's primary language alone.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/languages/registry.ts",
+      "src/languages/environment.ts",
+      "src/languages/ci.ts",
+      "src/mcp/execution-tools.ts",
+      "src/execution/runner.ts",
+      "tests/environment.test.ts",
+      "tests/ci-commands.test.ts",
+      "tests/evidence.test.ts"
+    ],
+    "feature": "language_execution",
+    "notes": "Manifest/native/documented plans plus bounded CI excerpts and explicitly reviewed extra commands. Wrapper evidence is checked against current patch/log hashes. OS sandbox and network controls belong to the host."
   },
   {
     "id": "PRD-069",
     "line": 257,
     "section": "5. Functional requirements",
     "requirement": "2. Identify build, test, lint, format, and type-check commands from manifests, documentation and CI.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/languages/registry.ts",
+      "src/languages/environment.ts",
+      "src/languages/ci.ts",
+      "src/mcp/execution-tools.ts",
+      "src/execution/runner.ts",
+      "tests/environment.test.ts",
+      "tests/ci-commands.test.ts",
+      "tests/evidence.test.ts"
+    ],
+    "feature": "language_execution",
+    "notes": "Manifest/native/documented plans plus bounded CI excerpts and explicitly reviewed extra commands. Wrapper evidence is checked against current patch/log hashes. OS sandbox and network controls belong to the host."
   },
   {
     "id": "PRD-070",
     "line": 258,
     "section": "5. Functional requirements",
     "requirement": "3. Detect installed runtimes/tools and lockfile-specified versions; prefer project-supported package managers.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/languages/registry.ts",
+      "src/languages/environment.ts",
+      "src/languages/ci.ts",
+      "src/mcp/execution-tools.ts",
+      "src/execution/runner.ts",
+      "tests/environment.test.ts",
+      "tests/ci-commands.test.ts",
+      "tests/evidence.test.ts"
+    ],
+    "feature": "language_execution",
+    "notes": "Manifest/native/documented plans plus bounded CI excerpts and explicitly reviewed extra commands. Wrapper evidence is checked against current patch/log hashes. OS sandbox and network controls belong to the host."
   },
   {
     "id": "PRD-071",
     "line": 259,
     "section": "5. Functional requirements",
     "requirement": "4. Resolve root vs monorepo workspace/subproject targets.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/languages/registry.ts",
+      "src/languages/environment.ts",
+      "src/languages/ci.ts",
+      "src/mcp/execution-tools.ts",
+      "src/execution/runner.ts",
+      "tests/environment.test.ts",
+      "tests/ci-commands.test.ts",
+      "tests/evidence.test.ts"
+    ],
+    "feature": "language_execution",
+    "notes": "Manifest/native/documented plans plus bounded CI excerpts and explicitly reviewed extra commands. Wrapper evidence is checked against current patch/log hashes. OS sandbox and network controls belong to the host."
   },
   {
     "id": "PRD-072",
     "line": 260,
     "section": "5. Functional requirements",
     "requirement": "5. Use a **language-adapter registry** with `detect`, `bootstrap_plan`, `test`, `lint`, `format_check`, `typecheck`, `build`, and `result_parser` capabilities.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/languages/registry.ts",
+      "src/languages/environment.ts",
+      "src/languages/ci.ts",
+      "src/mcp/execution-tools.ts",
+      "src/execution/runner.ts",
+      "tests/environment.test.ts",
+      "tests/ci-commands.test.ts",
+      "tests/evidence.test.ts"
+    ],
+    "feature": "language_execution",
+    "notes": "Manifest/native/documented plans plus bounded CI excerpts and explicitly reviewed extra commands. Wrapper evidence is checked against current patch/log hashes. OS sandbox and network controls belong to the host."
   },
   {
     "id": "PRD-073",
     "line": 261,
     "section": "5. Functional requirements",
     "requirement": "6. Fall back to a **generic repository-command adapter** for languages without a dedicated adapter.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/languages/registry.ts",
+      "src/languages/environment.ts",
+      "src/languages/ci.ts",
+      "src/mcp/execution-tools.ts",
+      "src/execution/runner.ts",
+      "tests/environment.test.ts",
+      "tests/ci-commands.test.ts",
+      "tests/evidence.test.ts"
+    ],
+    "feature": "language_execution",
+    "notes": "Manifest/native/documented plans plus bounded CI excerpts and explicitly reviewed extra commands. Wrapper evidence is checked against current patch/log hashes. OS sandbox and network controls belong to the host."
   },
   {
     "id": "PRD-074",
     "line": 262,
     "section": "5. Functional requirements",
     "requirement": "7. Never claim validation succeeded when a toolchain is missing or a command was skipped. Report `PASS`, `FAIL`, `SKIPPED`, or `UNAVAILABLE` per check.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/languages/registry.ts",
+      "src/languages/environment.ts",
+      "src/languages/ci.ts",
+      "src/mcp/execution-tools.ts",
+      "src/execution/runner.ts",
+      "tests/environment.test.ts",
+      "tests/ci-commands.test.ts",
+      "tests/evidence.test.ts"
+    ],
+    "feature": "language_execution",
+    "notes": "Manifest/native/documented plans plus bounded CI excerpts and explicitly reviewed extra commands. Wrapper evidence is checked against current patch/log hashes. OS sandbox and network controls belong to the host."
   },
   {
     "id": "PRD-075",
     "line": 263,
     "section": "5. Functional requirements",
     "requirement": "8. Do not install global tools, execute opaque remote install scripts, modify system configuration or run project scripts outside an approved sandbox without explicit user consent.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/languages/registry.ts",
+      "src/languages/environment.ts",
+      "src/languages/ci.ts",
+      "src/mcp/execution-tools.ts",
+      "src/execution/runner.ts",
+      "tests/environment.test.ts",
+      "tests/ci-commands.test.ts",
+      "tests/evidence.test.ts"
+    ],
+    "feature": "language_execution",
+    "notes": "Manifest/native/documented plans plus bounded CI excerpts and explicitly reviewed extra commands. Wrapper evidence is checked against current patch/log hashes. OS sandbox and network controls belong to the host."
   },
   {
     "id": "PRD-076",
     "line": 267,
     "section": "5. Functional requirements",
     "requirement": "| Language/ecosystem | Discovery and native entry points |",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-077",
     "line": 269,
     "section": "5. Functional requirements",
     "requirement": "| JavaScript / TypeScript | npm, pnpm, yarn, Bun, Deno; `package.json`, Deno/Bun configs |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-078",
     "line": 270,
     "section": "5. Functional requirements",
     "requirement": "| Python | pyproject, uv, pip, Poetry, tox, pytest, Ruff |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-079",
     "line": 271,
     "section": "5. Functional requirements",
     "requirement": "| Go | `go.mod`, Go tooling |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-080",
     "line": 272,
     "section": "5. Functional requirements",
     "requirement": "| Rust | Cargo manifests, clippy, rustfmt, cargo test |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-081",
     "line": 273,
     "section": "5. Functional requirements",
     "requirement": "| Java | Maven, Gradle, JUnit |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-082",
     "line": 274,
     "section": "5. Functional requirements",
     "requirement": "| Kotlin | Gradle, Maven |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-083",
     "line": 275,
     "section": "5. Functional requirements",
     "requirement": "| C / C++ | CMake, Make, Meson, Bazel, CTest |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-084",
     "line": 276,
     "section": "5. Functional requirements",
     "requirement": "| C# / F# / .NET | `.sln`, `.csproj`, `dotnet test` |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-085",
     "line": 277,
     "section": "5. Functional requirements",
     "requirement": "| Ruby | Bundler, Rake, RSpec, Minitest |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-086",
     "line": 278,
     "section": "5. Functional requirements",
     "requirement": "| PHP | Composer, PHPUnit, Pest |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-087",
     "line": 279,
     "section": "5. Functional requirements",
     "requirement": "| Swift | Swift Package Manager, Xcode requirements |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-088",
     "line": 280,
     "section": "5. Functional requirements",
     "requirement": "| Dart / Flutter | `pubspec.yaml`, `dart test`, `flutter test` |",
-    "status": "pending",
-    "evidence": []
+    "status": "native_fixture_verified",
+    "evidence": [
+      "src/languages/adapters",
+      "docs/language-adapters.md",
+      "tests/adapter-javascript.test.ts",
+      "tests/adapter-python.test.ts",
+      "tests/adapter-go.test.ts",
+      "tests/adapter-rust.test.ts",
+      "tests/adapter-java.test.ts",
+      "tests/adapter-kotlin.test.ts",
+      "tests/adapter-cpp.test.ts",
+      "tests/adapter-dotnet.test.ts",
+      "tests/adapter-ruby.test.ts",
+      "tests/adapter-php.test.ts",
+      "tests/adapter-swift.test.ts",
+      "tests/adapter-dart.test.ts",
+      "scripts/smoke-adapters.mjs",
+      "scripts/native-adapter-fixtures.json",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "adapter_coverage",
+    "notes": "All 12 adapters have planning tests and actual native failing-baseline/focused-fix/check execution in CI. Each fixture covers its selected native driver; alternate managers/frameworks and real upstream projects remain separate qualification. Six contribution dry runs reach PR preview."
   },
   {
     "id": "PRD-089",
     "line": 292,
     "section": "5. Functional requirements",
     "requirement": "- Diff is scoped to the issue; no unrelated changes or secrets.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/readiness.ts",
+      "src/contribution/recheck.ts",
+      "src/contribution/prepare.ts",
+      "tests/readiness.test.ts",
+      "tests/recheck.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "readiness",
+    "notes": "Current critique, real captured checks, applicable requirements, exact preview and fresh remote gates. CLA/legal obligations and semantic dependency/security review require human/host judgment."
   },
   {
     "id": "PRD-090",
     "line": 293,
     "section": "5. Functional requirements",
     "requirement": "- Issue is still open, unassigned, comment-free, and without known competing PRs **immediately before publication**. If a maintainer has discussed or assigned it since discovery, halt and ask how to proceed rather than proceeding under the stale premise.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/readiness.ts",
+      "src/contribution/recheck.ts",
+      "src/contribution/prepare.ts",
+      "tests/readiness.test.ts",
+      "tests/recheck.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "readiness",
+    "notes": "Current critique, real captured checks, applicable requirements, exact preview and fresh remote gates. CLA/legal obligations and semantic dependency/security review require human/host judgment."
   },
   {
     "id": "PRD-091",
     "line": 294,
     "section": "5. Functional requirements",
     "requirement": "- Relevant regression tests pass; required lint/type/build checks pass where available.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/readiness.ts",
+      "src/contribution/recheck.ts",
+      "src/contribution/prepare.ts",
+      "tests/readiness.test.ts",
+      "tests/recheck.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "readiness",
+    "notes": "Current critique, real captured checks, applicable requirements, exact preview and fresh remote gates. CLA/legal obligations and semantic dependency/security review require human/host judgment."
   },
   {
     "id": "PRD-092",
     "line": 295,
     "section": "5. Functional requirements",
     "requirement": "- Required contribution forms, checklist items, DCO/CLA/sign-off requirements, issue linking and branch naming are respected.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/contribution/readiness.ts",
+      "src/contribution/recheck.ts",
+      "src/contribution/prepare.ts",
+      "tests/readiness.test.ts",
+      "tests/recheck.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "readiness",
+    "notes": "Current critique, real captured checks, applicable requirements, exact preview and fresh remote gates. CLA/legal obligations and semantic dependency/security review require human/host judgment."
   },
   {
     "id": "PRD-093",
     "line": 296,
     "section": "5. Functional requirements",
     "requirement": "- Existing CI commands or realistic equivalents run with explicit pass/fail/skipped status.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/readiness.ts",
+      "src/contribution/recheck.ts",
+      "src/contribution/prepare.ts",
+      "tests/readiness.test.ts",
+      "tests/recheck.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "readiness",
+    "notes": "Current critique, real captured checks, applicable requirements, exact preview and fresh remote gates. CLA/legal obligations and semantic dependency/security review require human/host judgment."
   },
   {
     "id": "PRD-094",
     "line": 297,
     "section": "5. Functional requirements",
     "requirement": "- Security and dependency concerns have been assessed; no fabricated results.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/contribution/readiness.ts",
+      "src/contribution/recheck.ts",
+      "src/contribution/prepare.ts",
+      "tests/readiness.test.ts",
+      "tests/recheck.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "readiness",
+    "notes": "Current critique, real captured checks, applicable requirements, exact preview and fresh remote gates. CLA/legal obligations and semantic dependency/security review require human/host judgment."
   },
   {
     "id": "PRD-095",
     "line": 298,
     "section": "5. Functional requirements",
     "requirement": "- Repo's AI contribution restrictions/disclosures have been applied.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/readiness.ts",
+      "src/contribution/recheck.ts",
+      "src/contribution/prepare.ts",
+      "tests/readiness.test.ts",
+      "tests/recheck.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "readiness",
+    "notes": "Current critique, real captured checks, applicable requirements, exact preview and fresh remote gates. CLA/legal obligations and semantic dependency/security review require human/host judgment."
   },
   {
     "id": "PRD-096",
     "line": 311,
-    "section": "Changes",
+    "section": "5. Functional requirements",
     "requirement": "- Reset the current page when filters change.",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/contribution/prepare.ts",
+      "tests/prepare.test.ts"
+    ],
+    "feature": "pr_description_example",
+    "notes": "Illustrative sample text in the PRD; implementation generates issue-specific descriptions and includes actual recorded verification."
   },
   {
     "id": "PRD-097",
     "line": 312,
-    "section": "Changes",
+    "section": "5. Functional requirements",
     "requirement": "- Add a regression test for the transition.",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/contribution/prepare.ts",
+      "tests/prepare.test.ts"
+    ],
+    "feature": "pr_description_example",
+    "notes": "Illustrative sample text in the PRD; implementation generates issue-specific descriptions and includes actual recorded verification."
   },
   {
     "id": "PRD-098",
     "line": 315,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- <actual command>: passed",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/contribution/prepare.ts",
+      "tests/prepare.test.ts"
+    ],
+    "feature": "pr_description_example",
+    "notes": "Illustrative sample text in the PRD; implementation generates issue-specific descriptions and includes actual recorded verification."
   },
   {
     "id": "PRD-099",
     "line": 326,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Prefer contributor's fork when direct upstream push is unavailable or inappropriate.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-100",
     "line": 327,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Push only the specific approved branch/commits; preserve unrelated working-tree state.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-101",
     "line": 328,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Open a PR only after all applicable gates and user approval.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-102",
     "line": 329,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Prefer opening a draft PR when required checks or project practice demand it.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-103",
     "line": 330,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Inspect CODEOWNERS and documented review conventions. GitHub can automatically route review requests to code owners for ready-for-review PRs under eligible repository settings.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-104",
     "line": 331,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Use the `Request reviewers` API **only if authenticated actor permissions allow**, the target reviewer/team is legitimate, and the developer approved it.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-105",
     "line": 332,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- When lacking permissions, do **not** attempt privilege bypass. Rely on CODEOWNERS/normal repository triage; optionally draft a single polite message for the user to approve **only when the project's documented process invites such messages**.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-106",
     "line": 333,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Never repeatedly ping maintainers, randomly tag maintainers, request reviews from unrelated people, or create duplicate PRs.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-107",
     "line": 334,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Return actual PR URL and the factual review-routing outcome: `requested`, `auto-routed via CODEOWNERS`, `not possible due to permissions`, or `awaiting project triage`.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/publisher.ts",
+      "src/contribution/reviews.ts",
+      "src/security/approvals.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_review",
+    "notes": "Exact action approvals, fork/native Git workflow, durable reconciliation and observed routing. Ambiguous reviewer attempts are suppressed and never reported as confirmed; live forge writes remain unqualified."
   },
   {
     "id": "PRD-108",
     "line": 338,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Poll responsibly or use webhooks for PR CI status, reviews, comments and merge/close state.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/cli.ts",
+      "tests/revisions.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "feedback",
+    "notes": "Bounded monitoring, feedback classes, renewed coding/public grants and factual outcomes. Actionable semantic feedback analysis remains host-driven."
   },
   {
     "id": "PRD-109",
     "line": 339,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Distinguish bot CI feedback, maintainer review and casual comments.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/cli.ts",
+      "tests/revisions.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "feedback",
+    "notes": "Bounded monitoring, feedback classes, renewed coding/public grants and factual outcomes. Actionable semantic feedback analysis remains host-driven."
   },
   {
     "id": "PRD-110",
     "line": 340,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- For each actionable review comment, explain issue, identify relevant files, propose a focused patch, run tests, and request approval before updating the public branch.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/cli.ts",
+      "tests/revisions.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "feedback",
+    "notes": "Bounded monitoring, feedback classes, renewed coding/public grants and factual outcomes. Actionable semantic feedback analysis remains host-driven."
   },
   {
     "id": "PRD-111",
     "line": 341,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Never argue with reviewers automatically, automatically dismiss reviews, or leave unsolicited comments.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/cli.ts",
+      "tests/revisions.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "feedback",
+    "notes": "Bounded monitoring, feedback classes, renewed coding/public grants and factual outcomes. Actionable semantic feedback analysis remains host-driven."
   },
   {
     "id": "PRD-112",
     "line": 342,
-    "section": "Testing",
+    "section": "5. Functional requirements",
     "requirement": "- Stop monitoring on user request; permit `resume <session>`.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/cli.ts",
+      "tests/revisions.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "feedback",
+    "notes": "Bounded monitoring, feedback classes, renewed coding/public grants and factual outcomes. Actionable semantic feedback analysis remains host-driven."
   },
   {
     "id": "PRD-113",
     "line": 356,
     "section": "6. MCP interface and orchestration",
     "requirement": "| Tool | Inputs | Key outputs | Side effects |",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-114",
     "line": 358,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `start_contribution` | optional preferences and overrides | session ID, onboarding state | local only |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-115",
     "line": 359,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `set_preferences` | session ID, 2\u20133 answers | normalized preferences | local only |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-116",
     "line": 360,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `discover_repositories` | session ID | ranked repositories and evidence | GitHub read |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-117",
     "line": 361,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `find_eligible_issues` | session ID, repo candidates | candidates plus reject reasons | GitHub read |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-118",
     "line": 362,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `verify_issue` | issue ID/URL, strict policy | eligibility evidence, as-of time | GitHub read |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-119",
     "line": 363,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `analyze_repository` | session, chosen repo and issue | policy digest, code map, commands | read/clone with consent |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-120",
     "line": 364,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `plan_fix` | session ID | reproduction and implementation plan | local only |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-121",
     "line": 365,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `check_patch` | session ID, diff/check outcomes | quality verdict and blockers | approved local checks |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-122",
     "line": 366,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `prepare_pull_request` | session ID | proposed branch, title, description, checklist | local only |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-123",
     "line": 367,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `publish_pull_request` | session ID, authorization token/confirmation | PR URL and commit SHA | **GitHub write** |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-124",
     "line": 368,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `route_review` | session ID, explicit permission | routing result and reason | conditional GitHub write |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-125",
     "line": 369,
     "section": "6. MCP interface and orchestration",
     "requirement": "| `get_status` / `resume_session` | session ID | run state, next safe action | local/GitHub read |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/registry.ts",
+      "src/mcp/bootstrap.ts",
+      "src/mcp/sdk.ts",
+      "tests/registry.test.ts",
+      "tests/sdk.test.ts",
+      "scripts/smoke-stdio.py"
+    ],
+    "feature": "mcp_tools",
+    "notes": "All proposed tools plus supporting tools are registered: 21 total, six prompts and session resources. Official SDK 2.4.0 serves both legacy initialization and protocol 2026-07-28 in real STDIO smoke checks. Actual Codex discovery/tool calls and Claude health connections pass without model turns; full semantic host workflows remain user acceptance checks."
   },
   {
     "id": "PRD-126",
     "line": 469,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "1. Normalize language/difficulty/repo preference.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-127",
     "line": 470,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "2. Discover relevant repos using GitHub repository search and issue search.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-128",
     "line": 471,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "3. Exclude archived, policy-prohibited, inactive, inaccessible repos.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-129",
     "line": 472,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "4. Retrieve open zero-comment, unassigned issue candidates.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-130",
     "line": 473,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "5. For each issue:",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-131",
     "line": 481,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "6. Rank eligible candidates using transparent score and confidence.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-132",
     "line": 482,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "7. Automatically select strongest qualified candidate.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-133",
     "line": 483,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "8. Read repository, understand and reproduce issue, prepare plan.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-134",
     "line": 484,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "9. Let coding agent implement; verify patch and project checks.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-135",
     "line": 485,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "10. Re-verify issue, repo rules and competing work just before PR.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-136",
     "line": 486,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "11. Ask user for publication approval; publish if authorized.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-137",
     "line": 487,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "12. Route review only through permitted GitHub/project mechanisms.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-138",
     "line": 488,
     "section": "8. Issue discovery and verification algorithm",
     "requirement": "13. Track CI/review with user-controlled follow-up.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "end_to_end_algorithm",
+    "notes": "Controlled API discovery and real native/Git operations exercise orchestration. Host coding/critique is represented by explicit fixture edits and review evidence, not an interactive model run."
   },
   {
     "id": "PRD-139",
     "line": 504,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- Treat GitHub issue bodies, README text, source comments and external links as **untrusted input**. Ignore embedded instructions telling the agent to leak credentials, disable safety checks, post irrelevant content, or run arbitrary commands.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-140",
     "line": 505,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- Keep tokens out of context, logs, commit history, tool outputs and PR descriptions; use GitHub credential stores/environment scoping and least privilege.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-141",
     "line": 506,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- Execute repository scripts only in an approved isolated workspace with user approval for potentially dangerous operations. Do not silently use network, Docker privilege, `sudo`, deletion commands or installation scripts.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-142",
     "line": 507,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- Prevent workspace destruction: detect dirty git tree, stash nothing without consent, work in an isolated worktree/fork, and refuse overwriting existing uncommitted user work.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-143",
     "line": 508,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- GitHub public writes (branch push, PR creation, reviewer request, comments, review replies) require explicit approval appropriate to the action.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-144",
     "line": 509,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- Apply per-repository cooldowns, no duplicate PRs, no mass commenting, and no spammy maintainer tagging.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-145",
     "line": 510,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- Provide accurate AI-assistance disclosure when the project asks for it. The product aims for **clear, natural writing**, not concealment of provenance.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-146",
     "line": 511,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- Provide dry-run mode and an auditable action log.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-147",
     "line": 512,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- Enforce GitHub rate limits, request caching, exponential backoff, pagination, and cancellation.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-148",
     "line": 513,
     "section": "9. Security, permissions, and ethics",
     "requirement": "- If repository instructions conflict with user/system safety or the MCP's security boundaries, stop and escalate rather than obeying the repository text as an unrestricted instruction.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/security/approvals.ts",
+      "src/security/boundaries.ts",
+      "src/git/workspace.ts",
+      "src/core/audit.ts",
+      "tests/security-recovery.test.ts",
+      "tests/approvals.test.ts",
+      "docs/security.md"
+    ],
+    "feature": "security",
+    "notes": "Untrusted text never grants workflow authority. Known/configured secrets are redacted; scripts require a host sandbox that isolates credentials and ledger. The CLI approval assertion alone is not OS isolation."
   },
   {
     "id": "PRD-149",
     "line": 519,
     "section": "10. Non-functional requirements",
     "requirement": "| Category | Requirement |",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-150",
     "line": 521,
     "section": "10. Non-functional requirements",
     "requirement": "| Reliability | Resumable sessions; idempotent publish step; duplicate PR prevention |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-151",
     "line": 522,
     "section": "10. Non-functional requirements",
     "requirement": "| Portability | Windows, macOS, Linux; handle path/quoting differences |",
-    "status": "pending",
-    "evidence": []
+    "status": "verified_ci",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed. Recorded CI qualification is scoped to the jobs in ci-validation.json; Cursor, full model turns and production/live-service writes are not implied."
   },
   {
     "id": "PRD-152",
     "line": 523,
     "section": "10. Non-functional requirements",
     "requirement": "| Language coverage | Accept any language; transparent check availability, no fabricated tool support |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-153",
     "line": 524,
     "section": "10. Non-functional requirements",
     "requirement": "| Explainability | Candidate scores, rejection reasons, policy links, verification timestamps |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-154",
     "line": 525,
     "section": "10. Non-functional requirements",
     "requirement": "| Security | Least-privilege GitHub access; no credential exfiltration or silent public writes |",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-155",
     "line": 526,
     "section": "10. Non-functional requirements",
     "requirement": "| Performance | Bounded search budgets, pagination, caching, progressive analysis; no guaranteed instant full-repo scan |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-156",
     "line": 527,
     "section": "10. Non-functional requirements",
     "requirement": "| Maintainability | Adapter-based integrations, typed schemas, modular tests, concise logs |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-157",
     "line": 528,
     "section": "10. Non-functional requirements",
     "requirement": "| Accessibility | Works through plain-text coding CLI without GUI dependence |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-158",
     "line": 529,
     "section": "10. Non-functional requirements",
     "requirement": "| Observability | Per-stage duration, tool failures, API limits, check results, user approvals |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-159",
     "line": 530,
     "section": "10. Non-functional requirements",
     "requirement": "| Offline/resume | Cached evidence readable offline; fresh GitHub recheck required before publishing |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/state/store.ts",
+      "src/mcp/application.ts",
+      "src/discovery/budget.ts",
+      "src/http/metadata.ts",
+      "tests/store.test.ts",
+      "tests/budget.test.ts",
+      "tests/security-recovery.test.ts",
+      "docs/distribution.md"
+    ],
+    "feature": "nonfunctional",
+    "notes": "Local persistence, bounded reads, typed modules, stage/error events and offline summaries. Linux, macOS and Windows CI checks and installed-package smoke tests pass; no performance or production-reliability benchmark is claimed."
   },
   {
     "id": "PRD-160",
     "line": 536,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Scenario | Expected behavior |",
-    "status": "pending",
-    "evidence": []
+    "status": "illustrative",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-161",
     "line": 538,
     "section": "11. Edge cases and required behavior",
     "requirement": "| No matching repo/issue | Report zero verified results; offer a wider search or explicit filter relaxation |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-162",
     "line": 539,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Issue gains a comment or assignee mid-run | Halt before PR; explain why strict eligibility changed |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-163",
     "line": 540,
     "section": "11. Edge cases and required behavior",
     "requirement": "| New competing PR appears | Halt and show PR link and overlap evidence |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-164",
     "line": 541,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Maintainer origin uncertain | Exclude in strict mode; never mislabel as official |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-165",
     "line": 542,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Issue already fixed on default branch | Skip, record finding, choose next eligible issue |",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-166",
     "line": 543,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Project forbids autonomous/AI contributions | Reject repository or switch to allowed human-only mode only if policy permits |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-167",
     "line": 544,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Missing `CONTRIBUTING.md` | Check related/docs/org defaults; mark policy unknown where appropriate |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-168",
     "line": 545,
     "section": "11. Edge cases and required behavior",
     "requirement": "| User lacks toolchain | Report unavailable checks; propose approved setup, never claim tests passed |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-169",
     "line": 546,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Huge monorepo | Analyze scoped packages only; avoid full-repo ingestion |",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-170",
     "line": 547,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Build scripts require secrets/external services | Do not access secrets automatically; isolate and describe verification gap |",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-171",
     "line": 548,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Dirty working tree | Use new worktree/isolated clone; do not overwrite user edits |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-172",
     "line": 549,
     "section": "11. Edge cases and required behavior",
     "requirement": "| GitHub API timeout/rate limit | Back off, save state, resume without duplicate operations |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-173",
     "line": 550,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Cannot fork/push | Explain permission or org restrictions; prepare patch locally |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-174",
     "line": 551,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Cannot request reviewer | Use normal review flow/CODEOWNERS; report limitation; don't spam |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-175",
     "line": 552,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Project PR template differs | Follow project template exactly |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-176",
     "line": 553,
     "section": "11. Edge cases and required behavior",
     "requirement": "| CI fails after PR | Diagnose with permissioned access; request approval before pushing corrections |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-177",
     "line": 554,
     "section": "11. Edge cases and required behavior",
     "requirement": "| PR closed without merge | Record factual outcome; never claim contribution merged |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-178",
     "line": 555,
     "section": "11. Edge cases and required behavior",
     "requirement": "| Unknown programming language | Generic adapter and project commands; truthful `UNAVAILABLE` checks |",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/plan.test.ts",
+      "tests/runner.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/generic.test.ts",
+      "docs/operations.md"
+    ],
+    "feature": "edge_cases",
+    "notes": "Automated fixtures exercise fail-closed evidence and recovery boundaries; operations guide gives the next action for environment/permission/semantic blockers. Real permission/error matrices still require live qualification."
   },
   {
     "id": "PRD-179",
     "line": 563,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- STDIO MCP integration with Codex CLI and Claude Code; compatibility verification for other MCP clients.",
-    "status": "pending",
-    "evidence": []
+    "status": "verified_ci",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks. Recorded CI qualification is scoped to the jobs in ci-validation.json; Cursor, full model turns and production/live-service writes are not implied."
   },
   {
     "id": "PRD-180",
     "line": 564,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Three-question onboarding with defaults and local preference persistence.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-181",
     "line": 565,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- GitHub-wide repository + issue search; strict official-author/zero-comment/no-assignee/no-known-PR verification.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-182",
     "line": 566,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Transparent scoring and **automatic** issue selection.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-183",
     "line": 567,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Repository policy/AI policy scan; codebase analysis and issue reproduction plan.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-184",
     "line": 568,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Agent-driven focused patch; generic command runner with tested adapters for main ecosystems.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-185",
     "line": 569,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Test/lint/type/build evidence and pre-publish eligibility recheck.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-186",
     "line": 570,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Natural, policy-compliant PR title/description and template completion.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-187",
     "line": 571,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- User-approved fork/branch/push/PR workflow.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-188",
     "line": 572,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Permission-aware reviewer routing and report.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-189",
     "line": 573,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Local state, resume, logs, dry run and safeguards.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/mcp/bootstrap.ts",
+      "docs/clients.md",
+      "docs/testing.md",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "p0",
+    "notes": "P0 orchestration is implemented with controlled local evidence. Actual Codex and Claude transport checks pass. Full model-driven semantic discovery and live public-write acceptance remain user/live-service checks."
   },
   {
     "id": "PRD-190",
     "line": 577,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- PR review comment and CI follow-up workflow.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/discovery/history.ts",
+      "src/discovery/similarity.ts",
+      "src/repository/cache.ts",
+      "src/languages/extensions.ts",
+      "tests/history.test.ts",
+      "tests/cache.test.ts",
+      "tests/extensions.test.ts"
+    ],
+    "feature": "p1",
+    "notes": "P1 monitoring/revisions, explicitly heuristic historical samples, advisory similarity, bounded code-map caching and trusted extension contracts. Native extension code is deliberately a trusted-user boundary."
   },
   {
     "id": "PRD-191",
     "line": 578,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Cross-repository historical acceptance-rate heuristics (clearly labelled estimates).",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/discovery/history.ts",
+      "src/discovery/similarity.ts",
+      "src/repository/cache.ts",
+      "src/languages/extensions.ts",
+      "tests/history.test.ts",
+      "tests/cache.test.ts",
+      "tests/extensions.test.ts"
+    ],
+    "feature": "p1",
+    "notes": "P1 monitoring/revisions, explicitly heuristic historical samples, advisory similarity, bounded code-map caching and trusted extension contracts. Native extension code is deliberately a trusted-user boundary."
   },
   {
     "id": "PRD-192",
     "line": 579,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Richer competing-PR similarity analysis and duplicate-detection confidence.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/discovery/history.ts",
+      "src/discovery/similarity.ts",
+      "src/repository/cache.ts",
+      "src/languages/extensions.ts",
+      "tests/history.test.ts",
+      "tests/cache.test.ts",
+      "tests/extensions.test.ts"
+    ],
+    "feature": "p1",
+    "notes": "P1 monitoring/revisions, explicitly heuristic historical samples, advisory similarity, bounded code-map caching and trusted extension contracts. Native extension code is deliberately a trusted-user boundary."
   },
   {
     "id": "PRD-193",
     "line": 580,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Better monorepo indexing and cached code maps.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/discovery/history.ts",
+      "src/discovery/similarity.ts",
+      "src/repository/cache.ts",
+      "src/languages/extensions.ts",
+      "tests/history.test.ts",
+      "tests/cache.test.ts",
+      "tests/extensions.test.ts"
+    ],
+    "feature": "p1",
+    "notes": "P1 monitoring/revisions, explicitly heuristic historical samples, advisory similarity, bounded code-map caching and trusted extension contracts. Native extension code is deliberately a trusted-user boundary."
   },
   {
     "id": "PRD-194",
     "line": 581,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Expanded language-adapter CI tests and user-defined adapters.",
-    "status": "pending",
-    "evidence": []
+    "status": "verified_ci",
+    "evidence": [
+      "src/contribution/monitor.ts",
+      "src/contribution/revisions.ts",
+      "src/discovery/history.ts",
+      "src/discovery/similarity.ts",
+      "src/repository/cache.ts",
+      "src/languages/extensions.ts",
+      "tests/history.test.ts",
+      "tests/cache.test.ts",
+      "tests/extensions.test.ts",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "p1",
+    "notes": "P1 monitoring/revisions, explicitly heuristic historical samples, advisory similarity, bounded code-map caching and trusted extension contracts. Native extension code is deliberately a trusted-user boundary. Recorded CI qualification is scoped to the jobs in ci-validation.json; Cursor, full model turns and production/live-service writes are not implied."
   },
   {
     "id": "PRD-195",
     "line": 585,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Optional hosted dashboard (not required for local-first core).",
-    "status": "pending",
-    "evidence": []
+    "status": "verified_ci",
+    "evidence": [
+      "src/http/server.ts",
+      "dashboard/src/App.tsx",
+      "src/forges/gitlab.ts",
+      "src/forges/forgejo.ts",
+      "src/repository/manifests.ts",
+      "src/github/webhooks.ts",
+      "tests/http-server.test.ts",
+      "tests/dashboard.test.ts",
+      "tests/gitlab.test.ts",
+      "tests/forgejo.test.ts",
+      "tests/webhooks.test.ts",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "p2",
+    "notes": "P2 read-only hosting/dashboard/sync, tenant isolation, acceptance manifests, signed opt-in webhooks and forge adapters. Real HTTP listener, Chromium interaction and container startup checks pass in CI. Production TLS/deployment and live alternative-forge compatibility remain outside automated fixture qualification. Recorded CI qualification is scoped to the jobs in ci-validation.json; Cursor, full model turns and production/live-service writes are not implied."
   },
   {
     "id": "PRD-196",
     "line": 586,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Organization-maintained allowlists/acceptance policies and opt-in maintainer integration.",
-    "status": "pending",
-    "evidence": []
+    "status": "external_qualification_pending",
+    "evidence": [
+      "src/http/server.ts",
+      "dashboard/src/App.tsx",
+      "src/forges/gitlab.ts",
+      "src/forges/forgejo.ts",
+      "src/repository/manifests.ts",
+      "src/github/webhooks.ts",
+      "tests/http-server.test.ts",
+      "tests/dashboard.test.ts",
+      "tests/gitlab.test.ts",
+      "tests/forgejo.test.ts",
+      "tests/webhooks.test.ts"
+    ],
+    "feature": "p2",
+    "notes": "P2 read-only hosting/dashboard/sync, tenant isolation, acceptance manifests, signed opt-in webhooks and forge adapters. Real HTTP listener, Chromium interaction and container startup checks pass in CI. Production TLS/deployment and live alternative-forge compatibility remain outside automated fixture qualification."
   },
   {
     "id": "PRD-197",
     "line": 587,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- GitLab/Forgejo support behind forge adapters; GitHub remains initial priority.",
-    "status": "pending",
-    "evidence": []
+    "status": "external_qualification_pending",
+    "evidence": [
+      "src/http/server.ts",
+      "dashboard/src/App.tsx",
+      "src/forges/gitlab.ts",
+      "src/forges/forgejo.ts",
+      "src/repository/manifests.ts",
+      "src/github/webhooks.ts",
+      "tests/http-server.test.ts",
+      "tests/dashboard.test.ts",
+      "tests/gitlab.test.ts",
+      "tests/forgejo.test.ts",
+      "tests/webhooks.test.ts"
+    ],
+    "feature": "p2",
+    "notes": "P2 read-only hosting/dashboard/sync, tenant isolation, acceptance manifests, signed opt-in webhooks and forge adapters. Real HTTP listener, Chromium interaction and container startup checks pass in CI. Production TLS/deployment and live alternative-forge compatibility remain outside automated fixture qualification."
   },
   {
     "id": "PRD-198",
     "line": 588,
     "section": "12. Scope, milestones, and implementation plan",
     "requirement": "- Improved contribution analytics tied to actual merge outcomes.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "src/http/server.ts",
+      "dashboard/src/App.tsx",
+      "src/forges/gitlab.ts",
+      "src/forges/forgejo.ts",
+      "src/repository/manifests.ts",
+      "src/github/webhooks.ts",
+      "tests/http-server.test.ts",
+      "tests/dashboard.test.ts",
+      "tests/gitlab.test.ts",
+      "tests/forgejo.test.ts",
+      "tests/webhooks.test.ts"
+    ],
+    "feature": "p2",
+    "notes": "P2 read-only hosting/dashboard/sync, tenant isolation, acceptance manifests, signed opt-in webhooks and forge adapters. Real HTTP listener, Chromium interaction and container startup checks pass in CI. Production TLS/deployment and live alternative-forge compatibility remain outside automated fixture qualification."
   },
   {
     "id": "PRD-199",
     "line": 649,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] New user can start with **no repository or issue URL**.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-200",
     "line": 650,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Asks only three onboarding questions (or fewer when preferences exist).",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-201",
     "line": 651,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Searches multiple repositories matching the selected languages and difficulty.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-202",
     "line": 652,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Automatically picks a verified issue rather than demanding a manual shortlist decision.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-203",
     "line": 653,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Rejects seeded fixtures with comments, assignees, unofficial authors, linked/competing PRs, or project bans.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-204",
     "line": 654,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Saves eligibility evidence and timestamp; unknown data never becomes \"verified\".",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-205",
     "line": 658,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Finds and follows repository contribution rules, project-specific agent instructions and PR templates.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-206",
     "line": 659,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Identifies relevant code/tests and produces a concrete implementation plan.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-207",
     "line": 660,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Supports agent implementation without adding a second paid model dependency.",
-    "status": "pending",
-    "evidence": []
+    "status": "host_assisted",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-208",
     "line": 661,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Prevents unrelated edits and checks secrets/dirty worktree before commit.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-209",
     "line": 662,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Runs actual applicable project checks and reports skipped/unavailable honestly.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-210",
     "line": 663,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Rechecks candidate eligibility immediately before publication.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/onboarding.test.ts",
+      "tests/eligibility.test.ts",
+      "tests/policies.test.ts",
+      "tests/indexing.test.ts",
+      "tests/quality.test.ts",
+      "tests/evidence.test.ts",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts"
+    ],
+    "feature": "discovery_contribution_acceptance",
+    "notes": "Local fixtures establish covered behavior, including six actual native fail/fix/pass workflows; live-client semantic investigation and live real-repository acceptance are not inferred from fixtures."
   },
   {
     "id": "PRD-211",
     "line": 667,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Detection fixtures cover the 12 initial adapter ecosystems plus mixed-language monorepos.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/environment.test.ts",
+      "tests/generic.test.ts",
+      "tests/security-recovery.test.ts",
+      ".github/workflows/ci.yml",
+      "docs/language-adapters.md"
+    ],
+    "feature": "language_acceptance",
+    "notes": "12 planning/detection fixtures plus mixed scopes/generic fallback/missing tools. Cross-platform check/package jobs pass, alongside native command execution for all 12 initial adapters."
   },
   {
     "id": "PRD-212",
     "line": 668,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Generic adapter works for an unknown-language fixture without crashing.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/environment.test.ts",
+      "tests/generic.test.ts",
+      "tests/security-recovery.test.ts",
+      ".github/workflows/ci.yml",
+      "docs/language-adapters.md"
+    ],
+    "feature": "language_acceptance",
+    "notes": "12 planning/detection fixtures plus mixed scopes/generic fallback/missing tools. Cross-platform check/package jobs pass, alongside native command execution for all 12 initial adapters."
   },
   {
     "id": "PRD-213",
     "line": 669,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Missing compilers or build dependencies produce accurate `UNAVAILABLE`, not `PASS`.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/environment.test.ts",
+      "tests/generic.test.ts",
+      "tests/security-recovery.test.ts",
+      ".github/workflows/ci.yml",
+      "docs/language-adapters.md"
+    ],
+    "feature": "language_acceptance",
+    "notes": "12 planning/detection fixtures plus mixed scopes/generic fallback/missing tools. Cross-platform check/package jobs pass, alongside native command execution for all 12 initial adapters."
   },
   {
     "id": "PRD-214",
     "line": 670,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Windows/macOS/Linux command handling covered by CI or documented compatibility tests.",
-    "status": "pending",
-    "evidence": []
+    "status": "verified_ci",
+    "evidence": [
+      "tests/environment.test.ts",
+      "tests/generic.test.ts",
+      "tests/security-recovery.test.ts",
+      ".github/workflows/ci.yml",
+      "docs/language-adapters.md",
+      "docs/evidence/ci-validation.json"
+    ],
+    "feature": "language_acceptance",
+    "notes": "12 planning/detection fixtures plus mixed scopes/generic fallback/missing tools. Cross-platform check/package jobs pass, alongside native command execution for all 12 initial adapters. Recorded CI qualification is scoped to the jobs in ci-validation.json; Cursor, full model turns and production/live-service writes are not implied."
   },
   {
     "id": "PRD-215",
     "line": 674,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Does not publish without approval.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/approvals.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_acceptance",
+    "notes": "Permission and publication/review invariants have controlled tests and real native Git history; no real PR has been opened by this qualification run."
   },
   {
     "id": "PRD-216",
     "line": 675,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Can open a valid PR from an authorized fork with correct issue reference/template.",
-    "status": "pending",
-    "evidence": []
+    "status": "external_qualification_pending",
+    "evidence": [
+      "tests/approvals.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_acceptance",
+    "notes": "Permission and publication/review invariants have controlled tests and real native Git history; no real PR has been opened by this qualification run."
   },
   {
     "id": "PRD-217",
     "line": 676,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Does not claim a reviewer request succeeded without API confirmation.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/approvals.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_acceptance",
+    "notes": "Permission and publication/review invariants have controlled tests and real native Git history; no real PR has been opened by this qualification run."
   },
   {
     "id": "PRD-218",
     "line": 677,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Handles no reviewer-request permissions and CODEOWNERS gracefully.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/approvals.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_acceptance",
+    "notes": "Permission and publication/review invariants have controlled tests and real native Git history; no real PR has been opened by this qualification run."
   },
   {
     "id": "PRD-219",
     "line": 678,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Never auto-pings unrelated maintainers.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/approvals.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_acceptance",
+    "notes": "Permission and publication/review invariants have controlled tests and real native Git history; no real PR has been opened by this qualification run."
   },
   {
     "id": "PRD-220",
     "line": 679,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Resume after crash cannot accidentally open a duplicate PR.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/approvals.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_acceptance",
+    "notes": "Permission and publication/review invariants have controlled tests and real native Git history; no real PR has been opened by this qualification run."
   },
   {
     "id": "PRD-221",
     "line": 680,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- [ ] Reports PR `opened` separately from `merged`.",
-    "status": "pending",
-    "evidence": []
+    "status": "implemented_local",
+    "evidence": [
+      "tests/approvals.test.ts",
+      "tests/publication-recovery.test.ts",
+      "tests/review-recovery.test.ts",
+      "tests/monitor.test.ts",
+      "tests/workflow-e2e.test.ts"
+    ],
+    "feature": "publication_acceptance",
+    "notes": "Permission and publication/review invariants have controlled tests and real native Git history; no real PR has been opened by this qualification run."
   },
   {
     "id": "PRD-222",
     "line": 689,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- 95%+ of sampled \u201cverified eligible\u201d claims match observed issue metadata at time of check.",
-    "status": "pending",
-    "evidence": []
+    "status": "beta_metric_unmeasured",
+    "evidence": [
+      "docs/release-report.md",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "launch_metrics",
+    "notes": "Aspirational beta metrics are not measured from production samples. Six distinct native ecosystem fixture dry runs pass locally; no real maintainer outcome or statistical eligibility accuracy claim is made."
   },
   {
     "id": "PRD-223",
     "line": 690,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- 100% of public GitHub write operations have recorded explicit consent.",
-    "status": "pending",
-    "evidence": []
+    "status": "beta_metric_unmeasured",
+    "evidence": [
+      "docs/release-report.md",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "launch_metrics",
+    "notes": "Aspirational beta metrics are not measured from production samples. Six distinct native ecosystem fixture dry runs pass locally; no real maintainer outcome or statistical eligibility accuracy claim is made."
   },
   {
     "id": "PRD-224",
     "line": 691,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- 100% of claimed test passes have verifiable command output.",
-    "status": "pending",
-    "evidence": []
+    "status": "beta_metric_unmeasured",
+    "evidence": [
+      "docs/release-report.md",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "launch_metrics",
+    "notes": "Aspirational beta metrics are not measured from production samples. Six distinct native ecosystem fixture dry runs pass locally; no real maintainer outcome or statistical eligibility accuracy claim is made."
   },
   {
     "id": "PRD-225",
     "line": 692,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- 0 deliberate policy-bypassing PRs or repeated unsolicited maintainer pings.",
-    "status": "pending",
-    "evidence": []
+    "status": "beta_metric_unmeasured",
+    "evidence": [
+      "docs/release-report.md",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "launch_metrics",
+    "notes": "Aspirational beta metrics are not measured from production samples. Six distinct native ecosystem fixture dry runs pass locally; no real maintainer outcome or statistical eligibility accuracy claim is made."
   },
   {
     "id": "PRD-226",
     "line": 693,
     "section": "13. Definition of done and acceptance tests",
     "requirement": "- Successful end-to-end dry-run contributions across at least 6 distinct language ecosystems before broad public marketing.",
-    "status": "pending",
-    "evidence": []
+    "status": "verified_controlled_native_dry_runs",
+    "evidence": [
+      "docs/release-report.md",
+      "tests/workflow-e2e.test.ts",
+      "tests/multilanguage-e2e.test.ts",
+      "docs/evidence/native"
+    ],
+    "feature": "launch_metrics",
+    "notes": "Aspirational beta metrics are not measured from production samples. Six distinct native ecosystem fixture dry runs pass locally; no real maintainer outcome or statistical eligibility accuracy claim is made."
   },
   {
     "id": "PRD-227",
     "line": 715,
     "section": "15. Research references and implementation constraints",
     "requirement": "1. MCP tool model and client interaction patterns: https://modelcontextprotocol.io/specification/2026-07-28/server/tools",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-228",
     "line": 716,
     "section": "15. Research references and implementation constraints",
     "requirement": "2. Official MCP specification repository: https://github.com/modelcontextprotocol/modelcontextprotocol",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-229",
     "line": 717,
     "section": "15. Research references and implementation constraints",
     "requirement": "3. GitHub repository contributor guidelines: https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-230",
     "line": 718,
     "section": "15. Research references and implementation constraints",
     "requirement": "4. GitHub CODEOWNERS behavior: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-231",
     "line": 719,
     "section": "15. Research references and implementation constraints",
     "requirement": "5. GitHub pull request review requests and permissions: https://docs.github.com/en/rest/pulls/review-requests",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-232",
     "line": 720,
     "section": "15. Research references and implementation constraints",
     "requirement": "6. GitHub REST rate limits: https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-233",
     "line": 721,
     "section": "15. Research references and implementation constraints",
     "requirement": "7. GitHub GraphQL rate and query limits: https://docs.github.com/en/graphql/overview/rate-limits-and-query-limits-for-the-graphql-api",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-234",
     "line": 722,
     "section": "15. Research references and implementation constraints",
     "requirement": "8. GitHub pull request templates/standardization: https://docs.github.com/en/pull-requests/reference/managing-and-standardizing-pull-requests",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-235",
     "line": 723,
     "section": "15. Research references and implementation constraints",
     "requirement": "9. GitHub search documentation: https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   },
   {
     "id": "PRD-236",
     "line": 724,
     "section": "15. Research references and implementation constraints",
     "requirement": "10. GitHub GraphQL API explorer/reference: https://docs.github.com/en/graphql",
-    "status": "pending",
-    "evidence": []
+    "status": "reference_reviewed",
+    "evidence": [
+      "docs/references.md"
+    ],
+    "feature": "official_references",
+    "notes": "Official specifications/docs reviewed; source review does not substitute for runtime interoperability or live API qualification."
   }
 ]

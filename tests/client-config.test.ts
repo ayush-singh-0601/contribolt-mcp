@@ -1,4 +1,4 @@
-import { it, expect } from 'vitest';
+import { it, expect, vi } from 'vitest';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parse as toml } from 'smol-toml';
 import { parse as jsonc } from 'jsonc-parser';
@@ -29,6 +29,26 @@ it('merges all three project configurations idempotently and preserves other ser
     expect(readFileSync(f.root + '/.mcp.json', 'utf8')).toContain('// keep this comment');
     expect(readFileSync(f.root + '/.mergepilot/.gitignore', 'utf8')).toBe('*\n');
   } finally {
+    f.cleanup();
+  }
+});
+it('forwards Codex credential names without writing secret values to project configuration', () => {
+  const f = fixture();
+  vi.stubEnv('MERGEPILOT_GITHUB_TOKEN', 'private-credential-fixture');
+  vi.stubEnv(
+    'MERGEPILOT_FORGES',
+    JSON.stringify([{ kind: 'gitlab', host: 'gitlab.com', tokenEnv: 'CUSTOM_FORGE_TOKEN' }]),
+  );
+  try {
+    const result = configureClient('codex', f.root, true),
+      text = readFileSync(result.file, 'utf8'),
+      entry = (toml(text).mcp_servers as any).mergepilot;
+    expect(entry.env_vars).toContain('MERGEPILOT_GITHUB_TOKEN');
+    expect(entry.env_vars).toContain('CUSTOM_FORGE_TOKEN');
+    expect(text).not.toContain('private-credential-fixture');
+    expect(text).not.toContain('"token":');
+  } finally {
+    vi.unstubAllEnvs();
     f.cleanup();
   }
 });

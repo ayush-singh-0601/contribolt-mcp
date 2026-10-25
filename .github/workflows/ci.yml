@@ -1,10 +1,28 @@
 name: verify
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Collect dependency advisory details
+        run: npm audit --audit-level=high
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: complete-dependency-lock
+          path: package-lock.json
+      - run: git diff --exit-code -- package-lock.json
   test:
+    needs: lockfile
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node: [24]
@@ -16,14 +34,20 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
       - run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: npm run check
       - run: npm pack --ignore-scripts
+      - run: python scripts/audit-package.py mergepilot-mcp-0.1.0.tgz
       - run: python scripts/smoke-stdio.py
+      - run: python scripts/smoke-package.py
       - uses: actions/upload-artifact@v4
         with:
           name: npm-${{ matrix.os }}-node${{ matrix.node }}
           path: '*.tgz'
   sdk:
+    needs: lockfile
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,10 +56,11 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm install --no-save --package-lock=false @modelcontextprotocol/server@2.4.0
       - run: npm run build
-      - run: python3 scripts/smoke-stdio.py
+      - run: python3 scripts/smoke-stdio.py --require-sdk
+      - run: python3 scripts/smoke-stdio.py --require-sdk --modern
   browser:
+    needs: lockfile
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,3 +77,117 @@ jobs:
         with:
           name: browser-verification
           path: test-results/
+  codex:
+    needs: lockfile
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm install --global @openai/codex@0.163.0
+      - run: python3 scripts/smoke-codex.py
+  claude:
+    needs: lockfile
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm install --global @anthropic-ai/claude-code@2.1.284
+      - run: python3 scripts/smoke-claude.py
+  advisories:
+    needs: lockfile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=high
+  hosting:
+    needs: lockfile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t mergepilot:qualification .
+      - run: |
+          docker run -d --name mergepilot-smoke -p 127.0.0.1:5178:5178 mergepilot:qualification serve --host 0.0.0.0 --origin https://mergepilot.invalid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:5178/healthz; then exit 0; fi
+            sleep 1
+          done
+          docker logs mergepilot-smoke
+          exit 1
+      - if: always()
+        run: docker rm -f mergepilot-smoke || true
+  native:
+    needs: lockfile
+    strategy:
+      fail-fast: false
+      matrix:
+        adapter: [javascript, python, go, rust, java, kotlin, cpp, dotnet, ruby, php, swift, dart]
+    runs-on: ${{ matrix.adapter == 'swift' && 'macos-latest' || 'ubuntu-latest' }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-python@v5
+        if: matrix.adapter == 'python'
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@v5
+        if: matrix.adapter == 'go'
+        with:
+          go-version: '1.23'
+          cache: false
+      - uses: actions/setup-java@v4
+        if: matrix.adapter == 'java' || matrix.adapter == 'kotlin'
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        if: matrix.adapter == 'kotlin'
+        with:
+          gradle-version: '8.12'
+      - uses: actions/setup-dotnet@v4
+        if: matrix.adapter == 'dotnet'
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ruby/setup-ruby@v1
+        if: matrix.adapter == 'ruby'
+        with:
+          ruby-version: '3.3'
+      - uses: shivammathur/setup-php@v2
+        if: matrix.adapter == 'php'
+        with:
+          php-version: '8.3'
+          tools: composer
+      - uses: dart-lang/setup-dart@v1
+        if: matrix.adapter == 'dart'
+        with:
+          sdk: '3.7.3'
+      - if: matrix.adapter == 'rust'
+        run: rustup component add clippy rustfmt
+      - run: npm ci
+      - run: npm run build:server
+      - run: node scripts/smoke-adapters.mjs ${{ matrix.adapter }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-${{ matrix.adapter }}
+          path: qualification/native/

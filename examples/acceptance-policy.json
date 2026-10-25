@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "ai": "allowed_with_disclosure",
+  "externalPullRequests": true,
+  "disclosure": "Disclose the use of AI assistance in the pull request description.",
+  "maintainers": [],
+  "blockedLabels": ["blocked", "do not contribute"],
+  "reservedLabels": ["claimed"],
+  "requiredChecks": ["test"],
+  "requireDraft": false,
+  "allowAutoClosingReferences": false,
+  "cooldownHours": 24
+}

@@ -30,6 +30,27 @@ export async function inspectHealth(
     signal,
   );
   const exclusions = [...repo.exclusions];
+  const healthObservations = [
+    ...repo.healthObservations,
+    `Default branch ${repo.defaultBranch}; ${repo.fork ? 'fork' : 'source repository'}; latest push ${repo.updatedAt}`,
+    `Observed ${pulls.filter((p) => p.merged_at).length} merged PRs in the recent sample`,
+  ];
+  let latestReleaseAt: string | undefined;
+  try {
+    const release = await client.request<{ published_at: string | null }>(
+      'GET',
+      `/repos/${repo.fullName}/releases/latest`,
+      {},
+      signal,
+    );
+    latestReleaseAt = release.published_at ?? undefined;
+    healthObservations.push(
+      latestReleaseAt ? 'Latest release ' + latestReleaseAt : 'No published release timestamp',
+    );
+  } catch {
+    signal?.throwIfAborted();
+    healthObservations.push('Latest release unavailable or no published release');
+  }
   if (!repo.public || repo.archived || !repo.hasIssues)
     exclusions.push('Repository does not accept public issues');
   if (
@@ -42,5 +63,7 @@ export async function inspectHealth(
     languages: Object.keys(languages),
     health: healthScore(repo.updatedAt, pulls),
     exclusions,
+    healthObservations,
+    latestReleaseAt,
   };
 }

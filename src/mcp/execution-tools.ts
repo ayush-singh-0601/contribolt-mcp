@@ -5,13 +5,19 @@ import { planEnvironment } from '../languages/environment.js';
 import { trustedRegistry } from '../languages/extensions.js';
 import { cachedIndex, affectedDependents } from '../repository/cache.js';
 import { ingestExecutions } from '../execution/evidence.js';
+import { CommandSchema, type CheckCommand } from '../core/models.js';
+import { within } from '../security/boundaries.js';
+import { redact } from '../core/audit.js';
+import { ciCommandCandidates } from '../languages/ci.js';
 export function registerExecution(app: Application) {
   app.tools.delete('get_execution_plan');
   app.register({
     name: 'get_execution_plan',
     description:
       'Discover native checks and provide host-approved wrapper invocations. No repository script runs inside this MCP call.',
-    schema: sessionInput,
+    schema: sessionInput.extend({
+      additionalCommands: z.array(CommandSchema.strict()).max(20).optional(),
+    }),
     readOnly: false,
     publicWrite: false,
     handler: async (a) => {
@@ -19,6 +25,17 @@ export function registerExecution(app: Application) {
         s = app.store.get(id);
       if (!s.workspace || !s.analysis || s.stopped)
         throw new Error('Active analyzed workspace required');
+      const extra =
+        (a.additionalCommands as CheckCommand[] | undefined) ??
+        app.store.read<CheckCommand[]>('extra-commands', id) ??
+        [];
+      for (const c of extra) {
+        within(s.workspace, c.cwd);
+        if (JSON.stringify(redact(c)) !== JSON.stringify(c))
+          throw new Error('Command plan contains a potential secret');
+        if (c.kind === 'bootstrap' && !c.network)
+          throw new Error('Bootstrap commands require explicit network review');
+      }
       const index = await cachedIndex(
           app.store,
           s.workspace,
@@ -30,13 +47,19 @@ export function registerExecution(app: Application) {
           await trustedRegistry(app.store),
           affectedDependents(index, s.analysis.files),
         );
+      const commands = [...plan.commands, ...extra];
+      if (new Set(commands.map((c) => c.id)).size !== commands.length)
+        throw new Error('Additional command IDs must be unique');
+      app.store.put('extra-commands', id, extra);
       app.store.mutate(id, (x) => {
-        x.commands = plan.commands;
+        x.commands = commands;
         x.publishApproved = false;
       });
       return {
         ...plan,
-        invocations: plan.commands.map((c) => ({
+        commands,
+        ciCommandCandidates: ciCommandCandidates(index),
+        invocations: commands.map((c) => ({
           id: c.id,
           executable: 'mergepilot',
           args: ['run-check', id, c.id, '--host-approved'],

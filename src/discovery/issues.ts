@@ -14,6 +14,7 @@ export interface RawIssue {
   labels: ({ name: string } | string)[];
   pull_request?: unknown;
   milestone?: { title: string; description?: string };
+  updated_at?: string;
 }
 export function mapIssue(repo: Repository, raw: RawIssue): IssueEvidence {
   return IssueSchema.parse({
@@ -22,6 +23,10 @@ export function mapIssue(repo: Repository, raw: RawIssue): IssueEvidence {
     issueNumber: raw.number,
     title: raw.title,
     body: raw.body ?? '',
+    updatedAt: raw.updated_at,
+    reservationHints: raw.milestone
+      ? [raw.milestone.title + ' ' + (raw.milestone.description ?? '')]
+      : [],
     checkedAt: new Date().toISOString(),
     open: raw.state === 'open',
     isPullRequest: !!raw.pull_request,

@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-27T09:50:45.101804+00:00",
+  "node": "24.22.1",
+  "platform": "linux",
+  "command": "npm run check",
+  "exitCode": 0,
+  "testFilesPassed": 78,
+  "testsPassed": 116,
+  "testsSkipped": 1,
+  "skipReason": "Managed environment denies real loopback binding (EPERM)",
+  "serverTypecheck": "PASS",
+  "dashboardTypecheck": "PASS",
+  "serverBuild": "PASS",
+  "dashboardBuild": "PASS",
+  "stdio": {
+    "status": "PASS",
+    "transport": "compatibility",
+    "protocol": "legacy-handshake",
+    "tools": 21,
+    "prompts": 6,
+    "checks": [
+      "initialization",
+      "tools",
+      "prompts",
+      "resources",
+      "onboarding",
+      "two-answer defaults",
+      "approval denial",
+      "stop",
+      "resume"
+    ],
+    "publicWrites": 0
+  },
+  "nativeEcosystems": [
+    "Python",
+    "Rust",
+    "Java",
+    "C",
+    "Shell",
+    "Perl"
+  ],
+  "liveForgeWritesExercised": false,
+  "officialSdkInstalled": false,
+  "dedicatedNativeAdapters": [
+    "rust",
+    "cpp"
+  ],
+  "scope": "Earlier restricted-host baseline, before final dependency updates; final locked dependencies and release candidate are qualified by ci-validation.json",
+  "transcript": "local-check.txt"
+}

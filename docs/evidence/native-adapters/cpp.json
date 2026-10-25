@@ -1,0 +1,154 @@
+{
+  "status": "PASS",
+  "adapter": "cpp",
+  "checkedAt": "2026-10-27T09:45:47.333Z",
+  "platform": "linux",
+  "node": "24.22.1",
+  "checks": [
+    {
+      "command": {
+        "id": "fixture-prepare",
+        "name": "Fixture setup",
+        "kind": "bootstrap",
+        "executable": "cmake",
+        "args": [
+          "-S",
+          ".",
+          "-B",
+          "build"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": true,
+        "timeoutMs": 600000,
+        "source": "qualification fixture"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "-- The C compiler identification is GNU 16.2.1\n-- Detecting C compiler ABI info\n-- Detecting C compiler ABI info - done\n-- Check for working C compiler: /usr/bin/cc - skipped\n-- Detecting C compile features\n-- Detecting C compile features - done\n-- Configuring done (0.2s)\n-- Generating done (0.0s)\n-- Build files have been written to: <fixture>/build\n",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "fixture-prepare",
+        "name": "Fixture setup",
+        "kind": "bootstrap",
+        "executable": "cmake",
+        "args": [
+          "--build",
+          "build"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": true,
+        "timeoutMs": 600000,
+        "source": "qualification fixture"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "[ 50%] Building C object CMakeFiles/increment_test.dir/increment_test.c.o\n[100%] Linking C executable increment_test\n[100%] Built target increment_test\n",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "cpp:bootstrap:a91dff1417",
+        "name": "cpp bootstrap",
+        "kind": "bootstrap",
+        "executable": "cmake",
+        "args": [
+          "-S",
+          ".",
+          "-B",
+          "build"
+        ],
+        "cwd": "<fixture>",
+        "required": false,
+        "network": true,
+        "timeoutMs": 600000,
+        "source": "CMakeLists.txt"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "-- Configuring done (0.0s)\n-- Generating done (0.0s)\n-- Build files have been written to: <fixture>/build\n",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "cpp:test:8ca5d35016",
+        "name": "cpp test",
+        "kind": "test",
+        "executable": "ctest",
+        "args": [
+          "--test-dir",
+          "build",
+          "--output-on-failure"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": false,
+        "timeoutMs": 600000,
+        "source": "CMakeLists.txt"
+      },
+      "expected": "FAIL",
+      "status": "FAIL",
+      "exitCode": 8,
+      "output": "Internal ctest changing into directory: <fixture>/build\nTest project <fixture>/build\n    Start 1: increment\n1/1 Test #1: increment ........................***Failed    0.00 sec\nincrement failed\n\n\n0% tests passed, 1 tests failed out of 1\n\nTotal Test time (real) =   0.00 sec\n\nThe following tests FAILED:\n\t  1 - increment (Failed)\nErrors while running CTest\n",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "cpp:build:d36720e9bf",
+        "name": "cpp build",
+        "kind": "build",
+        "executable": "cmake",
+        "args": [
+          "--build",
+          "build"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": false,
+        "timeoutMs": 600000,
+        "source": "CMakeLists.txt"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "[ 50%] Building C object CMakeFiles/increment_test.dir/increment_test.c.o\n[100%] Linking C executable increment_test\n[100%] Built target increment_test\n",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "cpp:test:8ca5d35016",
+        "name": "cpp test",
+        "kind": "test",
+        "executable": "ctest",
+        "args": [
+          "--test-dir",
+          "build",
+          "--output-on-failure"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": false,
+        "timeoutMs": 600000,
+        "source": "CMakeLists.txt"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "Internal ctest changing into directory: <fixture>/build\nTest project <fixture>/build\n    Start 1: increment\n1/1 Test #1: increment ........................   Passed    0.00 sec\n\n100% tests passed, 0 tests failed out of 1\n\nTotal Test time (real) =   0.00 sec\n",
+      "unavailable": false,
+      "cancelled": false
+    }
+  ],
+  "publicWrites": 0
+}

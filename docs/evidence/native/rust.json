@@ -1,6 +1,6 @@
 {
   "ecosystem": "Rust",
-  "checkedAt": "2026-10-25T21:01:12.041Z",
+  "checkedAt": "2026-10-25T21:15:12.082Z",
   "forge": "controlled fixture responses",
   "command": {
     "executable": "sh",
@@ -11,9 +11,9 @@
   "baseline": {
     "status": "FAIL",
     "exitCode": 101,
-    "output": "\nthread 'main' (316) panicked at main.rs:2:13:\nassertion `left == right` failed\n  left: 1\n right: 2\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n",
-    "capturedOutputHash": "7cb097eaa11981512fd7a0921323c774e32de37ffd347ec7dafe3750edc3f281",
-    "normalizedOutputHash": "7cb097eaa11981512fd7a0921323c774e32de37ffd347ec7dafe3750edc3f281"
+    "output": "\nthread 'main' (546) panicked at main.rs:2:13:\nassertion `left == right` failed\n  left: 1\n right: 2\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n",
+    "capturedOutputHash": "8cc68bb9dc50157e9e7cf936f80038ba8f2a13621f2084e8f9f82a5dfe100bdc",
+    "normalizedOutputHash": "8cc68bb9dc50157e9e7cf936f80038ba8f2a13621f2084e8f9f82a5dfe100bdc"
   },
   "fixed": {
     "status": "PASS",

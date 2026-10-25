@@ -15,6 +15,7 @@ import { scoreCandidate, selectCandidate } from './ranking.js';
 import { policySources } from '../repository/policy-sources.js';
 import { classifyPolicy } from '../repository/policies.js';
 import { collectHistory, historicalHealth, type HistoricalMetrics } from './history.js';
+import { reservationSources } from './reservations.js';
 export class DiscoveryEngine {
   constructor(
     readonly client: GitHubClient,
@@ -65,7 +66,7 @@ export class DiscoveryEngine {
         result.push({ ...repo, exclusions: ['Repository health evidence unavailable'] });
       }
     }
-    return result;
+    return rankRepositories(result, preferences);
   }
   async verify(
     repo: Repository,
@@ -79,6 +80,13 @@ export class DiscoveryEngine {
       competing = await competingWork(this.client, issue, signal),
       sources = await policySources(this.client, repo, signal),
       policy = classifyPolicy(sources.documents, sources.complete, repo);
+    const reservations = await reservationSources(
+      this.client,
+      repo,
+      issue,
+      sources.documents,
+      signal,
+    );
     this.store.put('policies', policyKey(repo), { ...sources, decision: policy });
     this.store.put('competing-evidence', issue.url, { ...competing, checkedAt: issue.checkedAt });
     issue = {
@@ -87,7 +95,12 @@ export class DiscoveryEngine {
       knownLinkedPRs: linked.urls,
       competingPRs: competing.confirmed,
       competingPRScanComplete: linked.complete && competing.complete && !competing.possible.length,
-      reserved: reservation(issue.body, issue.labels, linked.reservations),
+      reserved: reservation(
+        issue.body,
+        issue.labels,
+        [...linked.reservations, ...reservations.reservations],
+        reservations.complete,
+      ),
       repositoryPolicy: issueAcceptance(policy, issue.labels),
       evidence: [...author.evidence, ...policy.evidence],
       evidenceUrls: [
@@ -98,6 +111,7 @@ export class DiscoveryEngine {
           ...linked.urls,
           ...competing.confirmed,
           ...competing.possible,
+          ...reservations.urls,
         ]),
       ],
       confidence: policy.policy === 'ALLOWED' ? 'medium' : 'high',
@@ -141,4 +155,23 @@ export class DiscoveryEngine {
     }
     return { candidates, ...selectCandidate(candidates) };
   }
+}
+export function rankRepositories(repos: Repository[], preferences: Preferences): Repository[] {
+  const value = (repo: Repository) => {
+    const popularity = Math.min(1, Math.log10(repo.stars + 1) / 5);
+    return (
+      repo.health * 0.8 +
+      (preferences.repositoryPreference === 'popular'
+        ? popularity * 0.2
+        : preferences.repositoryPreference === 'small_active'
+          ? (1 - popularity) * 0.2
+          : repo.health * 0.2)
+    );
+  };
+  return [...repos].sort(
+    (a, b) =>
+      Number(!!a.exclusions.length) - Number(!!b.exclusions.length) ||
+      value(b) - value(a) ||
+      a.fullName.localeCompare(b.fullName),
+  );
 }

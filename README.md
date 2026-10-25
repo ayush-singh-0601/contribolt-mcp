@@ -4,7 +4,7 @@ Answer three questions. Discover a contribution opportunity. Guide your coding a
 
 MergePilot is a local TypeScript MCP server for Codex CLI, Claude Code, Cursor, and compatible clients. Your existing agent reads and edits code. MergePilot handles discovery, dated eligibility evidence, contribution policies, native check plans, exact publication approvals, and a resumable journal. It needs no separate model subscription or mandatory hosted backend.
 
-This is an unpublished development release. Local checks and controlled workflows are exercised; live forge/client interoperability and additional release qualification remain outstanding. Read [the release report](docs/release-report.md) before using it with real projects.
+This is an unpublished development release for user acceptance testing. Automated qualification covers the three supported operating systems, official MCP SDK, Codex and Claude connections, all 12 native adapters, browser behavior, packaging and container startup. Read [the release report](docs/release-report.md) for the exact evidence and remaining live-service/user checks.
 
 ## Build and connect
 
@@ -13,10 +13,11 @@ Requirements: Node.js 24 or newer, npm, Git, a coding client, and GitHub authent
 ```sh
 npm ci
 npm run check
+node dist/cli.js doctor --json
 node dist/cli.js configure codex --local --project /absolute/path/to/your/project
 ```
 
-Use `claude` or `cursor` instead of `codex` for those clients. Restart/enable the server in your client, then say **“Find me an open-source contribution.”** The generated configuration points to this built checkout and stores private session data in your project's ignored `.mergepilot` directory. [Client setup](docs/clients.md) explains configuration merging, the optional pinned SDK, and transport compatibility. The npx form requires a published npm package; use `--local` for this checkout.
+Use `claude` or `cursor` instead of `codex` for those clients. Restart/enable the server in your client, then say **“Find me an open-source contribution.”** The generated configuration points to this built checkout and stores private session data in your project's ignored `.mergepilot` directory. [Client setup](docs/clients.md) explains configuration merging, the pinned SDK, and transport compatibility. The npx form requires a published npm package; use `--local` for this checkout.
 
 The three preferences are languages/stacks, challenge level, and repository preference/domain. “Any” defaults work throughout; a missing third answer gets a displayed default. Saved preferences require `remember: true`. You do not need to find a repository or supply an issue URL. The host follows `nextAction`, automatically selects a sufficiently strong verified candidate, investigates the repository, and applies a focused fix.
 

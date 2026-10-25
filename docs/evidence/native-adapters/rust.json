@@ -1,0 +1,172 @@
+{
+  "status": "PASS",
+  "adapter": "rust",
+  "checkedAt": "2026-10-27T09:44:47.527Z",
+  "platform": "linux",
+  "node": "24.22.1",
+  "checks": [
+    {
+      "command": {
+        "id": "fixture-prepare",
+        "name": "Fixture setup",
+        "kind": "bootstrap",
+        "executable": "cargo",
+        "args": [
+          "generate-lockfile"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": true,
+        "timeoutMs": 600000,
+        "source": "qualification fixture"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "rust:bootstrap:40c4a24ac2",
+        "name": "rust bootstrap",
+        "kind": "bootstrap",
+        "executable": "cargo",
+        "args": [
+          "fetch",
+          "--locked"
+        ],
+        "cwd": "<fixture>",
+        "required": false,
+        "network": true,
+        "timeoutMs": 600000,
+        "source": "Cargo.toml"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "rust:test:a0cb926559",
+        "name": "rust test",
+        "kind": "test",
+        "executable": "cargo",
+        "args": [
+          "test",
+          "--locked"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": false,
+        "timeoutMs": 600000,
+        "source": "Cargo.toml"
+      },
+      "expected": "FAIL",
+      "status": "FAIL",
+      "exitCode": 101,
+      "output": "   Compiling native-fixture v0.1.0 (<fixture>)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.22s\n     Running unittests src/lib.rs (target/debug/deps/native_fixture-79d86bda199777fd)\n\nrunning 1 test\ntest tests::increments_input ... FAILED\n\nfailures:\n\n---- tests::increments_input stdout ----\n\nthread 'tests::increments_input' (125) panicked at src/lib.rs:9:9:\nassertion `left == right` failed\n  left: 1\n right: 2\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\n\nfailures:\n    tests::increments_input\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\nerror: test failed, to rerun pass `--lib`\n",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "rust:test:a0cb926559",
+        "name": "rust test",
+        "kind": "test",
+        "executable": "cargo",
+        "args": [
+          "test",
+          "--locked"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": false,
+        "timeoutMs": 600000,
+        "source": "Cargo.toml"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "   Compiling native-fixture v0.1.0 (<fixture>)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.14s\n     Running unittests src/lib.rs (target/debug/deps/native_fixture-79d86bda199777fd)\n\nrunning 1 test\ntest tests::increments_input ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n   Doc-tests native_fixture\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "rust:lint:94740498b7",
+        "name": "rust lint",
+        "kind": "lint",
+        "executable": "cargo",
+        "args": [
+          "clippy",
+          "--all-targets",
+          "--locked"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": false,
+        "timeoutMs": 600000,
+        "source": "Cargo.toml"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "    Checking native-fixture v0.1.0 (<fixture>)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s\n",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "rust:format_check:00dadbb2de",
+        "name": "rust format_check",
+        "kind": "format_check",
+        "executable": "cargo",
+        "args": [
+          "fmt",
+          "--",
+          "--check"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": false,
+        "timeoutMs": 600000,
+        "source": "Cargo.toml"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "",
+      "unavailable": false,
+      "cancelled": false
+    },
+    {
+      "command": {
+        "id": "rust:build:81c04d8fc3",
+        "name": "rust build",
+        "kind": "build",
+        "executable": "cargo",
+        "args": [
+          "build",
+          "--locked"
+        ],
+        "cwd": "<fixture>",
+        "required": true,
+        "network": false,
+        "timeoutMs": 600000,
+        "source": "Cargo.toml"
+      },
+      "expected": "PASS",
+      "status": "PASS",
+      "exitCode": 0,
+      "output": "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s\n",
+      "unavailable": false,
+      "cancelled": false
+    }
+  ],
+  "publicWrites": 0
+}

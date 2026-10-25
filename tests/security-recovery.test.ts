@@ -122,21 +122,18 @@ it('disables repository-created hooks and rejects executable local Git configura
     repo.cleanup();
   }
 });
-it('refuses external Git pointers and state/artifact/tenant symlinks', async (context) => {
-  if (process.platform === 'win32') {
-    context.skip();
-    return;
-  }
+it('refuses external Git pointers and state/artifact/tenant symlinks', async () => {
   const f = fixture({ '.git': 'gitdir: /tmp/outside\n' }),
     outside = fixture(),
     store = new Store(f.root);
   try {
     await expect(git(f.root, ['status'])).rejects.toThrow('external Git metadata');
     const s = store.create(PreferencesSchema.parse({}));
-    symlinkSync(outside.root, f.root + '/artifacts', 'dir');
+    const linkType = process.platform === 'win32' ? 'junction' : 'dir';
+    symlinkSync(outside.root, f.root + '/artifacts', linkType);
     expect(() => store.artifact(s.id, 'outside.log', 'no')).toThrow('Symbolic links');
     expect(existsSync(outside.root + '/outside.log')).toBe(false);
-    symlinkSync(outside.root, f.root + '/tenants', 'dir');
+    symlinkSync(outside.root, f.root + '/tenants', linkType);
     const service = new HttpService(store);
     expect(() => service.tenant('other')).toThrow('Symbolic links');
     await service.close();
