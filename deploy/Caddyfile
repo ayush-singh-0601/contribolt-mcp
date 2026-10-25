@@ -1,0 +1,3 @@
+{$MERGEPILOT_DOMAIN} {
+  reverse_proxy mergepilot:5178
+}

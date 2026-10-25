@@ -22,13 +22,15 @@
     "dashboard"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "npm run build:server && npm run build:dashboard && node scripts/package-dashboard.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p dashboard/tsconfig.json",
     "test": "vitest run",
     "check": "npm run typecheck && npm test && npm run build",
     "start": "node dist/cli.js",
     "prepack": "npm run build",
-    "build:dashboard": "npm run build --workspace=@mergepilot/dashboard"
+    "build:dashboard": "npm run build --workspace=@mergepilot/dashboard",
+    "build:server": "tsc -p tsconfig.json",
+    "test:browser": "playwright test"
   },
   "dependencies": {
     "@octokit/core": "7.0.6",

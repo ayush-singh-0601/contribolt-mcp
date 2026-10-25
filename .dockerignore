@@ -1,0 +1,13 @@
+.git
+node_modules
+dist
+dashboard/dist
+.mergepilot
+.env
+**/.env
+**/*.sqlite*
+test-results
+playwright-report
+.aws
+.codex
+.agents
