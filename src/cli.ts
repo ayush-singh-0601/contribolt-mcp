@@ -10,6 +10,7 @@ import {registerDiscovery} from './mcp/discovery-tools.js';
 import {registerAnalysis} from './mcp/analysis-tools.js';
 import {registerExecution} from './mcp/execution-tools.js';
 import {executeCheck} from './execution/runner.js';
+import {registerQuality} from './mcp/quality-tools.js';
 async function main(){
   const command=process.argv[2]??'mcp';
   if(command==='--version'){console.log(VERSION);return;}
@@ -25,6 +26,7 @@ async function main(){
   registerDiscovery(application);
   registerAnalysis(application);
   registerExecution(application);
+  registerQuality(application);
   process.once('SIGTERM',()=>{store.close();process.exit(0);});
   if(await serveOfficialSdk(application))return;
   console.error('Official MCP SDK v2 unavailable; using the tested 2025-06-18 compatibility transport. Install @modelcontextprotocol/server for the 2026 protocol.');
