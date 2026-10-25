@@ -1,0 +1,35 @@
+{
+  "ecosystem": "Java",
+  "checkedAt": "2026-10-25T21:01:13.555Z",
+  "forge": "controlled fixture responses",
+  "command": {
+    "executable": "sh",
+    "args": [
+      "test.sh"
+    ]
+  },
+  "baseline": {
+    "status": "FAIL",
+    "exitCode": 1,
+    "output": "Exception in thread \"main\" java.lang.AssertionError: regression\n\tat Counter.main(Counter.java:4)\n",
+    "capturedOutputHash": "c27dcd8726febe85eeaedde91436ce61c4186bf96591427db7ac493a8ebc778f",
+    "normalizedOutputHash": "c27dcd8726febe85eeaedde91436ce61c4186bf96591427db7ac493a8ebc778f"
+  },
+  "fixed": {
+    "status": "PASS",
+    "exitCode": 0,
+    "output": "2 Java regression checks passed\n",
+    "capturedOutputHash": "6f139a509ccb453939cd197c8ab6f4ef64e96b2ab0315841389cf392bea7778a",
+    "normalizedOutputHash": "6f139a509ccb453939cd197c8ab6f4ef64e96b2ab0315841389cf392bea7778a"
+  },
+  "stages": [
+    "discovered",
+    "verified",
+    "reproduced",
+    "implemented",
+    "tested",
+    "PR prepared",
+    "dry-run preview"
+  ],
+  "publicWrites": 0
+}

@@ -1,0 +1,35 @@
+{
+  "ecosystem": "Rust",
+  "checkedAt": "2026-10-25T21:01:12.041Z",
+  "forge": "controlled fixture responses",
+  "command": {
+    "executable": "sh",
+    "args": [
+      "test.sh"
+    ]
+  },
+  "baseline": {
+    "status": "FAIL",
+    "exitCode": 101,
+    "output": "\nthread 'main' (316) panicked at main.rs:2:13:\nassertion `left == right` failed\n  left: 1\n right: 2\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n",
+    "capturedOutputHash": "7cb097eaa11981512fd7a0921323c774e32de37ffd347ec7dafe3750edc3f281",
+    "normalizedOutputHash": "7cb097eaa11981512fd7a0921323c774e32de37ffd347ec7dafe3750edc3f281"
+  },
+  "fixed": {
+    "status": "PASS",
+    "exitCode": 0,
+    "output": "2 Rust regression checks passed\n",
+    "capturedOutputHash": "5719802ef2be173401b412eda4d3de5f61a580cfc0c6e08ab9721b68b6881d8e",
+    "normalizedOutputHash": "5719802ef2be173401b412eda4d3de5f61a580cfc0c6e08ab9721b68b6881d8e"
+  },
+  "stages": [
+    "discovered",
+    "verified",
+    "reproduced",
+    "implemented",
+    "tested",
+    "PR prepared",
+    "dry-run preview"
+  ],
+  "publicWrites": 0
+}

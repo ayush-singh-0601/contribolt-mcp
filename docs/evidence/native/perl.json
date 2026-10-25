@@ -1,0 +1,35 @@
+{
+  "ecosystem": "Perl",
+  "checkedAt": "2026-10-25T21:01:15.788Z",
+  "forge": "controlled fixture responses",
+  "command": {
+    "executable": "sh",
+    "args": [
+      "test.sh"
+    ]
+  },
+  "baseline": {
+    "status": "FAIL",
+    "exitCode": 255,
+    "output": "regression at test.pl line 2.\n",
+    "capturedOutputHash": "4f7b19d11ace5bc84de9f35da726d5cac5c87fcc744ca3d8a90403a69b7499d1",
+    "normalizedOutputHash": "4f7b19d11ace5bc84de9f35da726d5cac5c87fcc744ca3d8a90403a69b7499d1"
+  },
+  "fixed": {
+    "status": "PASS",
+    "exitCode": 0,
+    "output": "2 Perl regression checks passed\n",
+    "capturedOutputHash": "f93b0ed6f57a98f045edf3418f75bcba60581be62774b140a698bedc4189bf7b",
+    "normalizedOutputHash": "f93b0ed6f57a98f045edf3418f75bcba60581be62774b140a698bedc4189bf7b"
+  },
+  "stages": [
+    "discovered",
+    "verified",
+    "reproduced",
+    "implemented",
+    "tested",
+    "PR prepared",
+    "dry-run preview"
+  ],
+  "publicWrites": 0
+}

@@ -1,0 +1,94 @@
+[
+  {
+    "ecosystem": "Python",
+    "tools": ["python3"],
+    "files": {
+      ".gitignore": "out/\n__pycache__/\n",
+      "subject.py": "def increment(value):\n    return value\n",
+      "test.py": "from subject import increment\nassert increment(1) == 2\nassert increment(0) == 1\nprint(\"2 Python regression checks passed\")\n",
+      "README.md": "# Python controlled regression fixture\n\nThis intentionally starts with a broken increment operation.\n\n```sh\nsh test.sh\n```\n",
+      "CONTRIBUTING.md": "Contributions welcome. Open a pull request with focused tests.\n",
+      "LICENSE": "MIT License\nCopyright (c) MergePilot contributors\n",
+      "test.sh": "#!/bin/sh\nset -eu\npython3 test.py\n"
+    },
+    "fix": {
+      "subject.py": "def increment(value):\n    return value + 1\n"
+    }
+  },
+  {
+    "ecosystem": "Rust",
+    "tools": ["rustc"],
+    "files": {
+      ".gitignore": "out/\n__pycache__/\n",
+      "main.rs": "fn increment(value: i32) -> i32 { value }\nfn main() { assert_eq!(increment(1), 2); assert_eq!(increment(0), 1); println!(\"2 Rust regression checks passed\"); }\n",
+      "README.md": "# Rust controlled regression fixture\n\nThis intentionally starts with a broken increment operation.\n\n```sh\nsh test.sh\n```\n",
+      "CONTRIBUTING.md": "Contributions welcome. Open a pull request with focused tests.\n",
+      "LICENSE": "MIT License\nCopyright (c) MergePilot contributors\n",
+      "test.sh": "#!/bin/sh\nset -eu\nmkdir -p out\nrustc main.rs -o out/regression\n./out/regression\n"
+    },
+    "fix": {
+      "main.rs": "fn increment(value: i32) -> i32 { value + 1 }\nfn main() { assert_eq!(increment(1), 2); assert_eq!(increment(0), 1); println!(\"2 Rust regression checks passed\"); }\n"
+    }
+  },
+  {
+    "ecosystem": "Java",
+    "tools": ["javac", "java"],
+    "files": {
+      ".gitignore": "out/\n__pycache__/\n",
+      "Counter.java": "class Counter {\n    static int increment(int value) { return value; }\n    public static void main(String[] args) {\n        if (increment(1) != 2 || increment(0) != 1) throw new AssertionError(\"regression\");\n        System.out.println(\"2 Java regression checks passed\");\n    }\n}\n",
+      "README.md": "# Java controlled regression fixture\n\nThis intentionally starts with a broken increment operation.\n\n```sh\nsh test.sh\n```\n",
+      "CONTRIBUTING.md": "Contributions welcome. Open a pull request with focused tests.\n",
+      "LICENSE": "MIT License\nCopyright (c) MergePilot contributors\n",
+      "test.sh": "#!/bin/sh\nset -eu\nmkdir -p out\njavac -d out Counter.java\njava -cp out Counter\n"
+    },
+    "fix": {
+      "Counter.java": "class Counter {\n    static int increment(int value) { return value + 1; }\n    public static void main(String[] args) {\n        if (increment(1) != 2 || increment(0) != 1) throw new AssertionError(\"regression\");\n        System.out.println(\"2 Java regression checks passed\");\n    }\n}\n"
+    }
+  },
+  {
+    "ecosystem": "C",
+    "tools": ["cc"],
+    "files": {
+      ".gitignore": "out/\n__pycache__/\n",
+      "README.md": "# C controlled regression fixture\n\nThis intentionally starts with a broken increment operation.\n\n```sh\nsh test.sh\n```\n",
+      "CONTRIBUTING.md": "Contributions welcome. Open a pull request with focused tests.\n",
+      "LICENSE": "MIT License\nCopyright (c) MergePilot contributors\n",
+      "test.sh": "#!/bin/sh\nset -eu\nulimit -c 0\nmkdir -p out\ncc main.c -o out/regression\n./out/regression\n",
+      "main.c": "#include <assert.h>\n#include <stdio.h>\nint increment(int value) { return value; }\nint main(void) { assert(increment(1) == 2); assert(increment(0) == 1); puts(\"2 C regression checks passed\"); return 0; }\n"
+    },
+    "fix": {
+      "main.c": "#include <assert.h>\n#include <stdio.h>\nint increment(int value) { return value + 1; }\nint main(void) { assert(increment(1) == 2); assert(increment(0) == 1); puts(\"2 C regression checks passed\"); return 0; }\n"
+    }
+  },
+  {
+    "ecosystem": "Shell",
+    "tools": ["sh"],
+    "files": {
+      ".gitignore": "out/\n__pycache__/\n",
+      "subject.sh": "increment() { printf \"%s\\n\" \"$1\"; }\n",
+      "README.md": "# Shell controlled regression fixture\n\nThis intentionally starts with a broken increment operation.\n\n```sh\nsh test.sh\n```\n",
+      "CONTRIBUTING.md": "Contributions welcome. Open a pull request with focused tests.\n",
+      "LICENSE": "MIT License\nCopyright (c) MergePilot contributors\n",
+      "test.sh": "#!/bin/sh\nset -eu\n. ./subject.sh\ntest \"$(increment 1)\" = 2\ntest \"$(increment 0)\" = 1\nprintf \"2 Shell regression checks passed\\n\"\n"
+    },
+    "fix": {
+      "subject.sh": "increment() { printf \"%s\\n\" \"$(($1 + 1))\"; }\n"
+    }
+  },
+  {
+    "ecosystem": "Perl",
+    "tools": ["perl"],
+    "files": {
+      ".gitignore": "out/\n__pycache__/\n",
+      "subject.pl": "sub increment { return $_[0]; }\n1;\n",
+      "test.pl": "require \"./subject.pl\";\ndie \"regression\" unless increment(1) == 2 && increment(0) == 1;\nprint \"2 Perl regression checks passed\\n\";\n",
+      "README.md": "# Perl controlled regression fixture\n\nThis intentionally starts with a broken increment operation.\n\n```sh\nsh test.sh\n```\n",
+      "CONTRIBUTING.md": "Contributions welcome. Open a pull request with focused tests.\n",
+      "LICENSE": "MIT License\nCopyright (c) MergePilot contributors\n",
+      "test.sh": "#!/bin/sh\nset -eu\nperl test.pl\n"
+    },
+    "fix": {
+      "subject.pl": "sub increment { return $_[0] + 1; }\n1;\n"
+    }
+  }
+]

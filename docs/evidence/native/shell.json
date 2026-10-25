@@ -1,0 +1,35 @@
+{
+  "ecosystem": "Shell",
+  "checkedAt": "2026-10-25T21:01:15.052Z",
+  "forge": "controlled fixture responses",
+  "command": {
+    "executable": "sh",
+    "args": [
+      "test.sh"
+    ]
+  },
+  "baseline": {
+    "status": "FAIL",
+    "exitCode": 1,
+    "output": "",
+    "capturedOutputHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalizedOutputHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixed": {
+    "status": "PASS",
+    "exitCode": 0,
+    "output": "2 Shell regression checks passed\n",
+    "capturedOutputHash": "3916495995c65260989f24a116bb62052575d63c36bba98814945ccd79d2d57e",
+    "normalizedOutputHash": "3916495995c65260989f24a116bb62052575d63c36bba98814945ccd79d2d57e"
+  },
+  "stages": [
+    "discovered",
+    "verified",
+    "reproduced",
+    "implemented",
+    "tested",
+    "PR prepared",
+    "dry-run preview"
+  ],
+  "publicWrites": 0
+}
