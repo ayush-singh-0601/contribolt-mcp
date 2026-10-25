@@ -8,7 +8,7 @@ import {within} from '../security/boundaries.js';
 import {patchFingerprint} from '../git/patch.js';
 export async function ingestExecutions(store:Store,sessionId:string,ids:string[]):Promise<QualityCheck[]>{
   const session=store.get(sessionId);if(!session.workspace||session.stopped)throw new Error('Active workspace required');
-  const patchHash=await patchFingerprint(session.workspace),checks:QualityCheck[]=[];
+  const patchHash=await patchFingerprint(session.workspace,session.repositoryCommitSha),checks:QualityCheck[]=[];
   for(const id of ids){
     const execution=store.read<ExecutionRecord>('executions',id);
     if(!execution||execution.sessionId!==sessionId)throw new Error('Unknown execution or wrong session');
