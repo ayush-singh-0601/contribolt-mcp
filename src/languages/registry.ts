@@ -1,3 +1,4 @@
+import {javascript} from './adapters/javascript.js';
 import type {LanguageAdapter,RepositoryContext} from './adapter.js';
 import {genericAdapter} from './generic.js';
 export class AdapterRegistry {
@@ -6,4 +7,4 @@ export class AdapterRegistry {
   detect(repo:RepositoryContext):LanguageAdapter[]{const found=this.adapters.filter(a=>a.detect(repo).matched);return found.length?found:[genericAdapter];}
   list():string[]{return this.adapters.map(a=>a.id).concat('generic');}
 }
-export function builtinRegistry():AdapterRegistry{return new AdapterRegistry();}
+export function builtinRegistry():AdapterRegistry{return new AdapterRegistry().add(javascript);}
