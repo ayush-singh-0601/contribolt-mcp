@@ -1,0 +1,13 @@
+import {z} from 'zod';
+import type {Application} from './application.js';
+import {sessionInput} from './registry.js';
+import {credentials} from '../github/auth.js';
+import {GitHubClient} from '../github/client.js';
+import {DiscoveryEngine} from '../discovery/engine.js';
+import {nextAction} from '../core/workflow.js';
+export function registerDiscovery(app:Application){
+  const engine=async()=>new DiscoveryEngine(new GitHubClient(await credentials()),app.store);
+  app.register({name:'discover_repositories',description:'Discover diverse public repositories without requiring a repository URL.',schema:sessionInput,readOnly:false,publicWrite:false,handler:async a=>{const id=String(a.sessionId),s=app.store.get(id);if(s.state!=='REPOSITORY_DISCOVERY'||s.stopped)throw new Error('Session is not ready for repository discovery');const repos=await (await engine()).repositories(s.preferences,app.controls.signal(id));const updated=app.store.mutate(id,x=>{x.repositories=repos;x.state='ISSUE_DISCOVERY';},s.revision);return {repositories:repos,nextAction:nextAction(updated)};}});
+  app.register({name:'find_eligible_issues',description:'Verify strict eligibility and automatically select the strongest qualified issue.',schema:sessionInput,readOnly:false,publicWrite:false,handler:async a=>{const id=String(a.sessionId),s=app.store.get(id);if(s.state!=='ISSUE_DISCOVERY'||s.stopped)throw new Error('Discover repositories first');const result=await (await engine()).find(s.repositories,s.preferences,app.controls.signal(id));const updated=app.store.mutate(id,x=>{x.candidates=result.candidates;if(result.selected){x.selectedIssue=result.selected;x.repository=x.repositories.find(r=>r.fullName===result.selected?.repoFullName);x.state='PROJECT_POLICY_GATE';x.policyDecision=result.selected.repositoryPolicy;}else{x.blockers=['No verified matches'];}},s.revision);return {...result,nextAction:nextAction(updated)};}});
+  app.register({name:'verify_issue',description:'Refresh authoritative issue and policy evidence; unknown data never passes.',schema:sessionInput.extend({issueNumber:z.number().int().positive().optional()}),readOnly:false,publicWrite:false,handler:async a=>{const id=String(a.sessionId),s=app.store.get(id);if(!s.repository)throw new Error('Select a repository first');const number=(a.issueNumber as number|undefined)??s.selectedIssue?.issueNumber;if(!number)throw new Error('No selected issue');const evidence=await (await engine()).verify(s.repository,number,app.controls.signal(id));app.store.mutate(id,x=>{x.selectedIssue=evidence;x.publishApproved=false;},s.revision);return evidence;}});
+}
