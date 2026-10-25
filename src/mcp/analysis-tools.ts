@@ -9,12 +9,12 @@ import {instructionsFor,type PolicyDecision} from '../repository/policies.js';
 import type {PolicyDocument} from '../repository/policy-sources.js';
 import {implementationPlan,assessReproduction} from '../contribution/plan.js';
 import {nextAction} from '../core/workflow.js';
-export function registerAnalysis(app:Application){
+export function registerAnalysis(app:Application,workspaceFactory:typeof createWorkspace=createWorkspace){
   app.register({name:'analyze_repository',description:'Create an isolated workspace and inspect scoped project instructions and code. Invoking this tool authorizes this local clone; it does not execute repository scripts.',schema:sessionInput.extend({scope:z.string().default('')}),readOnly:false,publicWrite:false,handler:async a=>{
     const id=String(a.sessionId),s=app.store.get(id);if(s.stopped||!s.repository||s.selectedIssue?.eligibility!=='ELIGIBLE')throw new Error('A verified selected issue is required');
     const policy=app.store.read<{documents:PolicyDocument[],decision:PolicyDecision,commit:string}>('policies',policyKey(s.repository));
     if(!policy||!['ALLOWED','ALLOWED_WITH_DISCLOSURE'].includes(policy.decision.policy))throw new Error('Policy gate is unresolved or prohibited');
-    const workspace=s.workspace?{root:s.workspace,sha:s.repositoryCommitSha!}:await createWorkspace(app.store.root,s.repository,app.controls.signal(id));
+    const workspace=s.workspace?{root:s.workspace,sha:s.repositoryCommitSha!}:await workspaceFactory(app.store.root,s.repository,app.controls.signal(id));
     if(workspace.sha!==policy.commit)throw new Error('Repository changed since policy verification; verify the issue again');
     const index=await cachedIndex(app.store,workspace.root,s.repository.host+':'+s.repository.id,String(a.scope),s.selectedIssue.title.split(/\s+/).filter(w=>w.length>3));
     app.store.put('indexes',id,index);
