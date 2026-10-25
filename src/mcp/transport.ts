@@ -1,5 +1,7 @@
 import type { Readable, Writable } from 'node:stream';
 import { redact } from '../core/audit.js';
+import { StringDecoder } from 'node:string_decoder';
+import { stdioOutput } from './output.js';
 export interface ProtocolHandler {
   listTools(): unknown[];
   callTool(name: string, args: unknown): Promise<unknown>;
@@ -11,27 +13,65 @@ export interface ProtocolHandler {
 export async function serveStdio(
   handler: ProtocolHandler,
   input: Readable = process.stdin,
-  output: Writable = process.stdout,
+  output: Writable = stdioOutput(),
 ): Promise<void> {
   let buffer = '',
     initialized = false;
   const send = (value: unknown) => output.write(JSON.stringify(redact(value)) + '\n');
   async function dispatch(line: string) {
-    let request: Record<string, unknown>;
+    let parsed: unknown;
     try {
-      request = JSON.parse(line) as Record<string, unknown>;
+      parsed = JSON.parse(line);
     } catch {
       send({ jsonrpc: '2.0', id: null, error: { code: -32700, message: 'Invalid JSON' } });
       return;
     }
-    const id = request.id;
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      send({
+        jsonrpc: '2.0',
+        id: null,
+        error: { code: -32600, message: 'Invalid JSON-RPC request' },
+      });
+      return;
+    }
+    const request = parsed as Record<string, unknown>,
+      id = request.id;
+    if (
+      request.jsonrpc !== '2.0' ||
+      typeof request.method !== 'string' ||
+      (id !== undefined && id !== null && typeof id !== 'string' && typeof id !== 'number')
+    ) {
+      send({
+        jsonrpc: '2.0',
+        id: null,
+        error: { code: -32600, message: 'Invalid JSON-RPC request' },
+      });
+      return;
+    }
     if (id === undefined) return;
     try {
       if (request.jsonrpc !== '2.0' || typeof request.method !== 'string')
         throw new Error('Invalid JSON-RPC request');
+      if (
+        request.params !== undefined &&
+        (!request.params || typeof request.params !== 'object' || Array.isArray(request.params))
+      )
+        throw new Error('Expected object parameters');
       const params = (request.params ?? {}) as Record<string, unknown>;
       let result: unknown;
+      if (request.method === 'server/discover') {
+        send({
+          jsonrpc: '2.0',
+          id,
+          error: {
+            code: -32601,
+            message: 'This compatibility transport supports the 2025-06-18 initialize handshake',
+          },
+        });
+        return;
+      }
       if (request.method === 'initialize') {
+        if (initialized) throw new Error('Connection is already initialized');
         initialized = true;
         result = {
           protocolVersion: '2025-06-18',
@@ -70,15 +110,22 @@ export async function serveStdio(
     }
   }
   let queue = Promise.resolve();
+  const decoder = new StringDecoder('utf8');
   for await (const chunk of input) {
-    buffer += String(chunk);
-    if (Buffer.byteLength(buffer) > 1048576) throw new Error('MCP message exceeds 1 MiB');
+    buffer += typeof chunk === 'string' ? chunk : decoder.write(chunk);
     let end;
     while ((end = buffer.indexOf('\n')) >= 0) {
       const line = buffer.slice(0, end);
       buffer = buffer.slice(end + 1);
+      if (Buffer.byteLength(line) > 1048576) throw new Error('MCP message exceeds 1 MiB');
       if (line.trim()) queue = queue.then(() => dispatch(line));
     }
+    if (Buffer.byteLength(buffer) > 1048576) throw new Error('MCP message exceeds 1 MiB');
   }
+  buffer += decoder.end();
+  if (buffer.trim()) queue = queue.then(() => dispatch(buffer));
   await queue;
+  await new Promise<void>((resolve, reject) =>
+    output.write('', (error) => (error ? reject(error) : resolve())),
+  );
 }

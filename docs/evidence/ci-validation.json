@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "dbf7455acb0d11d2693228a0c08a8ba39525c3c0",
+  "runId": 40487993950,
+  "runUrl": "https://github.com/ayush-singh-0601/mergepilot-mcp/actions/runs/40487993950",
+  "allJobsPassed": true,
+  "jobs": [
+    {
+      "id": 122134519380,
+      "name": "lockfile",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595166,
+      "name": "test (ubuntu-latest, 24)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595225,
+      "name": "test (windows-latest, 24)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595231,
+      "name": "browser",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595234,
+      "name": "codex",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595266,
+      "name": "sdk",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595283,
+      "name": "hosting",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595326,
+      "name": "native (java)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595335,
+      "name": "native (rust)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595336,
+      "name": "native (javascript)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595345,
+      "name": "test (macos-latest, 24)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595363,
+      "name": "claude",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595378,
+      "name": "native (cpp)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595386,
+      "name": "advisories",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595442,
+      "name": "native (go)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595453,
+      "name": "native (php)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595486,
+      "name": "native (ruby)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595487,
+      "name": "native (kotlin)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595563,
+      "name": "native (python)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595564,
+      "name": "native (swift)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134595727,
+      "name": "native (dart)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122134596008,
+      "name": "native (dotnet)",
+      "conclusion": "success"
+    }
+  ],
+  "tests": {
+    "linux": {
+      "passed": 119,
+      "skipped": 0
+    },
+    "macOS": {
+      "passed": 119,
+      "skipped": 0
+    },
+    "windows": {
+      "passed": 118,
+      "skipped": 1
+    }
+  },
+  "mcp": {
+    "sdk": "2.4.0",
+    "protocols": [
+      "legacy-handshake",
+      "2026-07-28"
+    ],
+    "tools": 21,
+    "prompts": 6
+  },
+  "dependencyAudit": {
+    "vulnerabilities": 0,
+    "scope": "production and development dependencies"
+  },
+  "browser": {
+    "engine": "Chromium",
+    "passed": 2
+  },
+  "nativeAdapters": 12,
+  "realClients": {
+    "codex": "0.163.0; discovery and local tool calls",
+    "claude": "2.1.284; MCP health connection"
+  },
+  "publicContributionWrites": 0,
+  "modelTurns": 0,
+  "scopeLimits": [
+    "Cursor actual session not exercised",
+    "No live public fork/push/PR/reviewer writes",
+    "GitLab/Forgejo live-instance checks pending",
+    "No production TLS deployment or beta metrics collected"
+  ]
+}

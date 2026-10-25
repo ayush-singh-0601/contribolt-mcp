@@ -30,8 +30,15 @@ export function registerApprovals(app: Application) {
       if (action === 'publish' || action === 'revision_publish')
         payload = await publicationPayload(app.store, s);
       else if (action === 'review') {
-        if (!s.prUrl) throw new Error('Confirmed PR required');
-        payload = { prUrl: s.prUrl, reviewers: a.reviewers, teams: a.teams };
+        if (!s.prUrl || !s.proposal) throw new Error('Confirmed PR required');
+        if (!(a.reviewers as string[]).length && !(a.teams as string[]).length)
+          throw new Error('Choose at least one relevant reviewer or team');
+        payload = {
+          prUrl: s.prUrl,
+          actor: s.proposal.actor,
+          reviewers: a.reviewers,
+          teams: a.teams,
+        };
       } else if (action === 'comment') {
         if (!s.prUrl || !a.comment) throw new Error('Confirmed PR and exact comment required');
         payload = { prUrl: s.prUrl, comment: a.comment };

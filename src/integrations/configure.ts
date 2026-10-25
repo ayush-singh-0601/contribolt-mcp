@@ -9,6 +9,33 @@ import { digest } from '../security/approvals.js';
 export const SDK_VERSION = '2.4.0';
 export const clients = ['codex', 'claude', 'cursor'] as const;
 export type Client = (typeof clients)[number];
+export function forwardedCredentialVariables(): string[] {
+  const names = [
+    'MERGEPILOT_GITHUB_TOKEN',
+    'GITHUB_TOKEN',
+    'GH_TOKEN',
+    'MERGEPILOT_APP_ID',
+    'MERGEPILOT_APP_KEY',
+    'MERGEPILOT_INSTALLATION_ID',
+    'MERGEPILOT_FORGES',
+    'GITLAB_TOKEN',
+    'FORGEJO_TOKEN',
+  ];
+  if (process.env.MERGEPILOT_FORGES) {
+    try {
+      const forges = JSON.parse(process.env.MERGEPILOT_FORGES) as { tokenEnv?: unknown }[];
+      if (Array.isArray(forges))
+        for (const forge of forges)
+          if (typeof forge.tokenEnv === 'string' && /^[A-Z][A-Z0-9_]+$/.test(forge.tokenEnv))
+            names.push(forge.tokenEnv);
+    } catch {
+      throw new Error(
+        'MERGEPILOT_FORGES must be valid JSON before configuring credential forwarding',
+      );
+    }
+  }
+  return [...new Set(names)];
+}
 export function serverDefinition(project: string, local = false) {
   return {
     command: local ? process.execPath : 'npx',
@@ -51,7 +78,7 @@ export function configureClient(
       existing = servers.mergepilot as Record<string, unknown> | undefined;
     const begin = '# BEGIN MERGEPILOT MANAGED CONFIG',
       end = '# END MERGEPILOT MANAGED CONFIG';
-    const block = `${begin}\n[mcp_servers.mergepilot]\ncommand = ${JSON.stringify(definition.command)}\nargs = ${JSON.stringify(definition.args)}\nenv = { MERGEPILOT_DATA_DIR = ${JSON.stringify(definition.env.MERGEPILOT_DATA_DIR)} }\n${end}\n`;
+    const block = `${begin}\n[mcp_servers.mergepilot]\ncommand = ${JSON.stringify(definition.command)}\nargs = ${JSON.stringify(definition.args)}\nenv = { MERGEPILOT_DATA_DIR = ${JSON.stringify(definition.env.MERGEPILOT_DATA_DIR)} }\nenv_vars = ${JSON.stringify(forwardedCredentialVariables())}\n${end}\n`;
     if (current.includes(begin) && current.includes(end)) {
       const start = current.indexOf(begin),
         finish = current.indexOf(end, start) + end.length;

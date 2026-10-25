@@ -1,6 +1,6 @@
 {
   "ecosystem": "C",
-  "checkedAt": "2026-10-25T21:01:14.346Z",
+  "checkedAt": "2026-10-25T21:15:14.819Z",
   "forge": "controlled fixture responses",
   "command": {
     "executable": "sh",
@@ -11,9 +11,9 @@
   "baseline": {
     "status": "FAIL",
     "exitCode": 134,
-    "output": "regression: main.c:4: main: Assertion `increment(1) == 2' failed.\ntest.sh: line 6:   684 Aborted                    (core dumped) ./out/regression\n",
-    "capturedOutputHash": "d45f3ae7f895d0db416bdae45df3127bc1a43849aa7d1cf898bdcfa965de9736",
-    "normalizedOutputHash": "d45f3ae7f895d0db416bdae45df3127bc1a43849aa7d1cf898bdcfa965de9736"
+    "output": "regression: main.c:4: main: Assertion `increment(1) == 2' failed.\ntest.sh: line 6:  1274 Aborted                    (core dumped) ./out/regression\n",
+    "capturedOutputHash": "421be1fba8f0b3c2a5c29221465d289c09a96415ed34a2867da470c6668eeace",
+    "normalizedOutputHash": "421be1fba8f0b3c2a5c29221465d289c09a96415ed34a2867da470c6668eeace"
   },
   "fixed": {
     "status": "PASS",

@@ -2,6 +2,8 @@ import type { ToolRegistry } from './registry.js';
 import type { ProtocolHandler } from './transport.js';
 import { redact } from '../core/audit.js';
 import { VERSION } from '../index.js';
+import { stdioOutput } from './output.js';
+import type { Readable, Writable } from 'node:stream';
 type Registry = ToolRegistry & Partial<Pick<ProtocolHandler, 'resources' | 'readResource'>>;
 interface SdkServer {
   registerTool(
@@ -88,9 +90,16 @@ export async function serveOfficialSdk(registry: Registry): Promise<boolean> {
   }
   const sdk = (await import(location)) as Record<string, unknown>,
     stdio = (await import(stdioPackage)) as {
-      serveStdio: (factory: () => SdkServer) => { close(): Promise<void> };
+      StdioServerTransport: new (input: Readable, output: Writable) => unknown;
+      serveStdio: (
+        factory: () => SdkServer,
+        options: { transport: unknown; onerror: (error: Error) => void },
+      ) => { close(): Promise<void> };
     };
-  const handle = stdio.serveStdio(() => officialServer(registry, sdk));
+  const handle = stdio.serveStdio(() => officialServer(registry, sdk), {
+    transport: new stdio.StdioServerTransport(process.stdin, stdioOutput()),
+    onerror: (error) => process.stderr.write(String(redact(String(error))) + '\n'),
+  });
   process.once('SIGINT', () => {
     void handle.close();
   });

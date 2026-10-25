@@ -39,6 +39,7 @@ export class SessionControls {
           current.selectedIssue.url,
         ]),
       ]);
+    this.store.remove('extra-commands', id);
     this.cancellations.get(id)?.abort();
     this.cancellations.delete(id);
     this.store.put('approval-revocations', id, Date.now());

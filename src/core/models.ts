@@ -62,6 +62,8 @@ export const RepoSchema = z.object({
   updatedAt: z.string(),
   health: z.number().min(0).max(1).default(0),
   exclusions: z.array(z.string()).default([]),
+  healthObservations: z.array(z.string()).default([]),
+  latestReleaseAt: z.string().optional(),
 });
 export type Repository = z.infer<typeof RepoSchema>;
 export const EvidenceSchema = z.object({
@@ -78,6 +80,7 @@ export const IssueSchema = z.object({
   issueNumber: z.number().int().positive(),
   title: z.string(),
   body: z.string().default(''),
+  updatedAt: z.string().optional(),
   checkedAt: z.iso.datetime(),
   open: z.boolean(),
   isPullRequest: z.boolean().default(false),
@@ -91,6 +94,7 @@ export const IssueSchema = z.object({
   competingPRScanComplete: z.boolean(),
   labels: z.array(z.string()).default([]),
   reserved: z.boolean().nullable().default(null),
+  reservationHints: z.array(z.string()).default([]),
   repositoryPolicy: PolicySchema,
   eligibility: z.enum(['ELIGIBLE', 'INELIGIBLE', 'UNKNOWN']),
   rejectReasons: z.array(z.string()),

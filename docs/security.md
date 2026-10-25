@@ -4,6 +4,8 @@ The trusted components are the user, coding host, MergePilot process, private st
 
 Use a least-privilege GitHub token, existing `gh` credentials, or an opt-in GitHub App. GitLab and Forgejo credentials are scoped to explicitly configured HTTPS hosts. Credentials are resolved in the server and stripped from repository-command environments. Known token/key formats, sensitive object fields and configured environment secrets are redacted from persisted session data, events, artifacts and MCP results. Pattern-based scanning cannot recognize every possible secret. Inspect the exact diff and PR body before approval.
 
+The command environment preserves existing home and selected toolchain/cache locations needed by native tools, while removing credential variables. It does not relocate the user's home. The host sandbox must independently restrict filesystem access to credentials and the private ledger; environment filtering alone cannot enforce that boundary.
+
 ## Repository execution
 
 `run-check --host-approved` records that the host approved execution; the flag itself is not an OS permission boundary. The wrapper does not enforce filesystem/network isolation. A child process can access anything the surrounding host sandbox permits. Use a host sandbox that limits repository scripts to the isolated workspace, denies credential and ledger access, and controls network independently. If that separation is unavailable, do not run untrusted project scripts; report verification unavailable or use a separately isolated runner. Running an unrestricted shell and adding the flag does not provide isolation.

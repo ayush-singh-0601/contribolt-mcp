@@ -15,3 +15,14 @@ it('selects native JavaScript and TypeScript commands and safe check modes', () 
   expect(adapter.parseResults({ exitCode: null, available: false })).toBe('UNAVAILABLE');
   expect(adapter.parseResults({ exitCode: 1, available: true })).toBe('FAIL');
 });
+it('reads Deno JSONC tasks without losing comments or task definitions', () => {
+  const content = {
+      'deno.jsonc':
+        '{ // project tasks\n "tasks":{"test":"deno test", "lint":"deno lint", "check":"deno check main.ts"}}',
+    },
+    repo = { root: process.cwd(), scope: '', files: Object.keys(content), content };
+  expect(adapter.commands(repo).map((c) => c.kind)).toEqual(['test', 'lint', 'typecheck']);
+  expect(() => adapter.commands({ ...repo, content: { 'deno.jsonc': '{broken' } })).toThrow(
+    'Invalid Deno',
+  );
+});

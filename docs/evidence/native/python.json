@@ -1,6 +1,6 @@
 {
   "ecosystem": "Python",
-  "checkedAt": "2026-10-25T21:01:11.224Z",
+  "checkedAt": "2026-10-25T21:15:11.182Z",
   "forge": "controlled fixture responses",
   "command": {
     "executable": "sh",
@@ -12,7 +12,7 @@
     "status": "FAIL",
     "exitCode": 1,
     "output": "Traceback (most recent call last):\n  File \"<workspace>/test.py\", line 2, in <module>\n    assert increment(1) == 2\n           ^^^^^^^^^^^^^^^^^\nAssertionError\n",
-    "capturedOutputHash": "272c1757c2b4f40d2a055b755a1262d8b99b378da0e4650ecc9fd32032216025",
+    "capturedOutputHash": "08b7765b127509732b998cd4e2e95d0ac4899acf69a650d907dde5b79b1d5429",
     "normalizedOutputHash": "5e90caf483a508f4fbd2e87b46ef269f3d3c54e78d0ad55909011bcce659a986"
   },
   "fixed": {

@@ -41,7 +41,7 @@ export function scoreCandidate(
     testability: reproducible && focused ? 0.9 : focused ? 0.65 : 0.2,
     maintenance: repo.health,
     policy: issue.repositoryPolicy === 'ALLOWED_WITH_DISCLOSURE' ? 0.9 : 0.85,
-    recency: Date.now() - Date.parse(repo.updatedAt) < 90 * 86400000 ? 1 : 0.4,
+    recency: Date.now() - Date.parse(issue.updatedAt ?? repo.updatedAt) < 90 * 86400000 ? 1 : 0.4,
   };
   if (preferences.difficulty === 'small' && !focused) dimensions.testability = 0.1;
   return { ...issue, dimensions, score: weightedScore(dimensions) };

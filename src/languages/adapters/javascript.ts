@@ -1,4 +1,5 @@
 import { defineAdapter, command, has, text, type RepositoryContext } from '../adapter.js';
+import { parse as parseJsonc, type ParseError } from 'jsonc-parser';
 function manager(r: RepositoryContext): string {
   const p = has(r, 'package.json') ? JSON.parse(text(r, 'package.json')) : {};
   const configured = String(p.packageManager ?? '').split('@')[0];
@@ -42,9 +43,11 @@ export const javascript = defineAdapter({
       const raw = text(r, file);
       let tasks: Record<string, string> = {};
       try {
-        tasks = JSON.parse(raw).tasks ?? {};
+        const errors: ParseError[] = [];
+        tasks = parseJsonc(raw, errors)?.tasks ?? {};
+        if (errors.length) throw new Error('Invalid Deno configuration');
       } catch {
-        if (file === 'deno.json') throw new Error('Invalid deno.json');
+        throw new Error('Invalid Deno configuration');
       }
       return ['test', 'lint', 'format_check', 'typecheck', 'build'].flatMap((kind) => {
         const task = kind === 'format_check' ? 'fmt:check' : kind === 'typecheck' ? 'check' : kind;
