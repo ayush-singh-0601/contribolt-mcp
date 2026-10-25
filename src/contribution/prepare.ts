@@ -4,6 +4,7 @@ import type { PatchInspection } from './quality.js';
 import { readiness } from './readiness.js';
 import type { PolicyDecision } from '../repository/policies.js';
 import { safeBranch } from '../security/boundaries.js';
+import { redact } from '../core/audit.js';
 export const ProposalInput = z
   .object({
     actor: z.string().regex(/^[\w-]+$/),
@@ -37,6 +38,8 @@ export function prepareProposal(
   if (verdict.status === 'BLOCKED') throw new Error(verdict.blockers.join('; '));
   if (/[\n\r]|\p{Extended_Pictographic}/u.test(input.title))
     throw new Error('PR title must be plain single-line text');
+  if (redact(input.title) !== input.title || (input.body && redact(input.body) !== input.body))
+    throw new Error('PR text contains a potential secret');
   const template = input.templatePath
     ? policy.templates.find((t) => t.path === input.templatePath)
     : (policy.templates.find((t) => /bug|fix/i.test(t.path)) ?? policy.templates[0]);
@@ -62,6 +65,8 @@ export function prepareProposal(
       at = next;
     }
   }
+  if (input.body && testing && !body.includes(testing))
+    body += '\n\n### Recorded verification\n' + testing;
   if (/\b(?:TODO|TBD|INSERT HERE)\b|<describe[^>]*>/i.test(body))
     throw new Error('Unfilled PR template placeholders');
   for (const disclosure of policy.disclosures) {

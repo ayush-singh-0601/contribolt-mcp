@@ -66,7 +66,6 @@ export class Application extends ToolRegistry {
       false,
       async (a) => {
         const p = normalizePreferences(a.preferences as Record<string, unknown>);
-        this.profiles.save(p, Boolean(a.remember));
         const s = store.mutate(String(a.sessionId), (x) => {
           if (x.prUrl) throw new Error('Start a new session to change a published contribution');
           if (x.state !== 'ONBOARDING' && x.state !== 'REPOSITORY_DISCOVERY')
@@ -74,6 +73,7 @@ export class Application extends ToolRegistry {
           x.preferences = p;
           x.state = 'REPOSITORY_DISCOVERY';
         });
+        this.profiles.save(p, Boolean(a.remember));
         return { session: s, nextAction: nextAction(s) };
       },
     );
@@ -152,6 +152,33 @@ export class Application extends ToolRegistry {
         };
       },
     );
+  }
+  override async callTool(name: string, args: unknown): Promise<unknown> {
+    const started = Date.now(),
+      candidate =
+        args && typeof args === 'object' ? (args as { sessionId?: unknown }).sessionId : undefined;
+    let id = z.uuid().safeParse(candidate).success ? String(candidate) : undefined;
+    try {
+      const result = await super.callTool(name, args);
+      if (!id && result && typeof result === 'object' && 'sessionId' in result)
+        id = String(result.sessionId);
+      if (id)
+        this.store.event(id, 'tool-result', {
+          tool: name,
+          status: 'complete',
+          durationMs: Date.now() - started,
+        });
+      return result;
+    } catch (error) {
+      if (id)
+        this.store.event(id, 'tool-result', {
+          tool: name,
+          status: 'failed',
+          durationMs: Date.now() - started,
+          error: String(error),
+        });
+      throw new Error(String(redact(error instanceof Error ? error.message : String(error))));
+    }
   }
   resources() {
     return this.store.list().map((s) => ({

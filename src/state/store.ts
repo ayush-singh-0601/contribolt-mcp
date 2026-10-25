@@ -1,14 +1,28 @@
 import { DatabaseSync } from 'node:sqlite';
-import { mkdirSync, writeFileSync, renameSync, readFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  writeFileSync,
+  renameSync,
+  readFileSync,
+  lstatSync,
+  existsSync,
+  chmodSync,
+} from 'node:fs';
 import { join } from 'node:path';
 import { randomUUID, createHash } from 'node:crypto';
 import { SessionSchema, type Session, type Preferences } from '../core/models.js';
+import { within } from '../security/boundaries.js';
+import { redact } from '../core/audit.js';
 
 export class Store {
   readonly db: DatabaseSync;
   constructor(readonly root: string) {
+    if (existsSync(root) && lstatSync(root).isSymbolicLink())
+      throw new Error('State directory must not be a symbolic link');
     mkdirSync(root, { recursive: true, mode: 0o700 });
-    this.db = new DatabaseSync(join(root, 'state.sqlite'));
+    for (const name of ['state.sqlite', 'state.sqlite-wal', 'state.sqlite-shm']) within(root, name);
+    this.db = new DatabaseSync(within(root, 'state.sqlite'));
+    if (process.platform !== 'win32') chmodSync(join(root, 'state.sqlite'), 0o600);
     this.db.exec('PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; PRAGMA foreign_keys=ON;');
     const version = this.db.prepare('PRAGMA user_version').get() as { user_version: number };
     if (version.user_version > 1) throw new Error('State schema is newer than this installation');
@@ -21,7 +35,7 @@ export class Store {
     const now = new Date().toISOString();
     const session = SessionSchema.parse({
       id: randomUUID(),
-      preferences,
+      preferences: redact(preferences),
       state: 'ONBOARDING',
       dryRun,
       createdAt: now,
@@ -56,7 +70,7 @@ export class Store {
       change(session);
       session.revision++;
       session.lastUpdatedAt = new Date().toISOString();
-      const valid = SessionSchema.parse(session);
+      const valid = SessionSchema.parse(redact(session));
       this.db
         .prepare('UPDATE sessions SET revision=?,data=? WHERE id=?')
         .run(valid.revision, JSON.stringify(valid), id);
@@ -71,7 +85,7 @@ export class Store {
   event(id: string, kind: string, data: unknown): void {
     this.db
       .prepare('INSERT INTO events(session_id,at,kind,data) VALUES(?,?,?,?)')
-      .run(id, new Date().toISOString(), kind, JSON.stringify(data));
+      .run(id, new Date().toISOString(), kind, JSON.stringify(redact(data)));
   }
   events(id: string, after = 0): unknown[] {
     return this.db
@@ -85,7 +99,7 @@ export class Store {
       .prepare(
         'INSERT INTO records VALUES(?,?,?) ON CONFLICT(namespace,key) DO UPDATE SET data=excluded.data',
       )
-      .run(namespace, key, JSON.stringify(value));
+      .run(namespace, key, JSON.stringify(redact(value)));
   }
   read<T>(namespace: string, key: string): T | undefined {
     const row = this.db
@@ -100,11 +114,11 @@ export class Store {
     this.get(id);
     if (!/^[a-zA-Z0-9_.-]+$/.test(name) || name === '.' || name === '..')
       throw new Error('Invalid artifact name');
-    const dir = join(this.root, 'artifacts', id);
+    const dir = within(this.root, join('artifacts', id));
     mkdirSync(dir, { recursive: true, mode: 0o700 });
-    const file = join(dir, name),
+    const file = within(dir, name),
       temp = file + '.' + randomUUID();
-    writeFileSync(temp, content, { mode: 0o600, flag: 'wx' });
+    writeFileSync(temp, String(redact(content)), { mode: 0o600, flag: 'wx' });
     renameSync(temp, file);
     this.mutate(id, (s) => {
       s.artifacts[name] = file;

@@ -6,6 +6,7 @@ type Metrics = {
   synced: number;
   funnel: Record<string, number>;
   rejections: Record<string, number>;
+  negativeMetrics?: Record<string, number>;
   notice: string;
 };
 type Profile = { principal: string; scopes: string[]; csrf?: string };
@@ -480,7 +481,15 @@ export function App() {
     }
   };
   const active = sessions.find((s) => s.id === selected),
-    rejections = Object.entries(metrics.rejections)
+    rejections = Object.entries({
+      ...metrics.rejections,
+      ...Object.fromEntries(
+        Object.entries(metrics.negativeMetrics ?? {}).map(([kind, count]) => [
+          'Reported ' + kind.replaceAll('_', ' '),
+          count,
+        ]),
+      ),
+    })
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5);
   return (

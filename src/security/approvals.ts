@@ -7,6 +7,7 @@ import { defaults, type Session } from '../core/models.js';
 import { patchFingerprint } from '../git/patch.js';
 import { git } from '../git/workspace.js';
 import { within } from './boundaries.js';
+import { redact } from '../core/audit.js';
 export const ApprovalAction = z.enum([
   'publish',
   'review',
@@ -94,6 +95,10 @@ export class Approvals {
   request(sessionId: string, action: Action, payload: unknown): ApprovalRequest {
     const s = this.store.get(sessionId);
     if (s.stopped) throw new Error('Session stopped');
+    if (canonical(redact(payload)) !== canonical(payload))
+      throw new Error(
+        'Approval preview contains a potential secret; remove it before requesting consent',
+      );
     const createdAt = Date.now(),
       request: ApprovalRequest = {
         id: randomUUID(),

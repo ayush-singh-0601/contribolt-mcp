@@ -17,6 +17,8 @@ export interface DiscoveryProvider {
     repos: Repository[],
     p: Preferences,
     signal?: AbortSignal,
+    relaxations?: Relaxable[],
+    skipped?: string[],
   ): Promise<{
     candidates: IssueEvidence[];
     selected?: IssueEvidence;
@@ -138,6 +140,8 @@ export async function findAcrossForges(
   repos: Repository[],
   p: Preferences,
   signal?: AbortSignal,
+  relaxed: Relaxable[] = [],
+  skipped: string[] = [],
 ) {
   const candidates: IssueEvidence[] = [];
   const groups = new Map<string, Repository[]>();
@@ -146,7 +150,9 @@ export async function findAcrossForges(
     groups.set(key, [...(groups.get(key) ?? []), r]);
   }
   for (const group of groups.values()) {
-    const result = await (await provider(store, group[0])).engine.find(group, p, signal);
+    const result = await (
+      await provider(store, group[0])
+    ).engine.find(group, p, signal, relaxed, skipped);
     candidates.push(...result.candidates);
   }
   return { candidates, ...selectCandidate(candidates) };

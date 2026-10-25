@@ -31,6 +31,8 @@ it('discovers, reproduces, validates, approves, publishes and revises through th
       prTitle = '',
       prBody = '',
       reviewChanges = false,
+      issueChanged = false,
+      discussionComments = 0,
       merged = false;
     const writes: string[] = [];
     const metadata = (owner: string) => ({
@@ -51,11 +53,11 @@ it('discovers, reproduces, validates, approves, publishes and revises through th
     });
     const issue = (owner: string) => ({
       number: 1,
-      title: 'Counter does not increment',
+      title: issueChanged ? 'New requirements for the counter' : 'Counter does not increment',
       body: 'Steps to reproduce\n```sh\npython3 test.py\n```\nExpected: increment a value. Actual: value unchanged.',
       html_url: `https://github.com/${owner}/repo/issues/1`,
       state: 'open',
-      comments: 0,
+      comments: discussionComments,
       assignees: [],
       user: { login: owner },
       author_association: 'OWNER',
@@ -363,6 +365,18 @@ it('discovers, reproduces, validates, approves, publishes and revises through th
     ).rejects.toThrow('authorization');
     expect(writes).toHaveLength(0);
     await new Approvals(store).confirmFromHuman(approval.request.id);
+    issueChanged = true;
+    await expect(
+      app.callTool('publish_pull_request', { sessionId: id, approvalId: approval.request.id }),
+    ).rejects.toThrow('Issue content changed');
+    expect(writes).toHaveLength(0);
+    issueChanged = false;
+    discussionComments = 1;
+    await expect(
+      app.callTool('publish_pull_request', { sessionId: id, approvalId: approval.request.id }),
+    ).rejects.toThrow('discussion comments');
+    expect(writes).toHaveLength(0);
+    discussionComments = 0;
     const published = (await app.callTool('publish_pull_request', {
       sessionId: id,
       approvalId: approval.request.id,

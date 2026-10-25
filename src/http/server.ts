@@ -56,7 +56,7 @@ export class HttpService {
     if (principal === 'local') return this.store;
     const cached = this.tenants.get(principal);
     if (cached) return cached;
-    const data = new Store(join(this.store.root, 'tenants', principal));
+    const data = new Store(within(this.store.root, join('tenants', principal)));
     this.tenants.set(principal, data);
     return data;
   }

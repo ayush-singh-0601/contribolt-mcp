@@ -33,6 +33,7 @@ async function main() {
   mergepilot approve REQUEST            Review and authorize one exact action in a terminal
   mergepilot watch SESSION              Monitor a published contribution; Ctrl-C stops
   mergepilot status SESSION             Inspect a local session offline
+  mergepilot record-incident SESSION duplicate_attempt|maintainer_complaint|policy_violation NOTE
   mergepilot sessions                   List local sessions
   mergepilot serve [--host HOST] [--port PORT]
   mergepilot issue-token PRINCIPAL [read,sync]

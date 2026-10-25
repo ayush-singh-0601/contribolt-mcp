@@ -8,6 +8,7 @@ import { HttpService } from './server.js';
 import { HttpAuth, Scope } from './auth.js';
 import { exportMetadata, summaries } from './metadata.js';
 export const httpCommands = new Set([
+  'record-incident',
   'serve',
   'issue-token',
   'revoke-token',
@@ -54,6 +55,21 @@ export async function runHttpCommand(command: string, store: Store, args: string
     return;
   }
   try {
+    if (command === 'record-incident') {
+      const [id, kind, ...notes] = args;
+      z.uuid().parse(id);
+      const incident = z
+          .enum(['duplicate_attempt', 'maintainer_complaint', 'policy_violation'])
+          .parse(kind),
+        note = z.string().min(10).max(2000).parse(notes.join(' '));
+      store.get(id!);
+      const counts = store.read<Record<string, number>>('negative-metrics', id!) ?? {};
+      counts[incident] = (counts[incident] ?? 0) + 1;
+      store.put('negative-metrics', id!, counts);
+      store.event(id!, 'reported-incident', { kind: incident, note });
+      console.log('Recorded a local incident with an audit note.');
+      return;
+    }
     if (command === 'issue-token') {
       const principal = args[0] ?? 'local',
         scopes = z.array(Scope).parse((args[1] ?? 'read').split(','));
