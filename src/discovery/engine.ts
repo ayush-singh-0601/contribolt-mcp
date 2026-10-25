@@ -12,9 +12,10 @@ import {eligibility,reservation,type Relaxable} from './eligibility.js';
 import {scoreCandidate,selectCandidate} from './ranking.js';
 import {policySources} from '../repository/policy-sources.js';
 import {classifyPolicy} from '../repository/policies.js';
+import {collectHistory,historicalHealth,type HistoricalMetrics} from './history.js';
 export class DiscoveryEngine {
   constructor(readonly client:GitHubClient,readonly store:Store){}
-  async repositories(preferences:Preferences,signal?:AbortSignal):Promise<Repository[]>{const excluded=this.store.read<string[]>('config','excludedRepositories')??[];const repos=await discoverRepositories(this.client,preferences,new SearchBudget(),excluded,signal);const result:Repository[]=[];for(const repo of repos){try{result.push(await inspectHealth(this.client,repo,signal));}catch{signal?.throwIfAborted();result.push({...repo,exclusions:['Repository health evidence unavailable']});}}return result;}
+  async repositories(preferences:Preferences,signal?:AbortSignal):Promise<Repository[]>{const excluded=this.store.read<string[]>('config','excludedRepositories')??[];const repos=await discoverRepositories(this.client,preferences,new SearchBudget(),excluded,signal);const result:Repository[]=[];for(const repo of repos){try{const inspected=await inspectHealth(this.client,repo,signal);let history=this.store.read<HistoricalMetrics>('history',repo.fullName);if(result.length<5&&(!history||Date.now()-Date.parse(history.checkedAt)>86400000)){try{history=await collectHistory(this.client,repo.fullName);this.store.put('history',repo.fullName,history);}catch{signal?.throwIfAborted();}}result.push({...inspected,health:history?historicalHealth(inspected.health,history):inspected.health});}catch{signal?.throwIfAborted();result.push({...repo,exclusions:['Repository health evidence unavailable']});}}return result;}
   async verify(repo:Repository,number:number,signal?:AbortSignal,relaxations:Relaxable[]=[]):Promise<IssueEvidence>{
     let issue=await refreshIssue(this.client,repo,number,signal);
     const author=await officialAuthor(this.client,repo,issue,signal),linked=await linkedPullRequests(this.client,repo,number,signal),competing=await competingWork(this.client,issue,signal),sources=await policySources(this.client,repo,signal),policy=classifyPolicy(sources.documents,sources.complete);
