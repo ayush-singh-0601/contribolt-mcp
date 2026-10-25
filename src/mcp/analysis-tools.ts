@@ -18,7 +18,7 @@ export function registerAnalysis(app:Application){
     if(workspace.sha!==policy.commit)throw new Error('Repository changed since policy verification; verify the issue again');
     const index=await cachedIndex(app.store,workspace.root,s.repository.host+':'+s.repository.id,String(a.scope),s.selectedIssue.title.split(/\s+/).filter(w=>w.length>3));
     app.store.put('indexes',id,index);
-    const updated=app.store.mutate(id,x=>{x.workspace=workspace.root;x.repositoryCommitSha=workspace.sha;x.policyDecision=policy.decision.policy;x.policySources=policy.decision.evidence;x.requiredDisclosures=policy.decision.disclosures;x.state='ISSUE_REPRODUCTION';},s.revision);
+    const updated=app.store.mutate(id,x=>{x.workspace=workspace.root;x.repositoryCommitSha=workspace.sha;x.policyDecision=policy.decision.policy;x.policySources=policy.decision.evidence;x.requiredDisclosures=policy.decision.disclosures;x.requiredChecks=policy.decision.requiredChecks??[];x.state='ISSUE_REPRODUCTION';},s.revision);
     const artifact=app.store.artifact(id,'repository_analysis.md',analysisMarkdown(index));
     const excerpts=Object.fromEntries(Object.entries(index.content).slice(0,12).map(([file,content])=>[file,content.slice(0,4000)]));
     return {workspace:workspace.root,revision:workspace.sha,artifact,policy:policy.decision,manifests:index.manifests,sourceExcerpts:excerpts,indexPartial:index.truncated,instructions:Object.fromEntries(Object.keys(excerpts).map(file=>[file,instructionsFor(policy.documents,file)])),nextAction:nextAction(updated),notice:'Read full applicable instructions and relevant files through the host workspace tools; excerpts are bounded.'};
