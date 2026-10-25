@@ -1,14 +1,16 @@
 import {Octokit} from '@octokit/core';
 import type {Credentials} from './auth.js';
+import {SearchBudget} from '../discovery/budget.js';
 export class ForgeError extends Error {constructor(message:string,readonly status:number,readonly retryAt?:number){super(message);}}
 export class GitHubClient {
   requests=0;
+  private budget=new SearchBudget();
   constructor(private auth:Credentials,private fetcher:typeof fetch=fetch,private pause:(ms:number)=>Promise<void>=ms=>new Promise(resolve=>setTimeout(resolve,ms))){}
   async request<T>(method:string,path:string,params:Record<string,unknown>={},signal?:AbortSignal):Promise<T>{
     if(!path.startsWith('/')||path.startsWith('//')||path.includes('://'))throw new Error('Only GitHub API relative paths are accepted');
     const octokit=new Octokit({auth:await this.auth.token(),request:{fetch:this.fetcher},userAgent:'mergepilot/0.1.0'});
     for(let attempt=0;;attempt++){
-      signal?.throwIfAborted();this.requests++;
+      this.budget.take(signal);this.requests++;
       try{const response=await octokit.request({method,url:path,...params,headers:{accept:'application/vnd.github+json','X-GitHub-Api-Version':'2026-03-10'},request:{signal:signal?AbortSignal.any([signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)}});return response.data as T;}
       catch(error){const e=error as {status?:number;response?:{headers?:Record<string,string>}};const status=e.status??0,headers=e.response?.headers??{};
         if(signal?.aborted)throw signal.reason;

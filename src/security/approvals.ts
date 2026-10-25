@@ -13,8 +13,12 @@ export function canonical(value:unknown):string {if(Array.isArray(value))return 
 export function digest(value:unknown):string{return createHash('sha256').update(canonical(value)).digest('hex');}
 export async function publicationPayload(store:Store,s:Session):Promise<unknown>{
   if(!s.workspace||!s.proposal)throw new Error('Complete publication preview required');
-  let diff=await git(s.workspace,['diff','--no-ext-diff','--no-textconv',s.proposal.baseSha,'--']);
-  for(const file of (await git(s.workspace,['ls-files','--others','--exclude-standard','-z'])).split('\0').filter(Boolean))diff+=`\nNew file: ${file}\n${readFileSync(within(s.workspace,file),'utf8')}`;
+  let diff='';
+  for(const file of [...s.proposal.files].sort()){
+    let before='',after='';try{before=await git(s.workspace,['show',`${s.proposal.baseSha}:${file}`]);}catch{/* Newly created file. */}
+    try{after=readFileSync(within(s.workspace,file),'utf8');}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;}
+    diff+=`\ndiff --git a/${file} b/${file}\n--- a/${file}\n+++ b/${file}\n`+before.split('\n').map(line=>'-'+line).join('\n')+'\n'+after.split('\n').map(line=>'+'+line).join('\n')+'\n';
+  }
   const policy=store.read<{decision:{claUrls:string[],signoff:boolean}}>('policies',s.proposal.repository);
   return {proposal:s.proposal,relaxations:store.read<string[]>('relaxations',s.id)??[],requirements:{cla:policy?.decision.claUrls??[],signoff:policy?.decision.signoff??false},diff};
 }
