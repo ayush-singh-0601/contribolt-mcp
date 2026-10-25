@@ -1,2 +1,50 @@
-import {defineAdapter,command,has} from '../adapter.js';
-export const cpp=defineAdapter({id:'cpp',matches:f=>['CMakeLists.txt','Makefile','meson.build','BUILD','BUILD.bazel'].includes(f),tools:[],requirements:()=>['Project-supported C/C++ compiler and native build tool'],bootstrap:r=>has(r,'CMakeLists.txt')?[command(r,'cpp','bootstrap','cmake',['-S','.','-B','build'],'CMakeLists.txt',false)]:has(r,'meson.build')?[command(r,'cpp','bootstrap','meson',['setup','build'],'meson.build',false)]:[],commands:r=>has(r,'CMakeLists.txt')?[command(r,'cpp','build','cmake',['--build','build'],'CMakeLists.txt'),command(r,'cpp','test','ctest',['--test-dir','build','--output-on-failure'],'CMakeLists.txt')]:has(r,'meson.build')?[command(r,'cpp','build','meson',['compile','-C','build'],'meson.build'),command(r,'cpp','test','meson',['test','-C','build'],'meson.build')]:has(r,'BUILD.bazel')||has(r,'BUILD')?[command(r,'cpp','test','bazel',['test','//...'],'BUILD'),command(r,'cpp','build','bazel',['build','//...'],'BUILD')]:[command(r,'cpp','test','make',['test'],'Makefile'),command(r,'cpp','build','make',[],'Makefile')]});
+import { defineAdapter, command, has } from '../adapter.js';
+export const cpp = defineAdapter({
+  id: 'cpp',
+  matches: (f) => ['CMakeLists.txt', 'Makefile', 'meson.build', 'BUILD', 'BUILD.bazel'].includes(f),
+  tools: [],
+  requirements: () => ['Project-supported C/C++ compiler and native build tool'],
+  bootstrap: (r) =>
+    has(r, 'CMakeLists.txt')
+      ? [
+          command(
+            r,
+            'cpp',
+            'bootstrap',
+            'cmake',
+            ['-S', '.', '-B', 'build'],
+            'CMakeLists.txt',
+            false,
+          ),
+        ]
+      : has(r, 'meson.build')
+        ? [command(r, 'cpp', 'bootstrap', 'meson', ['setup', 'build'], 'meson.build', false)]
+        : [],
+  commands: (r) =>
+    has(r, 'CMakeLists.txt')
+      ? [
+          command(r, 'cpp', 'build', 'cmake', ['--build', 'build'], 'CMakeLists.txt'),
+          command(
+            r,
+            'cpp',
+            'test',
+            'ctest',
+            ['--test-dir', 'build', '--output-on-failure'],
+            'CMakeLists.txt',
+          ),
+        ]
+      : has(r, 'meson.build')
+        ? [
+            command(r, 'cpp', 'build', 'meson', ['compile', '-C', 'build'], 'meson.build'),
+            command(r, 'cpp', 'test', 'meson', ['test', '-C', 'build'], 'meson.build'),
+          ]
+        : has(r, 'BUILD.bazel') || has(r, 'BUILD')
+          ? [
+              command(r, 'cpp', 'test', 'bazel', ['test', '//...'], 'BUILD'),
+              command(r, 'cpp', 'build', 'bazel', ['build', '//...'], 'BUILD'),
+            ]
+          : [
+              command(r, 'cpp', 'test', 'make', ['test'], 'Makefile'),
+              command(r, 'cpp', 'build', 'make', [], 'Makefile'),
+            ],
+});

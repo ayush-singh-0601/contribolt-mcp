@@ -1,5 +1,41 @@
-import {it,expect} from 'vitest';
-import {readiness} from '../src/contribution/readiness.js';
-import {SessionSchema} from '../src/core/models.js';
-import {randomUUID} from 'node:crypto';
-it('blocks fabricated passes and high-risk verification gaps',()=>{const now=new Date().toISOString(),hash='a'.repeat(64);const s=SessionSchema.parse({id:randomUUID(),preferences:{},state:'VALIDATION',createdAt:now,lastUpdatedAt:now,policyDecision:'ALLOWED',analysis:{expected:'a',actual:'b',rootCause:'c',strategy:'d',files:['a'],evidenceUrls:['a'],reproduced:true,reproductionExplanation:'fixture',highRisk:true,critique:{patchHash:hash,findings:[],reviewedAt:now,reviewer:'separate host pass'}}});const result=readiness(s,{patchHash:hash,files:['a'],blockers:[],warnings:[],stat:''});expect(result.status).toBe('BLOCKED');expect(result.blockers).toContain('High-risk changes require complete validation');s.analysis!.highRisk=false;expect(readiness(s,{patchHash:hash,files:['a'],blockers:[],warnings:[],stat:''}).status).toBe('READY_WITH_DISCLOSED_LIMITATIONS');});
+import { it, expect } from 'vitest';
+import { readiness } from '../src/contribution/readiness.js';
+import { SessionSchema } from '../src/core/models.js';
+import { randomUUID } from 'node:crypto';
+it('blocks fabricated passes and high-risk verification gaps', () => {
+  const now = new Date().toISOString(),
+    hash = 'a'.repeat(64);
+  const s = SessionSchema.parse({
+    id: randomUUID(),
+    preferences: {},
+    state: 'VALIDATION',
+    createdAt: now,
+    lastUpdatedAt: now,
+    policyDecision: 'ALLOWED',
+    analysis: {
+      expected: 'a',
+      actual: 'b',
+      rootCause: 'c',
+      strategy: 'd',
+      files: ['a'],
+      evidenceUrls: ['a'],
+      reproduced: true,
+      reproductionExplanation: 'fixture',
+      highRisk: true,
+      critique: { patchHash: hash, findings: [], reviewedAt: now, reviewer: 'separate host pass' },
+    },
+  });
+  const result = readiness(s, {
+    patchHash: hash,
+    files: ['a'],
+    blockers: [],
+    warnings: [],
+    stat: '',
+  });
+  expect(result.status).toBe('BLOCKED');
+  expect(result.blockers).toContain('High-risk changes require complete validation');
+  s.analysis!.highRisk = false;
+  expect(
+    readiness(s, { patchHash: hash, files: ['a'], blockers: [], warnings: [], stat: '' }).status,
+  ).toBe('READY_WITH_DISCLOSED_LIMITATIONS');
+});

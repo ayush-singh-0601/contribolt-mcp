@@ -1,0 +1,9 @@
+node_modules
+dist
+dashboard/dist
+coverage
+test-results
+playwright-report
+docs/PRD.md
+docs/requirements.json
+package-lock.json
