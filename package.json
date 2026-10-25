@@ -1,0 +1,21 @@
+{
+  "name": "mergepilot-mcp",
+  "version": "0.1.0",
+  "description": "Evidence-backed open-source contribution orchestration for coding agents",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=24" },
+  "bin": { "mergepilot": "dist/cli.js" },
+  "files": ["dist", "prompts", "docs", "examples", "LICENSE", "README.md"],
+  "workspaces": ["dashboard"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test && npm run build",
+    "start": "node dist/cli.js",
+    "prepack": "npm run build"
+  },
+  "dependencies": { "@octokit/core": "7.0.6", "@octokit/plugin-paginate-rest": "14.0.0", "zod": "4.4.3" },
+  "devDependencies": { "@types/node": "24.13.3", "typescript": "5.9.3", "vitest": "3.2.7" }
+}

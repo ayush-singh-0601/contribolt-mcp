@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+.mergepilot/
+*.sqlite*
+*.log
+*.tgz
+.env
+test-results/
+playwright-report/
