@@ -1,3 +1,5 @@
+import { setTimeout as delay } from 'node:timers/promises';
+
 const repository = process.env.GITHUB_REPOSITORY;
 const sha = process.env.GITHUB_SHA;
 if (!/^[\w.-]+\/[\w.-]+$/.test(repository ?? '') || !/^[a-f0-9]{40}$/.test(sha ?? ''))
@@ -33,8 +35,6 @@ while (true) {
         conclusion: latest.conclusion,
       }),
     );
-    import { setTimeout as delay } from 'node:timers/promises';
-
     break;
   }
   if (Date.now() >= deadline)
