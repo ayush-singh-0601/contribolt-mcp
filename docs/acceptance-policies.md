@@ -1,6 +1,6 @@
 # Maintainer acceptance policies
 
-Repository maintainers may commit `.mergepilot/policy.json` on the default branch. GitHub organizations may place the same file in their `.github` repository for organization defaults. The tool retrieves these files through the forge API and records the file revision and source URL. Arbitrary issue attachments and external links are not authoritative manifests.
+Repository maintainers may commit `.contribolt/policy.json` on the default branch. GitHub organizations may place the same file in their `.github` repository for organization defaults. The tool retrieves these files through the forge API and records the file revision and source URL. Arbitrary issue attachments and external links are not authoritative manifests.
 
 ```json
 {

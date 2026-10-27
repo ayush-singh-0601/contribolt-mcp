@@ -35,7 +35,7 @@ while True:
         print("Waiting for npm to finish processing " + spec, flush=True)
         time.sleep(10)
 assert metadata["dist"]["integrity"] == expected, "Published archive differs from the validated release candidate"
-with tempfile.TemporaryDirectory(prefix="mergepilot-registry-") as directory:
+with tempfile.TemporaryDirectory(prefix="contribolt-registry-") as directory:
     install = Path(directory)
     (install / "package.json").write_text('{"name":"registry-qualification","private":true}', encoding="utf-8")
     config = install / "public-registry.npmrc"

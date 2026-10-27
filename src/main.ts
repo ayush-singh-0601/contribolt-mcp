@@ -25,32 +25,35 @@ export async function main() {
     return;
   }
   if (command === '--help' || command === 'help') {
-    console.log(`MergePilot MCP ${VERSION}
-  mergepilot mcp                         Start the local STDIO MCP server
-  mergepilot doctor [--json] [--live]     Check runtime, storage, clients and live credentials
-  mergepilot configure codex|claude|cursor [--local] [--project PATH] [--print]
-  mergepilot run-check SESSION CHECK --host-approved [--allow-network]
-  mergepilot approve REQUEST            Review and authorize one exact action in a terminal
-  mergepilot watch SESSION              Monitor a published contribution; Ctrl-C stops
-  mergepilot status SESSION             Inspect a local session offline
-  mergepilot record-incident SESSION duplicate_attempt|maintainer_complaint|policy_violation NOTE
-  mergepilot sessions                   List local sessions
-  mergepilot serve [--host HOST] [--port PORT]
-  mergepilot issue-token PRINCIPAL [read,sync]
-  mergepilot revoke-token TOKEN_ID
-  mergepilot export SESSION [SESSION ...]
-  mergepilot sync SESSION [SESSION ...]  Uses MERGEPILOT_DASHBOARD_URL/TOKEN
-  mergepilot trust-adapter FILE         Interactively trust pinned user adapter code
-  mergepilot --version
+    console.log(`ContriBolt MCP ${VERSION}
+ContriBolt — From open issue to pull request.
+Your AI-powered open-source contribution agent.
 
-Set MERGEPILOT_DATA_DIR to select the private state directory.
+  contribolt mcp                         Start the local STDIO MCP server
+  contribolt doctor [--json] [--live]     Check runtime, storage, clients and live credentials
+  contribolt configure codex|claude|cursor [--local] [--project PATH] [--print]
+  contribolt run-check SESSION CHECK --host-approved [--allow-network]
+  contribolt approve REQUEST            Review and authorize one exact action in a terminal
+  contribolt watch SESSION              Monitor a published contribution; Ctrl-C stops
+  contribolt status SESSION             Inspect a local session offline
+  contribolt record-incident SESSION duplicate_attempt|maintainer_complaint|policy_violation NOTE
+  contribolt sessions                   List local sessions
+  contribolt serve [--host HOST] [--port PORT]
+  contribolt issue-token PRINCIPAL [read,sync]
+  contribolt revoke-token TOKEN_ID
+  contribolt export SESSION [SESSION ...]
+  contribolt sync SESSION [SESSION ...]  Uses CONTRIBOLT_DASHBOARD_URL/TOKEN
+  contribolt trust-adapter FILE         Interactively trust pinned user adapter code
+  contribolt --version
+
+Set CONTRIBOLT_DATA_DIR to select the private state directory.
 Public actions require separate explicit authorization. See docs/clients.md and docs/hosting.md.`);
     return;
   }
   if (!['mcp', 'run-check', 'approve', 'watch', 'trust-adapter', ...httpCommands].includes(command))
     throw new Error('Unknown command; use --help');
   const store = new Store(
-    process.env.MERGEPILOT_DATA_DIR ?? join(homedir(), '.local', 'share', 'mergepilot'),
+    process.env.CONTRIBOLT_DATA_DIR ?? join(homedir(), '.local', 'share', 'contribolt'),
   );
   let storeClosed = false;
   const closeStore = () => {
@@ -177,7 +180,7 @@ Public actions require separate explicit authorization. See docs/clients.md and 
   if (await serveOfficialSdk(application)) {
     return;
   }
-  if (process.env.MERGEPILOT_REQUIRE_SDK === '1') {
+  if (process.env.CONTRIBOLT_REQUIRE_SDK === '1') {
     closeStore();
     throw new Error(
       'Official MCP SDK 2.4.0 is required for this run but is not installed. Run npm ci to install the pinned dependency; qualification must not use a fallback.',

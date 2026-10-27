@@ -12,7 +12,7 @@ parser.add_argument("--claude", default="claude")
 parser.add_argument("--node", default="node")
 parser.add_argument("--cli", default="dist/cli.js", type=Path)
 args = parser.parse_args()
-with tempfile.TemporaryDirectory(prefix="mergepilot-claude-") as directory:
+with tempfile.TemporaryDirectory(prefix="contribolt-claude-") as directory:
     project = Path(directory)
     subprocess.run([args.node, str(args.cli.resolve()), "configure", "claude", "--local",
                     "--project", str(project)], check=True, capture_output=True,
@@ -23,7 +23,7 @@ with tempfile.TemporaryDirectory(prefix="mergepilot-claude-") as directory:
                             cwd=project, env=dict(os.environ, CLAUDE_CONFIG_DIR=str(project / "client-state")),
                             capture_output=True, text=True, timeout=90)
     text = re.sub(r"\x1b\[[0-9;]*m", "", result.stdout + result.stderr)
-    if result.returncode or not any("mergepilot" in line and "Connected" in line
+    if result.returncode or not any("contribolt" in line and "Connected" in line
                                    for line in text.splitlines()):
         # A disposable config has no account credentials; redact known token patterns anyway.
         detail = re.sub(r"(?:Bearer\s+\S+|gh[pousr]_\w+|github_pat_\w+)", "[REDACTED]", text[-6000:])

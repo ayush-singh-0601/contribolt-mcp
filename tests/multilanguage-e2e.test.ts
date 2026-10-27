@@ -147,8 +147,8 @@ for (const example of examples)
         if (path.endsWith('/reviews')) return send([{ submitted_at: new Date().toISOString() }]);
         throw new Error('Unexpected fixture API request: ' + path);
       });
-      vi.stubEnv('MERGEPILOT_GITHUB_TOKEN', 'controlled-native-fixture');
-      vi.stubEnv('MERGEPILOT_FORGES', '[]');
+      vi.stubEnv('CONTRIBOLT_GITHUB_TOKEN', 'controlled-native-fixture');
+      vi.stubEnv('CONTRIBOLT_FORGES', '[]');
       const app = createApplication(store, {
           workspaceFactory: async () => ({ root: repo.root, sha }),
         }),
@@ -218,8 +218,8 @@ for (const example of examples)
       };
       expect(preview.dryRun).toBe(true);
       expect(writes).toBe(0);
-      if (process.env.MERGEPILOT_EVIDENCE_DIR) {
-        const target = process.env.MERGEPILOT_EVIDENCE_DIR;
+      if (process.env.CONTRIBOLT_EVIDENCE_DIR) {
+        const target = process.env.CONTRIBOLT_EVIDENCE_DIR;
         mkdirSync(target, { recursive: true });
         writeFileSync(
           join(target, example.ecosystem.toLowerCase() + '.json'),

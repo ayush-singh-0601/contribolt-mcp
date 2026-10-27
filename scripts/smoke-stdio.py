@@ -19,20 +19,20 @@ args = parser.parse_args()
 if args.modern and not args.require_sdk:
     parser.error('--modern requires --require-sdk; the fallback advertises only its legacy protocol')
 
-with tempfile.TemporaryDirectory(prefix='mergepilot-smoke-') as state:
-    env = dict(os.environ, MERGEPILOT_DATA_DIR=state)
-    for name in ('MERGEPILOT_GITHUB_TOKEN', 'GITHUB_TOKEN', 'GH_TOKEN', 'MERGEPILOT_APP_ID',
-                 'MERGEPILOT_APP_KEY', 'MERGEPILOT_INSTALLATION_ID'):
+with tempfile.TemporaryDirectory(prefix='contribolt-smoke-') as state:
+    env = dict(os.environ, CONTRIBOLT_DATA_DIR=state)
+    for name in ('CONTRIBOLT_GITHUB_TOKEN', 'GITHUB_TOKEN', 'GH_TOKEN', 'CONTRIBOLT_APP_ID',
+                 'CONTRIBOLT_APP_KEY', 'CONTRIBOLT_INSTALLATION_ID'):
         env.pop(name, None)
     if args.require_sdk:
-        env['MERGEPILOT_REQUIRE_SDK'] = '1'
+        env['CONTRIBOLT_REQUIRE_SDK'] = '1'
     process = subprocess.Popen([args.node, str(args.cli.resolve()), 'mcp'], stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding='utf-8',
                                bufsize=1, env=env)
     messages = queue.Queue()
     stderr = []
     meta = {'io.modelcontextprotocol/protocolVersion': '2026-07-28',
-            'io.modelcontextprotocol/clientInfo': {'name': 'mergepilot-smoke', 'version': '0.1.0'},
+            'io.modelcontextprotocol/clientInfo': {'name': 'contribolt-smoke', 'version': '0.1.0'},
             'io.modelcontextprotocol/clientCapabilities': {}}
 
     def read_output():
@@ -89,8 +89,8 @@ with tempfile.TemporaryDirectory(prefix='mergepilot-smoke-') as state:
             rpc('server/discover')
         else:
             initialized = rpc('initialize', {'protocolVersion': '2025-06-18', 'capabilities': {},
-                              'clientInfo': {'name': 'mergepilot-smoke', 'version': '0.1.0'}})
-            assert initialized['serverInfo']['name'] == 'mergepilot'
+                              'clientInfo': {'name': 'contribolt-smoke', 'version': '0.1.0'}})
+            assert initialized['serverInfo']['name'] == 'contribolt'
             send({'jsonrpc': '2.0', 'method': 'notifications/initialized'})
         assert len(rpc('tools/list')['tools']) == 21
         assert len(rpc('prompts/list')['prompts']) == 6
@@ -102,7 +102,7 @@ with tempfile.TemporaryDirectory(prefix='mergepilot-smoke-') as state:
             'languages': ['Python'], 'difficulty': 'small'}})
         assert call('get_status', {'sessionId': session})['session']['preferences']['repositoryPreference'] == 'any'
         resources = rpc('resources/list')['resources']
-        uri = 'mergepilot://session/' + session
+        uri = 'contribolt://session/' + session
         assert any(resource['uri'] == uri for resource in resources)
         assert json.loads(rpc('resources/read', {'uri': uri})['contents'][0]['text'])['session']['id'] == session
         denied = rpc('tools/call', {'name': 'publish_pull_request', 'arguments': {'sessionId': session}})

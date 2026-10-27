@@ -1,16 +1,18 @@
 {
-  "name": "mergepilot-mcp",
+  "name": "contribolt-mcp",
   "version": "0.1.0",
-  "description": "Evidence-backed open-source contribution orchestration for coding agents",
+  "description": "ContriBolt — From open issue to pull request. Your AI-powered open-source contribution agent.",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ayush-singh-0601/mergepilot-mcp.git"
+    "url": "git+https://github.com/ayush-singh-0601/contribolt-mcp.git"
   },
   "keywords": [
+    "contribolt",
     "mcp",
     "model-context-protocol",
+    "open-source",
     "coding-agent",
     "github"
   ],
@@ -23,7 +25,7 @@
     "node": ">=24"
   },
   "bin": {
-    "mergepilot": "dist/cli.js"
+    "contribolt": "dist/cli.js"
   },
   "files": [
     "dist",
@@ -44,7 +46,7 @@
     "check": "npm run format:check && npm run typecheck && npm test && npm run build",
     "start": "node dist/cli.js",
     "prepack": "npm run build",
-    "build:dashboard": "npm run build --workspace=@mergepilot/dashboard",
+    "build:dashboard": "npm run build --workspace=@contribolt/dashboard",
     "build:server": "node scripts/clean-dist.mjs && tsc -p tsconfig.json",
     "test:browser": "playwright test",
     "format": "prettier --write src tests scripts dashboard/src *.ts *.json .github/workflows/*.yml",

@@ -14,7 +14,7 @@ COPY --from=build --chown=node:node /app/dashboard/package.json ./dashboard/pack
 COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/dist ./dist
 USER node
-ENV MERGEPILOT_DATA_DIR=/data
+ENV CONTRIBOLT_DATA_DIR=/data
 EXPOSE 5178
 ENTRYPOINT ["node","dist/cli.js"]
 CMD ["serve"]

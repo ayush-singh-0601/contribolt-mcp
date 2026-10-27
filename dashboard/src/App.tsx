@@ -470,7 +470,7 @@ export function App() {
     try {
       await api('/api/logout', {
         method: 'POST',
-        headers: { 'x-mergepilot-csrf': profile?.csrf ?? '' },
+        headers: { 'x-contribolt-csrf': profile?.csrf ?? '' },
         body: '{}',
       });
     } finally {
@@ -500,7 +500,7 @@ export function App() {
       <header>
         <div className="brand">
           <Mark />
-          <span>MergePilot</span>
+          <span>ContriBolt</span>
           <span className="brand-caption">CONTRIBUTION WORKSPACE</span>
         </div>
         <div className="header-actions">
@@ -516,14 +516,8 @@ export function App() {
         {!profile ? (
           <section className="login">
             <p className="eyebrow">FROM OPPORTUNITY TO CONTRIBUTION</p>
-            <h1>
-              A clear view of
-              <br />
-              your open-source work.
-            </h1>
-            <p className="intro">
-              Follow verified issues, validation evidence, and review progress from your coding CLI.
-            </p>
+            <h1>ContriBolt — From open issue to pull request.</h1>
+            <p className="intro">Your AI-powered open-source contribution agent.</p>
             <form onSubmit={(e) => void login(e)}>
               <label htmlFor="token">Dashboard access token</label>
               <input
@@ -534,7 +528,7 @@ export function App() {
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
                 required
-                placeholder="mp_…"
+                placeholder="cb_…"
               />
               <button disabled={loading || !token}>
                 {loading ? 'Connecting…' : 'Connect to your journal'}
@@ -543,7 +537,7 @@ export function App() {
             <details>
               <summary>How to connect</summary>
               <p>Create a scoped dashboard token in the local CLI:</p>
-              <code>mergepilot issue-token local read</code>
+              <code>contribolt issue-token local read</code>
               <p>Use a dashboard token here. GitHub credentials stay with your coding CLI.</p>
             </details>
             {error && (
@@ -613,7 +607,7 @@ export function App() {
         )}
       </main>
       <footer>
-        <span>MergePilot</span>
+        <span>ContriBolt</span>
         <span>Publication and public updates require approval in your local workflow.</span>
       </footer>
     </>

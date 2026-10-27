@@ -36,14 +36,14 @@ export async function runHttpCommand(command: string, store: Store, args: string
       externalOrigin: values.origin,
       trustProxy: values['trust-proxy'],
       dashboardRoot: existsSync(assets) ? assets : undefined,
-      webhookSecret: process.env.MERGEPILOT_WEBHOOK_SECRET,
-      installationId: process.env.MERGEPILOT_INSTALLATION_ID
-        ? z.coerce.number().int().positive().parse(process.env.MERGEPILOT_INSTALLATION_ID)
+      webhookSecret: process.env.CONTRIBOLT_WEBHOOK_SECRET,
+      installationId: process.env.CONTRIBOLT_INSTALLATION_ID
+        ? z.coerce.number().int().positive().parse(process.env.CONTRIBOLT_INSTALLATION_ID)
         : undefined,
     });
     const port = await service.listen();
     console.log(
-      `MergePilot HTTP service listening on ${values.host}:${port}. Access requires an issued token.`,
+      `ContriBolt HTTP service listening on ${values.host}:${port}. Access requires an issued token.`,
     );
     await new Promise<void>((resolve) => {
       const stop = () => resolve();
@@ -102,8 +102,8 @@ export async function runHttpCommand(command: string, store: Store, args: string
       console.log(JSON.stringify(payload));
       return;
     }
-    const endpoint = process.env.MERGEPILOT_DASHBOARD_URL,
-      token = process.env.MERGEPILOT_DASHBOARD_TOKEN;
+    const endpoint = process.env.CONTRIBOLT_DASHBOARD_URL,
+      token = process.env.CONTRIBOLT_DASHBOARD_TOKEN;
     if (!endpoint || !token)
       throw new Error(
         'Set an explicit dashboard URL and scoped synchronization token before opting into sync',

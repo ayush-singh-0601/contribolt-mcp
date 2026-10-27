@@ -1,5 +1,5 @@
 name: verify
-on: [push, pull_request, workflow_dispatch]
+on: [workflow_dispatch]
 permissions:
   contents: read
 jobs:
@@ -39,7 +39,7 @@ jobs:
           python-version: '3.12'
       - run: npm run check
       - run: npm pack --ignore-scripts
-      - run: python scripts/audit-package.py mergepilot-mcp-0.1.0.tgz
+      - run: python scripts/audit-package.py contribolt-mcp-0.1.0.tgz
       - run: python scripts/smoke-stdio.py
       - run: python scripts/smoke-package.py
       - uses: actions/upload-artifact@v4
@@ -121,17 +121,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t mergepilot:qualification .
+      - run: docker build -t contribolt:qualification .
       - run: |
-          docker run -d --name mergepilot-smoke -p 127.0.0.1:5178:5178 mergepilot:qualification serve --host 0.0.0.0 --origin https://mergepilot.invalid
+          docker run -d --name contribolt-smoke -p 127.0.0.1:5178:5178 contribolt:qualification serve --host 0.0.0.0 --origin https://contribolt.invalid
           for attempt in $(seq 1 30); do
             if curl --fail --silent http://127.0.0.1:5178/healthz; then exit 0; fi
             sleep 1
           done
-          docker logs mergepilot-smoke
+          docker logs contribolt-smoke
           exit 1
       - if: always()
-        run: docker rm -f mergepilot-smoke || true
+        run: docker rm -f contribolt-smoke || true
   native:
     needs: lockfile
     strategy:

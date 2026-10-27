@@ -88,7 +88,7 @@ export class HttpService {
     if (
       auth.cookie &&
       !['GET', 'HEAD'].includes(req.method ?? 'GET') &&
-      req.headers['x-mergepilot-csrf'] !== auth.access.csrf
+      req.headers['x-contribolt-csrf'] !== auth.access.csrf
     )
       throw new HttpError(403, 'CSRF check failed');
     return auth.access;
@@ -150,7 +150,7 @@ export class HttpService {
           (this.options.trustProxy && req.headers['x-forwarded-proto'] === 'https');
         res.setHeader(
           'Set-Cookie',
-          `mergepilot_session=${login.session}; HttpOnly; SameSite=Strict; Path=/; Max-Age=28800${secure ? '; Secure' : ''}`,
+          `contribolt_session=${login.session}; HttpOnly; SameSite=Strict; Path=/; Max-Age=28800${secure ? '; Secure' : ''}`,
         );
         this.json(res, 200, {
           principal: login.access.principal,
@@ -175,7 +175,7 @@ export class HttpService {
           this.auth.logout(req.headers.cookie);
           res.setHeader(
             'Set-Cookie',
-            'mergepilot_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0',
+            'contribolt_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0',
           );
           this.json(res, 200, { loggedOut: true });
           return;
@@ -254,7 +254,7 @@ export class HttpService {
             result = {
               protocolVersion: '2025-06-18',
               capabilities: { tools: {} },
-              serverInfo: { name: 'mergepilot-readonly', version: '0.1.0' },
+              serverInfo: { name: 'contribolt-readonly', version: '0.1.0' },
               instructions:
                 'Hosted access is read-only. Continue coding and action approvals through the local CLI.',
             };

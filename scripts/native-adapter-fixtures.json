@@ -13,7 +13,7 @@
   {
     "id": "python",
     "files": {
-      "pyproject.toml": "[build-system]\nrequires = [\"setuptools>=68\"]\nbuild-backend = \"setuptools.build_meta\"\n[project]\nname = \"mergepilot-native-fixture\"\nversion = \"0.0.1\"\n[project.optional-dependencies]\ntest = [\"pytest==8.3.5\"]\n[tool.setuptools]\npy-modules = [\"increment\"]\n",
+      "pyproject.toml": "[build-system]\nrequires = [\"setuptools>=68\"]\nbuild-backend = \"setuptools.build_meta\"\n[project]\nname = \"contribolt-native-fixture\"\nversion = \"0.0.1\"\n[project.optional-dependencies]\ntest = [\"pytest==8.3.5\"]\n[tool.setuptools]\npy-modules = [\"increment\"]\n",
       "increment.py": "def increment(value):\n    return value\n",
       "test_increment.py": "from increment import increment\n\ndef test_increment():\n    assert increment(1) == 2\n"
     },

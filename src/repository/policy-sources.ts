@@ -29,7 +29,7 @@ export async function policySources(
   const paths = tree.tree.filter(
     (f) =>
       f.type === 'blob' &&
-      (f.path === '.mergepilot/policy.json' ||
+      (f.path === '.contribolt/policy.json' ||
         categories.test(f.path) ||
         /^\.github\/(?:instructions|ISSUE_TEMPLATE|PULL_REQUEST_TEMPLATE)\//.test(f.path)),
   );
@@ -67,7 +67,7 @@ export async function policySources(
     }
   };
   for (const path of paths.slice(0, 80)) await fetchDoc(repo.fullName, path.path, head.sha);
-  await fetchDoc(repo.fullName.split('/')[0] + '/.github', '.mergepilot/policy.json', 'HEAD', true);
+  await fetchDoc(repo.fullName.split('/')[0] + '/.github', '.contribolt/policy.json', 'HEAD', true);
   if (!documents.some((d) => /CONTRIBUTING/i.test(d.path))) {
     const owner = repo.fullName.split('/')[0]!;
     for (const path of ['CONTRIBUTING.md', '.github/CONTRIBUTING.md', 'README.md'])

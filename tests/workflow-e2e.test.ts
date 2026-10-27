@@ -278,8 +278,8 @@ it(
         throw new Error('Unexpected mocked GitHub request: ' + method + ' ' + path);
       }) as typeof fetch;
       vi.stubGlobal('fetch', fetcher);
-      vi.stubEnv('MERGEPILOT_GITHUB_TOKEN', 'fixture-only-token');
-      vi.stubEnv('MERGEPILOT_FORGES', '[]');
+      vi.stubEnv('CONTRIBOLT_GITHUB_TOKEN', 'fixture-only-token');
+      vi.stubEnv('CONTRIBOLT_FORGES', '[]');
       const app = createApplication(store, {
         workspaceFactory: async () => ({ root: repo.root, sha: base }),
         publicationFactory: (context) => {

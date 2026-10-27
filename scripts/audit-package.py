@@ -18,12 +18,19 @@ with tarfile.open(args.tarball) as archive:
         name = member.name
         assert member.isfile(), f"Unexpected non-file archive entry: {name}"
         assert name.startswith("package/") and ".." not in Path(name).parts
-        assert not re.search(r"(?:^|/)(?:node_modules|\.git|\.env|\.mergepilot)(?:/|$)|\.sqlite", name), name
+        assert not re.search(r"(?:^|/)(?:node_modules|\.git|\.env|\.contribolt)(?:/|$)|\.sqlite", name), name
         assert name in {"package/package.json", "package/README.md", "package/LICENSE", "package/CHANGELOG.md"} or any(
             name.startswith("package/" + directory + "/") for directory in ["dist", "docs", "examples"]
         ), name
     assert {"package/dist/cli.js", "package/dist/dashboard/index.html", "package/LICENSE", "package/README.md"}.issubset(names)
     assert archive.extractfile("package/dist/cli.js").read().startswith(b"#!/usr/bin/env node\n")
+    packaged = json.load(archive.extractfile("package/package.json"))
+    source = json.loads((root / "package.json").read_text(encoding="utf-8"))
+    assert packaged["name"] == "contribolt-mcp"
+    assert packaged["bin"] == {"contribolt": "dist/cli.js"}
+    assert packaged["description"] == "ContriBolt — From open issue to pull request. Your AI-powered open-source contribution agent."
+    for field in ["name", "version", "bin", "description", "repository", "dependencies"]:
+        assert packaged[field] == source[field], "Packaged metadata differs: " + field
 
 requirements = json.loads((root / "docs/requirements.json").read_text(encoding="utf-8"))
 assert len(requirements) == 236
@@ -56,9 +63,17 @@ for path in [root / "README.md", *root.glob("docs/*.md"), *root.glob("examples/*
             broken.append(f"{path.relative_to(root)} -> {target}")
 assert not broken, "Broken documentation links: " + repr(broken)
 
-original = root.parent / "MergePilot_MCP_PRD.md"
-if original.exists():
-    assert original.read_bytes() == (root / "docs/PRD.md").read_bytes()
+# The upstream specification is retained unchanged; the current copy adapts only branding.
+original_sha = "b6c0bdd2aca25827dac3cbe10a48e0e3a9467e13b5648fab81757bb2aa89b4b7"
+for original in root.parent.glob("*PRD*.md"):
+    if hashlib.sha256(original.read_bytes()).hexdigest() != original_sha:
+        continue
+    text = original.read_text(encoding="utf-8")
+    original_brand = re.match(r"#\s+(\S+)\s+MCP", text).group(1)
+    for old, new in [(original_brand, "ContriBolt"), (original_brand.upper(), "CONTRIBOLT"),
+                     (original_brand.lower(), "contribolt")]:
+        text = text.replace(old, new)
+    assert text == (root / "docs/PRD.md").read_text(encoding="utf-8")
 print(json.dumps({"files": len(members), "bytes": args.tarball.stat().st_size,
                   "sha256": hashlib.sha256(args.tarball.read_bytes()).hexdigest(),
                   "requirementsAudited": len(requirements), "nativeEcosystems": len(native),

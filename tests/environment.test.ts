@@ -9,5 +9,5 @@ it('selects nearest affected packages in mixed monorepos', () => {
     'packages/web',
     'services/api',
   ]);
-  expect(executableAvailable('mergepilot-tool-that-does-not-exist', '/tmp')).toBe(false);
+  expect(executableAvailable('contribolt-tool-that-does-not-exist', '/tmp')).toBe(false);
 });

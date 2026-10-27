@@ -21,7 +21,7 @@ it('lets authoritative acceptance manifests clarify missing guidance without ove
       blockedLabels: ['security-review'],
       requireDraft: true,
     }),
-    '.mergepilot/policy.json',
+    '.contribolt/policy.json',
   );
   const repo = { fullName: 'o/r' } as Repository;
   const policy = classifyPolicy([manifest], true, repo);
@@ -39,7 +39,7 @@ it('lets authoritative acceptance manifests clarify missing guidance without ove
 });
 it('fails closed for malformed or out-of-allowlist manifests', () => {
   expect(
-    classifyPolicy([doc('{"schemaVersion":999}', '.mergepilot/policy.json')], true).policy,
+    classifyPolicy([doc('{"schemaVersion":999}', '.contribolt/policy.json')], true).policy,
   ).toBe('UNKNOWN');
   expect(
     classifyPolicy(
@@ -51,7 +51,7 @@ it('fails closed for malformed or out-of-allowlist manifests', () => {
             externalPullRequests: true,
             repositories: ['different/repo'],
           }),
-          '.mergepilot/policy.json',
+          '.contribolt/policy.json',
         ),
       ],
       true,

@@ -20,7 +20,7 @@ export class HttpAuth {
     Principal.parse(principal);
     z.array(Scope).min(1).parse(scopes);
     z.number().positive().max(365).parse(days);
-    const token = 'mp_' + randomBytes(32).toString('base64url'),
+    const token = 'cb_' + randomBytes(32).toString('base64url'),
       id = hash(token),
       record: TokenRecord = {
         principal,
@@ -39,7 +39,7 @@ export class HttpAuth {
     this.store.put('http-tokens', id, record);
   }
   token(value: string): Access | undefined {
-    if (!/^mp_[A-Za-z0-9_-]{43}$/.test(value)) return;
+    if (!/^cb_[A-Za-z0-9_-]{43}$/.test(value)) return;
     const record = this.store.read<TokenRecord>('http-tokens', hash(value));
     if (record && !record.revoked && record.expiresAt > Date.now()) return record;
   }
@@ -68,8 +68,8 @@ export class HttpAuth {
     const session = cookie
       ?.split(';')
       .map((c) => c.trim())
-      .find((c) => c.startsWith('mergepilot_session='))
-      ?.slice('mergepilot_session='.length);
+      .find((c) => c.startsWith('contribolt_session='))
+      ?.slice('contribolt_session='.length);
     if (!session) return;
     const access = this.store.read<Access>('http-sessions', hash(session));
     if (!access || access.expiresAt <= Date.now()) return;
@@ -81,8 +81,8 @@ export class HttpAuth {
     const value = cookie
       ?.split(';')
       .map((c) => c.trim())
-      .find((c) => c.startsWith('mergepilot_session='))
-      ?.slice('mergepilot_session='.length);
+      .find((c) => c.startsWith('contribolt_session='))
+      ?.slice('contribolt_session='.length);
     if (value) this.store.remove('http-sessions', hash(value));
   }
 }

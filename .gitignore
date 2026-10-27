@@ -1,7 +1,7 @@
 node_modules/
 dist/
 coverage/
-.mergepilot/
+.contribolt/
 *.sqlite*
 *.log
 *.tgz

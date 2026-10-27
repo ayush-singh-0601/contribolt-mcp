@@ -11,26 +11,26 @@ export const clients = ['codex', 'claude', 'cursor'] as const;
 export type Client = (typeof clients)[number];
 export function forwardedCredentialVariables(): string[] {
   const names = [
-    'MERGEPILOT_GITHUB_TOKEN',
+    'CONTRIBOLT_GITHUB_TOKEN',
     'GITHUB_TOKEN',
     'GH_TOKEN',
-    'MERGEPILOT_APP_ID',
-    'MERGEPILOT_APP_KEY',
-    'MERGEPILOT_INSTALLATION_ID',
-    'MERGEPILOT_FORGES',
+    'CONTRIBOLT_APP_ID',
+    'CONTRIBOLT_APP_KEY',
+    'CONTRIBOLT_INSTALLATION_ID',
+    'CONTRIBOLT_FORGES',
     'GITLAB_TOKEN',
     'FORGEJO_TOKEN',
   ];
-  if (process.env.MERGEPILOT_FORGES) {
+  if (process.env.CONTRIBOLT_FORGES) {
     try {
-      const forges = JSON.parse(process.env.MERGEPILOT_FORGES) as { tokenEnv?: unknown }[];
+      const forges = JSON.parse(process.env.CONTRIBOLT_FORGES) as { tokenEnv?: unknown }[];
       if (Array.isArray(forges))
         for (const forge of forges)
           if (typeof forge.tokenEnv === 'string' && /^[A-Z][A-Z0-9_]+$/.test(forge.tokenEnv))
             names.push(forge.tokenEnv);
     } catch {
       throw new Error(
-        'MERGEPILOT_FORGES must be valid JSON before configuring credential forwarding',
+        'CONTRIBOLT_FORGES must be valid JSON before configuring credential forwarding',
       );
     }
   }
@@ -46,11 +46,11 @@ export function serverDefinition(project: string, local = false) {
           '--package',
           `@modelcontextprotocol/server@${SDK_VERSION}`,
           '--package',
-          'mergepilot-mcp@0.1.0',
-          'mergepilot',
+          'contribolt-mcp@0.1.0',
+          'contribolt',
           'mcp',
         ],
-    env: { MERGEPILOT_DATA_DIR: join(project, '.mergepilot') },
+    env: { CONTRIBOLT_DATA_DIR: join(project, '.contribolt') },
   };
 }
 export function configureClient(
@@ -75,10 +75,10 @@ export function configureClient(
   if (client === 'codex') {
     const before = current ? parseToml(current) : {},
       servers = (before.mcp_servers ?? {}) as Record<string, unknown>,
-      existing = servers.mergepilot as Record<string, unknown> | undefined;
-    const begin = '# BEGIN MERGEPILOT MANAGED CONFIG',
-      end = '# END MERGEPILOT MANAGED CONFIG';
-    const block = `${begin}\n[mcp_servers.mergepilot]\ncommand = ${JSON.stringify(definition.command)}\nargs = ${JSON.stringify(definition.args)}\nenv = { MERGEPILOT_DATA_DIR = ${JSON.stringify(definition.env.MERGEPILOT_DATA_DIR)} }\nenv_vars = ${JSON.stringify(forwardedCredentialVariables())}\n${end}\n`;
+      existing = servers.contribolt as Record<string, unknown> | undefined;
+    const begin = '# BEGIN CONTRIBOLT MANAGED CONFIG',
+      end = '# END CONTRIBOLT MANAGED CONFIG';
+    const block = `${begin}\n[mcp_servers.contribolt]\ncommand = ${JSON.stringify(definition.command)}\nargs = ${JSON.stringify(definition.args)}\nenv = { CONTRIBOLT_DATA_DIR = ${JSON.stringify(definition.env.CONTRIBOLT_DATA_DIR)} }\nenv_vars = ${JSON.stringify(forwardedCredentialVariables())}\n${end}\n`;
     if (current.includes(begin) && current.includes(end)) {
       const start = current.indexOf(begin),
         finish = current.indexOf(end, start) + end.length;
@@ -87,7 +87,7 @@ export function configureClient(
         without = (value: Record<string, unknown>) => {
           const copy = structuredClone(value),
             tables = (copy.mcp_servers ?? {}) as Record<string, unknown>;
-          delete tables.mergepilot;
+          delete tables.contribolt;
           copy.mcp_servers = tables;
           return copy;
         };
@@ -100,10 +100,10 @@ export function configureClient(
       if (
         existing.command !== definition.command ||
         digest(existing.args) !== digest(definition.args) ||
-        env?.MERGEPILOT_DATA_DIR !== definition.env.MERGEPILOT_DATA_DIR
+        env?.CONTRIBOLT_DATA_DIR !== definition.env.CONTRIBOLT_DATA_DIR
       )
         throw new Error(
-          'An unmanaged MergePilot configuration already exists; review and merge the generated example manually',
+          'An unmanaged ContriBolt configuration already exists; review and merge the generated example manually',
         );
       next = current;
     } else {
@@ -122,13 +122,13 @@ export function configureClient(
         Array.isArray(parsed.mcpServers))
     )
       throw new Error('mcpServers must be an object');
-    const old = parsed.mcpServers?.mergepilot ?? {};
+    const old = parsed.mcpServers?.contribolt ?? {};
     if (typeof old !== 'object' || Array.isArray(old))
-      throw new Error('Existing MergePilot configuration is invalid');
+      throw new Error('Existing ContriBolt configuration is invalid');
     const value = { ...old, ...definition, env: { ...(old.env ?? {}), ...definition.env } };
     next = applyEdits(
       current || '{}\n',
-      modify(current || '{}\n', ['mcpServers', 'mergepilot'], value, {
+      modify(current || '{}\n', ['mcpServers', 'contribolt'], value, {
         formattingOptions: { insertSpaces: true, tabSize: 2, eol: '\n' },
       }),
     );
@@ -139,9 +139,9 @@ export function configureClient(
     writeFileSync(temp, next, { mode: 0o600, flag: 'wx' });
     renameSync(temp, file);
   }
-  const data = within(root, '.mergepilot');
+  const data = within(root, '.contribolt');
   mkdirSync(data, { recursive: true, mode: 0o700 });
-  const ignore = within(root, '.mergepilot/.gitignore');
+  const ignore = within(root, '.contribolt/.gitignore');
   if (!existsSync(ignore)) writeFileSync(ignore, '*\n', { mode: 0o600, flag: 'wx' });
   return { file, changed: next !== current, definition };
 }

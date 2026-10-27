@@ -30,7 +30,7 @@ export class GitHubClient {
     const octokit = new Octokit({
       auth: await this.auth.token(),
       request: { fetch: this.fetcher },
-      userAgent: 'mergepilot/0.1.0',
+      userAgent: 'contribolt/0.1.0',
     });
     for (let attempt = 0; ; attempt++) {
       this.budget.take(signal);

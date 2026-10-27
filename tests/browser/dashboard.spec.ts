@@ -45,7 +45,7 @@ test('connects filters inspects and disconnects without storing the token', asyn
   let authenticated = false;
   const failures: string[] = [];
   page.on('pageerror', (error) => failures.push(error.message));
-  await page.route('http://mergepilot.test/**', async (route) => {
+  await page.route('http://contribolt.test/**', async (route) => {
     const url = new URL(route.request().url()),
       path = url.pathname;
     if (path.startsWith('/api/')) {
@@ -95,7 +95,7 @@ test('connects filters inspects and disconnects without storing the token', asyn
       body: readFileSync(file),
     });
   });
-  await page.goto('http://mergepilot.test/');
+  await page.goto('http://contribolt.test/');
   await page.getByLabel('Dashboard access token').fill('test-dashboard-token');
   await page.getByRole('button', { name: 'Connect to your journal' }).click();
   await expect(page.getByRole('heading', { name: 'Contribution journal' })).toBeVisible();

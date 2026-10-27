@@ -88,7 +88,7 @@ export function prepareProposal(
     throw new Error('PR must reference the selected issue');
   const branch = safeBranch(
     input.branch ??
-      `mergepilot/issue-${session.selectedIssue.issueNumber}-${session.id.slice(0, 8)}`,
+      `contribolt/issue-${session.selectedIssue.issueNumber}-${session.id.slice(0, 8)}`,
   );
   const commitMessage = `fix: ${input.title}${policy.signoff ? '\n\nSigned-off-by: ' + input.authorName + ' <' + input.authorEmail + '>' : ''}`;
   return ProposalSchema.parse({

@@ -12,11 +12,11 @@ it('stores credential hashes, separates scopes and revokes browser sessions with
     const serialized = JSON.stringify(db.read('http-tokens', issued.id));
     expect(serialized).not.toContain(issued.token);
     expect(auth.authenticate('Bearer ' + issued.token, undefined)?.access.scopes).toEqual(['read']);
-    expect(auth.authenticate(undefined, 'mergepilot_session=' + login.session)?.access.csrf).toBe(
+    expect(auth.authenticate(undefined, 'contribolt_session=' + login.session)?.access.csrf).toBe(
       login.access.csrf,
     );
     auth.revoke(issued.id);
-    expect(auth.authenticate(undefined, 'mergepilot_session=' + login.session)).toBeUndefined();
+    expect(auth.authenticate(undefined, 'contribolt_session=' + login.session)).toBeUndefined();
     expect(auth.token(issued.token)).toBeUndefined();
   } finally {
     db.close();

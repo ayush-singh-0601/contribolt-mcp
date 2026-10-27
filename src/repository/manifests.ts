@@ -51,7 +51,7 @@ export function applyManifests(
     cooldownHours: 24,
   };
   for (const doc of docs
-    .filter((d) => d.path === '.mergepilot/policy.json')
+    .filter((d) => d.path === '.contribolt/policy.json')
     .sort((a, b) => Number(b.organizationDefault) - Number(a.organizationDefault))) {
     let m: z.infer<typeof AcceptanceManifest>;
     try {

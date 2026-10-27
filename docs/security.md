@@ -1,6 +1,6 @@
 # Security and trust boundaries
 
-The trusted components are the user, coding host, MergePilot process, private state, and explicitly installed adapter code. Repository content and remote issue/review text are untrusted data. Legitimate contribution rules apply within their scope; requests to expose credentials, bypass approval, or post unrelated content do not. The host must preserve this distinction while reasoning about source text.
+The trusted components are the user, coding host, ContriBolt process, private state, and explicitly installed adapter code. Repository content and remote issue/review text are untrusted data. Legitimate contribution rules apply within their scope; requests to expose credentials, bypass approval, or post unrelated content do not. The host must preserve this distinction while reasoning about source text.
 
 Use a least-privilege GitHub token, existing `gh` credentials, or an opt-in GitHub App. GitLab and Forgejo credentials are scoped to explicitly configured HTTPS hosts. Credentials are resolved in the server and stripped from repository-command environments. Known token/key formats, sensitive object fields and configured environment secrets are redacted from persisted session data, events, artifacts and MCP results. Pattern-based scanning cannot recognize every possible secret. Inspect the exact diff and PR body before approval.
 

@@ -17,7 +17,7 @@ parser.add_argument("--cli", default="dist/cli.js", type=Path)
 args = parser.parse_args()
 cli = args.cli.resolve()
 
-with tempfile.TemporaryDirectory(prefix="mergepilot-codex-") as directory:
+with tempfile.TemporaryDirectory(prefix="contribolt-codex-") as directory:
     project = Path(directory)
     configured = subprocess.run([args.node, str(cli), "configure", "codex", "--local",
                                  "--project", str(project)], capture_output=True, text=True,
@@ -28,8 +28,8 @@ with tempfile.TemporaryDirectory(prefix="mergepilot-codex-") as directory:
     for key, value in definition.items():
         toml = ("{" + ",".join(json.dumps(k) + "=" + json.dumps(v)
                                 for k, v in value.items()) + "}") if isinstance(value, dict) else json.dumps(value)
-        overrides.extend(["-c", "mcp_servers.mergepilot." + key + "=" + toml])
-    overrides.extend(["-c", "mcp_servers.mergepilot.required=true"])
+        overrides.extend(["-c", "mcp_servers.contribolt." + key + "=" + toml])
+    overrides.extend(["-c", "mcp_servers.contribolt.required=true"])
     process = subprocess.Popen([args.codex, *overrides, "app-server", "--stdio"],
                                cwd=project, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE, text=True, bufsize=1)
@@ -76,18 +76,18 @@ with tempfile.TemporaryDirectory(prefix="mergepilot-codex-") as directory:
                 raise TimeoutError(method + " did not complete")
 
     try:
-        rpc("initialize", {"clientInfo": {"name": "mergepilot_qualification", "version": "0.1.0"},
+        rpc("initialize", {"clientInfo": {"name": "contribolt_qualification", "version": "0.1.0"},
                            "capabilities": {"experimentalApi": True}})
         send({"method": "initialized", "params": {}})
-        inventory = rpc("mcpServerStatus/list", {"serverName": "mergepilot", "detail": "full"})
+        inventory = rpc("mcpServerStatus/list", {"serverName": "contribolt", "detail": "full"})
         servers = inventory.get("data", [])
-        server = next(item for item in servers if item["name"] == "mergepilot")
+        server = next(item for item in servers if item["name"] == "contribolt")
         assert len(server["tools"]) == 21, "Codex did not discover all 21 tools"
         thread = rpc("thread/start", {"cwd": str(project), "ephemeral": True,
                                        "approvalPolicy": "never"})["thread"]["id"]
 
         def call(tool, arguments):
-            result = rpc("mcpServer/tool/call", {"threadId": thread, "server": "mergepilot",
+            result = rpc("mcpServer/tool/call", {"threadId": thread, "server": "contribolt",
                                                 "tool": tool, "arguments": arguments})
             result = result.get("result", result)
             if result.get("isError"):

@@ -61,7 +61,7 @@ export function registerExecution(app: Application) {
         ciCommandCandidates: ciCommandCandidates(index),
         invocations: commands.map((c) => ({
           id: c.id,
-          executable: 'mergepilot',
+          executable: 'contribolt',
           args: ['run-check', id, c.id, '--host-approved'],
         })),
         notice:

@@ -7,7 +7,7 @@ export const prompts: Record<string, string> = {
   review: `Distinguish CI bot feedback, maintainer review and casual comments. Propose a focused revision with evidence and affected files. Obtain renewed permission for revision coding and public changes. Never argue, dismiss reviews, resolve threads or post replies without explicit permission. Record opened, reviewed, closed and merged separately.`,
 };
 export function listPrompts() {
-  return Object.keys(prompts).map((name) => ({ name, description: `MergePilot ${name} workflow` }));
+  return Object.keys(prompts).map((name) => ({ name, description: `ContriBolt ${name} workflow` }));
 }
 export function getPrompt(name: string) {
   const text = prompts[name];
