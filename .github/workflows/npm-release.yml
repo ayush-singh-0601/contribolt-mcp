@@ -29,6 +29,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify npm account
+        if: inputs.publish
+        run: node scripts/check-npm-publisher.mjs
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_PUBLISHER: ${{ inputs.npm_username }}
       - run: node scripts/npm-preflight.mjs
       - run: npm ci
       - run: npm run check
@@ -49,12 +55,6 @@ jobs:
         run: node scripts/check-release-ci.mjs
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: Verify npm account
-        if: inputs.publish
-        run: node scripts/check-npm-publisher.mjs
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_PUBLISHER: ${{ inputs.npm_username }}
       - name: Publish the validated archive
         if: inputs.publish
         run: npm publish ./mergepilot-mcp-0.1.0.tgz --ignore-scripts --access public --provenance=false
