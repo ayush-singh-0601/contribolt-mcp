@@ -12,6 +12,10 @@ The rebrand uses local formatting, type checks, unit/integration tests, builds, 
 
 The 236-item [requirements audit](requirements-matrix.md) retains implementation scope and host responsibilities. The original source specification is preserved outside the project with SHA-256 `b6c0bdd2aca25827dac3cbe10a48e0e3a9467e13b5648fab81757bb2aa89b4b7`; the current PRD changes branding only. The package auditor verifies that adaptation when the original is available.
 
+## Node 22 compatibility
+
+The supported engine is `^22.13.0 || >=24.0.0`. The same runtime check drives CLI startup and diagnostics; publication checks the built CLI before uploading. The complete local check passed on Node 22.16.0 (118 tests passed, one sandbox listener skip), including server/dashboard builds and six native contribution dry runs. The compatibility STDIO smoke passed on Node 22, and eight targeted runtime, client configuration, authentication and workflow tests passed on Node 24.22.1. See [Node 22 evidence](evidence/node22-local.json). These checks used the existing cached dependency installation; fresh official SDK and registry installation checks still require registry access. CI/CD remains disabled.
+
 ## Remaining user and service checks
 
 Actual Cursor sessions, complete model-driven contributions, live public forge publication/permissions and alternative-forge instance capabilities remain user acceptance checks. Production TLS and deployment operations require the selected environment. Beta metrics are not inferred from fixtures.

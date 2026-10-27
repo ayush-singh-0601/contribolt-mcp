@@ -16,8 +16,9 @@ assert archive.is_file(), "Build and audit the release archive first"
 assert hashlib.sha256(archive.read_bytes()).hexdigest() == manifest["sha256"], "Archive differs from the audited candidate"
 npm = shutil.which("npm")
 assert npm, "npm is required"
-version = subprocess.run(["node", "--version"], check=True, capture_output=True, text=True, encoding="utf-8").stdout
-assert int(version.lstrip("v").split(".")[0]) >= 24, "Select Node.js 24 or newer before publishing"
+version = subprocess.run(["node", str(root / "dist/cli.js"), "--version"], check=True,
+                         capture_output=True, text=True, encoding="utf-8").stdout
+assert version.strip() == package["version"], "Build this release before publishing with a supported Node runtime"
 identity = subprocess.run([npm, "whoami", "--registry=https://registry.npmjs.org/"], check=True,
                           capture_output=True, text=True, encoding="utf-8", timeout=30, shell=os.name == "nt")
 assert identity.stdout.strip() == "neaoooo", "Log in with npm login using the publishing account neaoooo"

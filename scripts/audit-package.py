@@ -29,7 +29,7 @@ with tarfile.open(args.tarball) as archive:
     assert packaged["name"] == "contribolt-mcp"
     assert packaged["bin"] == {"contribolt": "dist/cli.js"}
     assert packaged["description"] == "ContriBolt — From open issue to pull request. Your AI-powered open-source contribution agent."
-    for field in ["name", "version", "bin", "description", "repository", "dependencies"]:
+    for field in ["name", "version", "bin", "description", "repository", "dependencies", "engines"]:
         assert packaged[field] == source[field], "Packaged metadata differs: " + field
 
 requirements = json.loads((root / "docs/requirements.json").read_text(encoding="utf-8"))

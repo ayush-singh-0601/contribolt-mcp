@@ -4,7 +4,9 @@
 
 Your AI-powered open-source contribution agent.
 
-The package name is `contribolt-mcp`, its executable is `contribolt`, and Node.js 24 or newer is required. The source repository is [ayush-singh-0601/contribolt-mcp](https://github.com/ayush-singh-0601/contribolt-mcp) and remains private. Publishing the public npm package does not change GitHub repository visibility.
+The package name is `contribolt-mcp`, its executable is `contribolt`, and Node.js 22.13+ or 24+ is required. The source repository is [ayush-singh-0601/contribolt-mcp](https://github.com/ayush-singh-0601/contribolt-mcp) and remains private. Publishing the public npm package does not change GitHub repository visibility.
+
+Node 22.0–22.12 is excluded because the built-in SQLite module needs an experimental launch flag there. See the [Node SQLite version history](https://nodejs.org/download/release/latest-v22.x/docs/api/sqlite.html).
 
 ## Local release
 

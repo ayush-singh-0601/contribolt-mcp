@@ -1,6 +1,6 @@
 # Coding client setup
 
-Build with Node 24 or newer: `npm ci && npm run build`. From the project in which your coding client runs, configure a local checkout:
+Build with Node.js 22.13+ or 24+: `npm ci && npm run build`. From the project in which your coding client runs, configure a local checkout:
 
 ```sh
 node /absolute/path/to/contribolt/dist/cli.js configure codex --local --project .

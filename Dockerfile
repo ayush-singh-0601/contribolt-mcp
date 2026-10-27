@@ -1,4 +1,4 @@
-FROM node:24-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY dashboard/package.json dashboard/package.json
@@ -6,7 +6,7 @@ RUN npm ci --ignore-scripts
 COPY . .
 RUN npm run build && npm prune --omit=dev --ignore-scripts
 
-FROM node:24-alpine AS runtime
+FROM node:22-alpine AS runtime
 RUN apk add --no-cache git ca-certificates && mkdir /data && chown node:node /data
 WORKDIR /app
 COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./

@@ -10,7 +10,7 @@ Version 0.1.0 is a development release for user acceptance testing. Historical q
 
 ## Install and connect
 
-Requirements: Node.js 24 or newer, npm, Git, a coding client, and GitHub authentication through `gh auth login` or a scoped environment token. Install only the toolchains your chosen repository needs.
+Requirements: Node.js 22.13+ or 24+, npm, Git, a coding client, and GitHub authentication through `gh auth login` or a scoped environment token. Install only the toolchains your chosen repository needs.
 
 ```sh
 npx --yes contribolt-mcp@0.1.0 configure codex --project /absolute/path/to/your/project
