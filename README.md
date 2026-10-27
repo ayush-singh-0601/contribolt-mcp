@@ -4,20 +4,19 @@ Answer three questions. Discover a contribution opportunity. Guide your coding a
 
 MergePilot is a local TypeScript MCP server for Codex CLI, Claude Code, Cursor, and compatible clients. Your existing agent reads and edits code. MergePilot handles discovery, dated eligibility evidence, contribution policies, native check plans, exact publication approvals, and a resumable journal. It needs no separate model subscription or mandatory hosted backend.
 
-This is an unpublished development release for user acceptance testing. Automated qualification covers the three supported operating systems, official MCP SDK, Codex and Claude connections, all 12 native adapters, browser behavior, packaging and container startup. Read [the release report](docs/release-report.md) for the exact evidence and remaining live-service/user checks.
+Version 0.1.0 is a development release for user acceptance testing. Automated qualification covers the three supported operating systems, official MCP SDK, Codex and Claude connections, all 12 native adapters, browser behavior, packaging and container startup. Read [the release report](docs/release-report.md) for the exact evidence and remaining live-service/user checks.
 
-## Build and connect
+## Install and connect
 
 Requirements: Node.js 24 or newer, npm, Git, a coding client, and GitHub authentication through `gh auth login` or a scoped environment token. Install only the toolchains your chosen repository needs.
 
 ```sh
-npm ci
-npm run check
-node dist/cli.js doctor --json
-node dist/cli.js configure codex --local --project /absolute/path/to/your/project
+npx --yes mergepilot-mcp@0.1.0 configure codex --project /absolute/path/to/your/project
 ```
 
-Use `claude` or `cursor` instead of `codex` for those clients. Restart/enable the server in your client, then say **“Find me an open-source contribution.”** The generated configuration points to this built checkout and stores private session data in your project's ignored `.mergepilot` directory. [Client setup](docs/clients.md) explains configuration merging, the pinned SDK, and transport compatibility. The npx form requires a published npm package; use `--local` for this checkout.
+Use `claude` or `cursor` instead of `codex` for those clients. Restart/enable the server in your client, then say **“Find me an open-source contribution.”** The generated configuration pins the npm release and stores private session data in your project's ignored `.mergepilot` directory. [Client setup](docs/clients.md) explains configuration merging, the pinned SDK, and transport compatibility.
+
+For a permanent CLI installation, run `npm install --global mergepilot-mcp@0.1.0`, then use `mergepilot doctor --json` or `mergepilot configure codex --project /absolute/path/to/your/project`. The public npm package does not require access to the private GitHub source repository. For a source checkout, run `npm ci && npm run build` and configure with `node dist/cli.js configure codex --local --project /absolute/path/to/your/project`.
 
 The three preferences are languages/stacks, challenge level, and repository preference/domain. “Any” defaults work throughout; a missing third answer gets a displayed default. Saved preferences require `remember: true`. You do not need to find a repository or supply an issue URL. The host follows `nextAction`, automatically selects a sufficiently strong verified candidate, investigates the repository, and applies a focused fix.
 
@@ -32,7 +31,7 @@ The host inspects scoped project instructions, reproduces the issue, records exp
 For a real publication, start the contribution with `dryRun: false`. The default is a dry run. Inspect the proposed diff, branch, actor, commit identity, PR text, limitations, and CLA/DCO requirements. `request_approval` creates an expiring request; confirm it yourself in an interactive terminal using the same data directory:
 
 ```sh
-MERGEPILOT_DATA_DIR=/absolute/path/to/project/.mergepilot node dist/cli.js approve REQUEST_ID
+MERGEPILOT_DATA_DIR=/absolute/path/to/project/.mergepilot mergepilot approve REQUEST_ID
 ```
 
 Confirmation is scoped to that exact action. Eligibility, project policy, upstream revision, patch identity, and log integrity are refreshed before public writes. A changed issue or new competing work halts publication. The server pushes the approved branch to a fork, creates one PR, and never merges automatically. Reviewer requests and invited comments have separate approval and permission checks. Revisions require renewed coding approval, fresh validation, and a separate public update approval.
@@ -42,9 +41,9 @@ Use the session controls for `stop`, `skip`, `find_another`, `change_preferences
 ## Inspect and monitor
 
 ```sh
-node dist/cli.js sessions
-node dist/cli.js status SESSION_ID
-node dist/cli.js watch SESSION_ID
+mergepilot sessions
+mergepilot status SESSION_ID
+mergepilot watch SESSION_ID
 ```
 
 Set `MERGEPILOT_DATA_DIR` consistently when using these commands. Monitoring separates observed CI, maintainer reviews, comments, closed PRs, and merges. A prepared PR is never counted as opened; opened is never counted as merged. [Testing](docs/testing.md) describes verification layers and [the example fixtures](examples/README.md) show native dry runs with recorded failures and passes.

@@ -4,6 +4,21 @@
   "description": "Evidence-backed open-source contribution orchestration for coding agents",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayush-singh-0601/mergepilot-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "coding-agent",
+    "github"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": false
+  },
   "engines": {
     "node": ">=24"
   },
@@ -30,7 +45,7 @@
     "start": "node dist/cli.js",
     "prepack": "npm run build",
     "build:dashboard": "npm run build --workspace=@mergepilot/dashboard",
-    "build:server": "tsc -p tsconfig.json",
+    "build:server": "node scripts/clean-dist.mjs && tsc -p tsconfig.json",
     "test:browser": "playwright test",
     "format": "prettier --write src tests scripts dashboard/src *.ts *.json .github/workflows/*.yml",
     "format:check": "prettier --check src tests scripts dashboard/src *.ts *.json .github/workflows/*.yml"
