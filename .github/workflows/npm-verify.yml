@@ -6,6 +6,10 @@ on:
         description: Release run containing the exact uploaded npm-release-candidate archive
         type: string
         required: true
+      deprecate_previous:
+        description: Mark the previous package as renamed after both public installs pass
+        type: boolean
+        default: false
 permissions:
   contents: read
   actions: read
@@ -21,6 +25,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_registry_install.py
       - uses: actions/download-artifact@v4
         with:
           name: npm-release-candidate
@@ -28,3 +33,19 @@ jobs:
           run-id: ${{ inputs.release_run_id }}
           github-token: ${{ github.token }}
       - run: python scripts/smoke-registry.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+      - run: python scripts/smoke-registry.py
+      - name: Verify npm account for the migration notice
+        if: inputs.deprecate_previous
+        run: node scripts/check-npm-publisher.mjs
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_PUBLISHER: neaoooo
+      - name: Mark the previous npm package as renamed
+        if: inputs.deprecate_previous
+        run: npm deprecate 'mergepilot-mcp@*' 'Renamed to contribolt-mcp. Install contribolt-mcp instead.' --registry=https://registry.npmjs.org/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

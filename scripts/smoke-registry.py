@@ -12,6 +12,7 @@ import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
+from registry_install import install_public
 
 root = Path(__file__).resolve().parents[1]
 package = json.loads((root / "package.json").read_text(encoding="utf-8"))
@@ -43,10 +44,13 @@ with tempfile.TemporaryDirectory(prefix="contribolt-registry-") as directory:
     environment = dict(os.environ)
     for name in ("NODE_AUTH_TOKEN", "NPM_TOKEN", "GITHUB_TOKEN", "GH_TOKEN"):
         environment.pop(name, None)
-    subprocess.run([npm, "install", "--ignore-scripts", "--omit=dev", "--no-audit", "--no-fund",
-                    "--userconfig=" + str(config), "--registry=https://registry.npmjs.org/", spec],
-                   cwd=install, check=True, env=environment,
-                   timeout=180, shell=os.name == "nt")
+    install_command = [npm, "install", "--ignore-scripts", "--omit=dev", "--no-audit", "--no-fund",
+                       "--prefer-online", "--cache=" + str(install / "npm-cache"),
+                       "--userconfig=" + str(config), "--registry=https://registry.npmjs.org/", spec]
+    # Windows uses npm.cmd; the public verification workflow runs on Linux.
+    if os.name == "nt":
+        install_command = ["cmd.exe", "/d", "/s", "/c", subprocess.list2cmdline(install_command)]
+    install_public(install_command, cwd=install, env=environment, deadline=deadline)
     cli = install / "node_modules" / package["name"] / "dist" / "cli.js"
     version = subprocess.run(["node", str(cli), "--version"], check=True, capture_output=True,
                              text=True, encoding="utf-8", timeout=15)

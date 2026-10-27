@@ -9,3 +9,5 @@ coverage/
 test-results/
 playwright-report/
 qualification/
+__pycache__/
+*.pyc
