@@ -10,7 +10,7 @@ Node 22.0–22.12 is excluded because the built-in SQLite module needs an experi
 
 ## Local release
 
-CI/CD is disabled. Build and audit locally:
+For a direct local release, build and audit locally:
 
 ```sh
 npm ci
@@ -37,7 +37,7 @@ npm view contribolt-mcp@0.1.0 version dist.integrity
 npx --yes contribolt-mcp@0.1.0 --version
 ```
 
-The GitHub Actions definitions are manual-only and repository Actions are disabled. No CI/CD workflow is run for this rename. npm provenance is disabled because the GitHub repository is private; see [npm's provenance limitation](https://docs.npmjs.com/trusted-publishers/).
+The GitHub Actions definitions are manual-only and repository Actions are enabled. Run the `verify` workflow on the source commit, then dispatch `npm release` with `publish=true` and `npm_username=neaoooo`. The release requires all qualification jobs to pass, verifies public installation with the official SDK on both Node 24 and 22, and only then marks the previous npm package as renamed. The token is read from the repository's `NPM_TOKEN` secret. npm provenance is disabled because the GitHub repository is private; see [npm's provenance limitation](https://docs.npmjs.com/trusted-publishers/).
 
 ## Installation
 

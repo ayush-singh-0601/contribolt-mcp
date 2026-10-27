@@ -6,7 +6,7 @@ Your AI-powered open-source contribution agent.
 
 ContriBolt is a local TypeScript MCP server for Codex CLI, Claude Code, Cursor, and compatible clients. Your existing agent reads and edits code. ContriBolt handles discovery, dated eligibility evidence, contribution policies, native check plans, exact publication approvals, and a resumable journal. It needs no separate model subscription or mandatory hosted backend.
 
-Version 0.1.0 is a development release for user acceptance testing. Historical qualification covered the three supported operating systems, SDK, clients, language adapters, browser and containers. This rename is checked locally; CI/CD is disabled. The renamed npm archive is prepared for direct publication; verify registry availability before using the npm commands below. Read [the release report](docs/release-report.md) for the exact evidence and remaining live-service/user checks.
+Version 0.1.0 is a development release for user acceptance testing. Historical qualification covered the three supported operating systems, SDK, clients, language adapters, browser and containers. GitHub Actions qualification and npm release are enabled through manual dispatch. The npm release requires full CI on its source commit and verifies public installation on Node 22 and 24 before deprecating the previous package. Read [the release report](docs/release-report.md) for the exact evidence and remaining live-service/user checks.
 
 ## Install and connect
 

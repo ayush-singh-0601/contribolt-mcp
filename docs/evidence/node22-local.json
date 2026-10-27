@@ -63,5 +63,6 @@
     "status": "Not published by this task; npm whoami failed EAI_AGAIN even after user login.",
     "networkException": "Rejected because sandbox escalations are disabled.",
     "localCommand": "python3 scripts/publish-local.py"
-  }
+  },
+  "scope": "Historical local validation recorded before CI/CD was re-enabled; check current GitHub Actions for subsequent qualification and npm publication."
 }
