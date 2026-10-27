@@ -1,0 +1,30 @@
+name: verify npm download
+on:
+  workflow_dispatch:
+    inputs:
+      release_run_id:
+        description: Release run containing the exact uploaded npm-release-candidate archive
+        type: string
+        required: true
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: npm-release-candidate
+          path: .
+          run-id: ${{ inputs.release_run_id }}
+          github-token: ${{ github.token }}
+      - run: python scripts/smoke-registry.py

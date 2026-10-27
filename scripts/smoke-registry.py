@@ -11,7 +11,7 @@ import tempfile
 import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 root = Path(__file__).resolve().parents[1]
 package = json.loads((root / "package.json").read_text(encoding="utf-8"))
@@ -21,15 +21,19 @@ expected = "sha512-" + base64.b64encode(hashlib.sha512(archive.read_bytes()).dig
 npm = shutil.which("npm")
 assert npm, "npm is required"
 metadata_url = "https://registry.npmjs.org/" + quote(package["name"], safe="") + "/" + package["version"]
-for attempt in range(6):
+deadline = time.monotonic() + 600
+while True:
     try:
-        with urlopen(metadata_url, timeout=15) as response:
+        with urlopen(Request(metadata_url, headers={"Cache-Control": "no-cache"}), timeout=15) as response:
             metadata = json.load(response)
         break
-    except (HTTPError, URLError, TimeoutError):
-        if attempt == 5:
+    except (HTTPError, URLError, TimeoutError) as error:
+        if isinstance(error, HTTPError) and error.code not in (404, 429, 500, 502, 503, 504):
             raise
-        time.sleep(3)
+        if time.monotonic() >= deadline:
+            raise
+        print("Waiting for npm to finish processing " + spec, flush=True)
+        time.sleep(10)
 assert metadata["dist"]["integrity"] == expected, "Published archive differs from the validated release candidate"
 with tempfile.TemporaryDirectory(prefix="mergepilot-registry-") as directory:
     install = Path(directory)
