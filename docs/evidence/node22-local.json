@@ -1,0 +1,67 @@
+{
+  "product": "ContriBolt MCP",
+  "package": "contribolt-mcp@0.1.0",
+  "recordedAt": "2026-10-27T15:21:21.044021+00:00",
+  "supportedEngine": "^22.13.0 || >=24.0.0",
+  "reasonForMinimum": "Node SQLite is available without an experimental launch flag starting in 22.13.0; 22.0–22.12 and the 23.x line are not supported.",
+  "officialSqliteHistory": "https://nodejs.org/download/release/latest-v22.x/docs/api/sqlite.html",
+  "runtime": "22.16.0",
+  "node24Runtime": "24.22.1",
+  "dependencies": "Existing cached installation; Vitest 3.2.7, dashboard Vite 6.4.3, TypeScript 5.9.3, Prettier 3.9.6. No dependency version changes or fresh registry install.",
+  "checks": {
+    "formatting": "PASS",
+    "serverAndDashboardTypecheck": "PASS",
+    "fullTests": {
+      "filesPassed": 78,
+      "passed": 118,
+      "skipped": 1,
+      "total": 119,
+      "skip": "Real socket listener denied by sandbox."
+    },
+    "nativeControlledDryRuns": [
+      "Python",
+      "Rust",
+      "Java",
+      "C",
+      "Shell",
+      "Perl"
+    ],
+    "serverAndDashboardBuild": "PASS",
+    "compatibilityStdio": {
+      "status": "PASS",
+      "tools": 21,
+      "prompts": 6,
+      "protocol": "legacy-handshake",
+      "publicWrites": 0
+    },
+    "cliVersion": "PASS",
+    "clientConfigurationPreview": "PASS",
+    "node24TargetedTests": {
+      "status": "PASS",
+      "passed": 8,
+      "filesPassed": 4,
+      "suites": [
+        "doctor",
+        "client-config",
+        "http-auth",
+        "workflow-e2e"
+      ]
+    },
+    "pythonSyntaxAndLockfileEngine": "PASS"
+  },
+  "localCheckLogSha256": "f6b78cae3a26df707bef0fef9eaa2afcc2a4fa428d7dffe4357d9bb6b416f374",
+  "node24CheckLogSha256": "eb7c84e2e2ea697e6c42071915a7caa8fd47d65f49744328cb3a36c2a9100a13",
+  "ciCd": {
+    "repositoryActionsEnabled": false,
+    "workflowsTriggered": 0
+  },
+  "unavailable": [
+    "Fresh official SDK validation and fresh npm installation: registry DNS is blocked in this sandbox.",
+    "Container/browser/OS matrix: not run; CI/CD remains disabled."
+  ],
+  "publication": {
+    "status": "Not published by this task; npm whoami failed EAI_AGAIN even after user login.",
+    "networkException": "Rejected because sandbox escalations are disabled.",
+    "localCommand": "python3 scripts/publish-local.py"
+  }
+}

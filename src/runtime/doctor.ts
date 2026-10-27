@@ -6,6 +6,8 @@ import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'node:net';
 import { redact } from '../core/audit.js';
+import { NODE_REQUIREMENT, supportedRuntime } from './version.js';
+export { supportedRuntime } from './version.js';
 const exec = promisify(execFile);
 export type DiagnosticStatus = 'PASS' | 'FAIL' | 'UNAVAILABLE' | 'NOT_RUN';
 export interface Diagnostic {
@@ -27,9 +29,6 @@ export interface DoctorOptions {
   live?: boolean;
   dataDirectory?: string;
   socketProbe?: boolean;
-}
-export function supportedRuntime(version = process.versions.node): boolean {
-  return Number(version.split('.')[0]) >= 24;
 }
 export async function socketCapability(): Promise<Diagnostic> {
   return new Promise((resolve) => {
@@ -162,7 +161,7 @@ export async function inspectEnvironment(options: DoctorOptions = {}): Promise<D
       id: 'node',
       status: supportedRuntime() ? 'PASS' : 'FAIL',
       scope: 'local',
-      detail: 'Requires Node.js >=24; detected ' + process.versions.node,
+      detail: 'Requires ' + NODE_REQUIREMENT + '; detected ' + process.versions.node,
     },
     stateCapability(
       options.dataDirectory ??

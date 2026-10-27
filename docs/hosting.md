@@ -4,7 +4,7 @@ The local MCP server works independently of the dashboard. The hosted interface 
 
 ## Local dashboard
 
-With Node.js 24 and dependencies installed:
+With Node.js 22.13+ or 24+ and dependencies installed:
 
 ```sh
 npm run build

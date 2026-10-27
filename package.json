@@ -22,7 +22,7 @@
     "provenance": false
   },
   "engines": {
-    "node": ">=24"
+    "node": "^22.13.0 || >=24.0.0"
   },
   "bin": {
     "contribolt": "dist/cli.js"

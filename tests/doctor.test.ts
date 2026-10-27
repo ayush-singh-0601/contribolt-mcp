@@ -2,8 +2,11 @@ import { it, expect } from 'vitest';
 import { readdirSync } from 'node:fs';
 import { supportedRuntime, stateCapability, inspectEnvironment } from '../src/runtime/doctor.js';
 import { fixture } from './helpers.js';
-it('requires Node 24 while allowing supported future runtimes', () => {
-  expect(supportedRuntime('22.16.0')).toBe(false);
+it('accepts flag-free SQLite in Node 22.13+ and supported newer runtimes', () => {
+  for (const version of ['20.19.0', '22.0.0', '22.12.9', '23.0.0', 'not-a-version'])
+    expect(supportedRuntime(version), version).toBe(false);
+  expect(supportedRuntime('22.13.0')).toBe(true);
+  expect(supportedRuntime('22.16.0')).toBe(true);
   expect(supportedRuntime('24.22.1')).toBe(true);
   expect(supportedRuntime('26.0.0')).toBe(true);
 });
