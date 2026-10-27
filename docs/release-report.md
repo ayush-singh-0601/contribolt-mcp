@@ -1,6 +1,6 @@
 # Release qualification report
 
-Version 0.1.0 is an **unpublished development release for user acceptance testing**. All 77 requested commits are pushed to the private [MergePilot repository](https://github.com/ayush-singh-0601/mergepilot-mcp). The complete 22-job qualification run [passed](https://github.com/ayush-singh-0601/mergepilot-mcp/actions/runs/40487993950). No npm publication, production deployment, paid model turn or live public contribution was performed.
+This report records **pre-publication qualification of development release 0.1.0** for user acceptance testing. All 77 implementation commits are in the private [MergePilot repository](https://github.com/ayush-singh-0601/mergepilot-mcp). The complete 22-job qualification run [passed](https://github.com/ayush-singh-0601/mergepilot-mcp/actions/runs/40487993950). No npm publication, production deployment, paid model turn or live public contribution was performed during that qualification. Subsequent npm publication is recorded by the `npm release` workflow and the registry; see [distribution.md](distribution.md).
 
 ## Observed automated checks
 

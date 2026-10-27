@@ -1,0 +1,65 @@
+name: npm release
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the validated archive to the public npm registry
+        type: boolean
+        default: false
+      npm_username:
+        description: Expected npm account username (required when publishing)
+        type: string
+        default: ''
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: node scripts/npm-preflight.mjs
+      - run: npm ci
+      - run: npm run check
+      - run: npm audit --audit-level=high
+      - run: npm pack --ignore-scripts
+      - run: python scripts/audit-package.py mergepilot-mcp-0.1.0.tgz > npm-release-manifest.json
+      - run: python scripts/smoke-package.py
+      - run: python scripts/smoke-stdio.py --require-sdk --modern
+      - run: npm publish ./mergepilot-mcp-0.1.0.tgz --dry-run --ignore-scripts --access public --provenance=false
+      - uses: actions/upload-artifact@v4
+        with:
+          name: npm-release-candidate
+          path: |
+            mergepilot-mcp-0.1.0.tgz
+            npm-release-manifest.json
+      - name: Require complete CI on this source commit
+        if: inputs.publish
+        run: node scripts/check-release-ci.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Verify npm account
+        if: inputs.publish
+        run: node scripts/check-npm-publisher.mjs
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_PUBLISHER: ${{ inputs.npm_username }}
+      - name: Publish the validated archive
+        if: inputs.publish
+        run: npm publish ./mergepilot-mcp-0.1.0.tgz --ignore-scripts --access public --provenance=false
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Verify download from the public registry
+        if: inputs.publish
+        run: python scripts/smoke-registry.py
