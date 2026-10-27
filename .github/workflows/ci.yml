@@ -40,7 +40,7 @@ jobs:
           python-version: '3.12'
       - run: npm run check
       - run: npm pack --ignore-scripts
-      - run: python scripts/audit-package.py contribolt-mcp-0.1.0.tgz
+      - run: python scripts/audit-package.py contribolt-mcp-0.1.1.tgz
       - run: python scripts/smoke-stdio.py
       - run: python scripts/smoke-package.py
       - uses: actions/upload-artifact@v4

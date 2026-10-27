@@ -38,6 +38,8 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org/
       - run: python scripts/smoke-registry.py
+      - name: Verify public README, metadata and versioned images
+        run: node scripts/check-public-presentation.mjs
       - name: Verify npm account for the migration notice
         if: inputs.deprecate_previous
         run: node scripts/check-npm-publisher.mjs

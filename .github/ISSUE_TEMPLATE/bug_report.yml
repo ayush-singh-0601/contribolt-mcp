@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a reproducible ContriBolt problem.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "For vulnerabilities, follow SECURITY.md. Never paste tokens, private repository contents, or your .contribolt directory."
+  - type: input
+    id: version
+    attributes:
+      label: ContriBolt and Node versions
+      description: Copy the versions, not account credentials.
+      placeholder: "contribolt 0.1.1; Node 22.23.4"
+    validations:
+      required: true
+  - type: dropdown
+    id: client
+    attributes:
+      label: Client or entry point
+      options:
+        - Codex CLI
+        - Claude Code
+        - Cursor
+        - Another MCP client
+        - CLI or dashboard
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system and installation method
+      placeholder: "Linux; npx"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal steps to reproduce
+      description: Include the command and redacted configuration relevant to the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted diagnostics and limitations
+      description: Share only the relevant doctor/check output. State whether data is live or a controlled fixture.

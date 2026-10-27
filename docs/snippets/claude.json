@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "contribolt": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package",
+        "@modelcontextprotocol/server@2.4.0",
+        "--package",
+        "contribolt-mcp@0.1.1",
+        "contribolt",
+        "mcp"
+      ],
+      "env": {
+        "CONTRIBOLT_DATA_DIR": "/absolute/path/to/your/project/.contribolt"
+      }
+    }
+  }
+}

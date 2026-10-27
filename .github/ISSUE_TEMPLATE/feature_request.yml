@@ -1,0 +1,23 @@
+name: Feature request
+description: Explain a real contribution workflow that could improve.
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What task is difficult today?
+      description: Describe your workflow and the affected client, forge or toolchain.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Explain the smallest useful change and how a developer would use it.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives, compatibility and permission needs
+      description: Note any changes to execution, credentials, public writes or existing MCP contracts.

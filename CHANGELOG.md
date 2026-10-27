@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — Contribution showcase
+
+Adds the branch-and-bolt visual identity, accessible SVG workflow and recorded fixture demo, social-preview artwork, clearer installation and client configuration guides, community templates, and searchable npm metadata. Versioned public image delivery is verified during publication.
+
+Preserves the contribution workflow and Node.js 22.13+/24+ support. CLI, MCP, HTTP metadata, generated client pins and request identification share the release version.
+
 ## 0.1.0 — ContriBolt MCP
 
 Supports Node.js 22.13+ alongside Node.js 24+; the CLI, runtime diagnostics, package engine and release helper use the same supported range.

@@ -1,20 +1,29 @@
 {
   "name": "contribolt-mcp",
-  "version": "0.1.0",
-  "description": "ContriBolt — From open issue to pull request. Your AI-powered open-source contribution agent.",
+  "version": "0.1.1",
+  "description": "MCP server for finding eligible GitHub issues, guiding focused fixes, and preparing pull requests with explicit approval.",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ayush-singh-0601/contribolt-mcp.git"
   },
+  "homepage": "https://github.com/ayush-singh-0601/contribolt-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/ayush-singh-0601/contribolt-mcp/issues"
+  },
   "keywords": [
     "contribolt",
     "mcp",
+    "mcp-server",
     "model-context-protocol",
     "open-source",
+    "github-issues",
+    "pull-request",
     "coding-agent",
-    "github"
+    "codex-cli",
+    "claude-code",
+    "developer-tools"
   ],
   "publishConfig": {
     "access": "public",
@@ -29,12 +38,14 @@
   },
   "files": [
     "dist",
-    "prompts",
     "docs",
     "examples",
     "LICENSE",
     "README.md",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CODE_OF_CONDUCT.md"
   ],
   "workspaces": [
     "dashboard"
@@ -43,14 +54,15 @@
     "build": "npm run build:server && npm run build:dashboard && node scripts/package-dashboard.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p dashboard/tsconfig.json",
     "test": "vitest run",
-    "check": "npm run format:check && npm run typecheck && npm test && npm run build",
+    "check": "npm run format:check && npm run docs:check && npm run typecheck && npm test && npm run build",
     "start": "node dist/cli.js",
     "prepack": "npm run build",
     "build:dashboard": "npm run build --workspace=@contribolt/dashboard",
     "build:server": "node scripts/clean-dist.mjs && tsc -p tsconfig.json",
     "test:browser": "playwright test",
     "format": "prettier --write src tests scripts dashboard/src *.ts *.json .github/workflows/*.yml",
-    "format:check": "prettier --check src tests scripts dashboard/src *.ts *.json .github/workflows/*.yml"
+    "format:check": "prettier --check src tests scripts dashboard/src *.ts *.json .github/workflows/*.yml",
+    "docs:check": "node scripts/check-docs.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.4.0",

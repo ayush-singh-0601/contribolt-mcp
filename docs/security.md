@@ -26,4 +26,4 @@ Hosted access is read-only for contribution actions. Read/sync tokens expire, ar
 
 Synchronization is opt-in per selected session. It excludes source, workspaces, logs, credentials and grants. Synced data remains labelled metadata and cannot authorize publication. Backups contain private local records and should use the same access controls as the live ledger.
 
-Report a suspected compromise through your organization's security channel, stop the affected session, revoke forge/dashboard credentials, preserve a private copy of relevant audit evidence, and re-create/revalidate workspaces from trusted sources. No public security-contact address has been configured for this unpublished project.
+Report a suspected compromise through your organization's security channel, stop the affected session, revoke forge/dashboard credentials, preserve a private copy of relevant audit evidence, and re-create/revalidate workspaces from trusted sources. Use [GitHub private vulnerability reporting](https://github.com/ayush-singh-0601/contribolt-mcp/security/advisories/new) for project security reports; see [SECURITY.md](../SECURITY.md).

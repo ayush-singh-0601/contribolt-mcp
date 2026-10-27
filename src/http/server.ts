@@ -8,6 +8,7 @@ import { summaries, aggregateMetadata, importMetadata } from './metadata.js';
 import { WebhookReceiver } from '../github/webhooks.js';
 import { redact } from '../core/audit.js';
 import { within } from '../security/boundaries.js';
+import { VERSION } from '../index.js';
 export interface HttpOptions {
   host?: string;
   port?: number;
@@ -254,7 +255,7 @@ export class HttpService {
             result = {
               protocolVersion: '2025-06-18',
               capabilities: { tools: {} },
-              serverInfo: { name: 'contribolt-readonly', version: '0.1.0' },
+              serverInfo: { name: 'contribolt-readonly', version: VERSION },
               instructions:
                 'Hosted access is read-only. Continue coding and action approvals through the local CLI.',
             };

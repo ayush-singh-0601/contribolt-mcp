@@ -16,6 +16,7 @@ parser.add_argument('--node', default='node')
 parser.add_argument('--require-sdk', action='store_true')
 parser.add_argument('--modern', action='store_true')
 args = parser.parse_args()
+package_version = json.loads((Path(__file__).resolve().parents[1] / 'package.json').read_text(encoding='utf-8'))['version']
 if args.modern and not args.require_sdk:
     parser.error('--modern requires --require-sdk; the fallback advertises only its legacy protocol')
 
@@ -91,6 +92,7 @@ with tempfile.TemporaryDirectory(prefix='contribolt-smoke-') as state:
             initialized = rpc('initialize', {'protocolVersion': '2025-06-18', 'capabilities': {},
                               'clientInfo': {'name': 'contribolt-smoke', 'version': '0.1.0'}})
             assert initialized['serverInfo']['name'] == 'contribolt'
+            assert initialized['serverInfo']['version'] == package_version
             send({'jsonrpc': '2.0', 'method': 'notifications/initialized'})
         assert len(rpc('tools/list')['tools']) == 21
         assert len(rpc('prompts/list')['prompts']) == 6

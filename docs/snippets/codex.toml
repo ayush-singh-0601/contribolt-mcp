@@ -1,0 +1,8 @@
+
+# BEGIN CONTRIBOLT MANAGED CONFIG
+[mcp_servers.contribolt]
+command = "npx"
+args = ["--yes","--package","@modelcontextprotocol/server@2.4.0","--package","contribolt-mcp@0.1.1","contribolt","mcp"]
+env = { CONTRIBOLT_DATA_DIR = "/absolute/path/to/your/project/.contribolt" }
+env_vars = ["CONTRIBOLT_GITHUB_TOKEN","GITHUB_TOKEN","GH_TOKEN","CONTRIBOLT_APP_ID","CONTRIBOLT_APP_KEY","CONTRIBOLT_INSTALLATION_ID","CONTRIBOLT_FORGES","GITLAB_TOKEN","FORGEJO_TOKEN"]
+# END CONTRIBOLT MANAGED CONFIG

@@ -6,6 +6,7 @@ import { parse as parseJsonc, modify, applyEdits, type ParseError } from 'jsonc-
 import { randomUUID } from 'node:crypto';
 import { within } from '../security/boundaries.js';
 import { digest } from '../security/approvals.js';
+import { VERSION } from '../index.js';
 export const SDK_VERSION = '2.4.0';
 export const clients = ['codex', 'claude', 'cursor'] as const;
 export type Client = (typeof clients)[number];
@@ -46,7 +47,7 @@ export function serverDefinition(project: string, local = false) {
           '--package',
           `@modelcontextprotocol/server@${SDK_VERSION}`,
           '--package',
-          'contribolt-mcp@0.1.0',
+          `contribolt-mcp@${VERSION}`,
           'contribolt',
           'mcp',
         ],

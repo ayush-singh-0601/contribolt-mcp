@@ -79,14 +79,25 @@ async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
 function Mark() {
   return (
     <span className="mark" aria-hidden="true">
-      <svg viewBox="0 0 32 32">
+      <svg viewBox="0 0 80 80">
+        <rect width="80" height="80" rx="23" fill="#5ce0ab" />
         <path
-          d="M6 7h9v8h11M15 7l8 8-8 10M6 25h9"
+          d="M22 23v34M22 43h16c13 0 18-7 18-20"
           fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
+          stroke="#102b35"
+          strokeWidth="5"
           strokeLinecap="round"
-          strokeLinejoin="round"
+        />
+        <g fill="#5ce0ab" stroke="#102b35" strokeWidth="4.5">
+          <circle cx="22" cy="19" r="6" />
+          <circle cx="22" cy="61" r="6" />
+          <circle cx="56" cy="19" r="6" />
+        </g>
+        <path
+          d="m46 29-15 19h11l-4 17 18-24H45l5-12Z"
+          fill="#102b35"
+          stroke="#5ce0ab"
+          strokeWidth="2"
         />
       </svg>
     </span>

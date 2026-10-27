@@ -1,6 +1,7 @@
 import { it, expect } from 'vitest';
 import { Readable, Writable } from 'node:stream';
 import { serveStdio } from '../src/mcp/transport.js';
+import { VERSION } from '../src/index.js';
 it('negotiates legacy protocol and reports actual tool failures', async () => {
   let output = '';
   const sink = new Writable({
@@ -26,6 +27,7 @@ it('negotiates legacy protocol and reports actual tool failures', async () => {
     .split('\n')
     .map((x) => JSON.parse(x));
   expect(results[0].result.protocolVersion).toBe('2025-06-18');
+  expect(results[0].result.serverInfo.version).toBe(VERSION);
   expect(results[1].result.isError).toBe(true);
 });
 it('rejects malformed JSON-RPC values without terminating the connection', async () => {

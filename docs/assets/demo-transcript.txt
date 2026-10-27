@@ -1,0 +1,22 @@
+Controlled fixture capture. Real native checks; mocked forge responses; no live public PR.
+ANSI color removed; project path normalized to <project>.
+
+$ node node_modules/vitest/vitest.mjs run tests/multilanguage-e2e.test.ts -t native Python contribution dry run --reporter=verbose
+
+
+ RUN  v3.2.7 <project>
+
+stdout | tests/multilanguage-e2e.test.ts > completes a native Python contribution dry run with a failing baseline
+Python: FAIL baseline -> PASS regression -> PR dry-run preview; zero public writes
+
+ ✓ tests/multilanguage-e2e.test.ts > completes a native Python contribution dry run with a failing baseline 722ms
+ ↓ tests/multilanguage-e2e.test.ts > completes a native Rust contribution dry run with a failing baseline
+ ↓ tests/multilanguage-e2e.test.ts > completes a native Java contribution dry run with a failing baseline
+ ↓ tests/multilanguage-e2e.test.ts > completes a native C contribution dry run with a failing baseline
+ ↓ tests/multilanguage-e2e.test.ts > completes a native Shell contribution dry run with a failing baseline
+ ↓ tests/multilanguage-e2e.test.ts > completes a native Perl contribution dry run with a failing baseline
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 5 skipped (6)
+   Start at  21:36:21
+   Duration  1.54s (transform 435ms, setup 0ms, collect 665ms, tests 723ms, environment 0ms, prepare 48ms)

@@ -19,7 +19,8 @@ with tarfile.open(args.tarball) as archive:
         assert member.isfile(), f"Unexpected non-file archive entry: {name}"
         assert name.startswith("package/") and ".." not in Path(name).parts
         assert not re.search(r"(?:^|/)(?:node_modules|\.git|\.env|\.contribolt)(?:/|$)|\.sqlite", name), name
-        assert name in {"package/package.json", "package/README.md", "package/LICENSE", "package/CHANGELOG.md"} or any(
+        assert name in {"package/package.json", "package/README.md", "package/LICENSE", "package/CHANGELOG.md",
+                        "package/CONTRIBUTING.md", "package/SECURITY.md", "package/CODE_OF_CONDUCT.md"} or any(
             name.startswith("package/" + directory + "/") for directory in ["dist", "docs", "examples"]
         ), name
     assert {"package/dist/cli.js", "package/dist/dashboard/index.html", "package/LICENSE", "package/README.md"}.issubset(names)
@@ -28,8 +29,7 @@ with tarfile.open(args.tarball) as archive:
     source = json.loads((root / "package.json").read_text(encoding="utf-8"))
     assert packaged["name"] == "contribolt-mcp"
     assert packaged["bin"] == {"contribolt": "dist/cli.js"}
-    assert packaged["description"] == "ContriBolt — From open issue to pull request. Your AI-powered open-source contribution agent."
-    for field in ["name", "version", "bin", "description", "repository", "dependencies", "engines"]:
+    for field in ["name", "version", "bin", "description", "repository", "dependencies", "engines", "homepage", "bugs", "keywords"]:
         assert packaged[field] == source[field], "Packaged metadata differs: " + field
 
 requirements = json.loads((root / "docs/requirements.json").read_text(encoding="utf-8"))
