@@ -2,6 +2,7 @@ import type { Readable, Writable } from 'node:stream';
 import { redact } from '../core/audit.js';
 import { StringDecoder } from 'node:string_decoder';
 import { stdioOutput } from './output.js';
+import { VERSION } from '../index.js';
 export interface ProtocolHandler {
   listTools(): unknown[];
   callTool(name: string, args: unknown): Promise<unknown>;
@@ -76,7 +77,7 @@ export async function serveStdio(
         result = {
           protocolVersion: '2025-06-18',
           capabilities: { tools: {}, resources: {}, prompts: {} },
-          serverInfo: { name: 'contribolt', version: '0.1.0' },
+          serverInfo: { name: 'contribolt', version: VERSION },
           instructions:
             'Use start_contribution. Follow nextAction. Public writes require a recorded human approval.',
         };

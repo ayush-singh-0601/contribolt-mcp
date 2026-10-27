@@ -1,5 +1,7 @@
 # Coding client setup
 
+For the published package, start with [getting started](getting-started.md). Complete generated examples are available for [Codex TOML](snippets/codex.toml), [Claude Code JSON](snippets/claude.json), and [Cursor JSON](snippets/cursor.json). They use an explicit placeholder project path; replace it with your absolute path before copying. The `configure` command is preferred because it merges your existing file.
+
 Build with Node.js 22.13+ or 24+: `npm ci && npm run build`. From the project in which your coding client runs, configure a local checkout:
 
 ```sh
@@ -10,7 +12,7 @@ node /absolute/path/to/contribolt/dist/cli.js configure cursor --local --project
 
 Choose the command for your client. The installer merges project configuration, preserves unrelated servers and comments, and writes private files atomically. Codex uses `.codex/config.toml`, Claude Code `.mcp.json`, and Cursor `.cursor/mcp.json`. Review the changed file and enable the server in the host. An existing unmanaged conflicting Codex entry requires manual merging. `--print` shows a definition without writing it.
 
-To use the npm release, run `npx --yes contribolt-mcp@0.1.0 configure codex --project /absolute/path/to/your/project` (or choose `claude` / `cursor`). Without `--local`, the definition uses npx with exact package versions: `contribolt-mcp@0.1.0` and `@modelcontextprotocol/server@2.4.0`. This requires registry access and does not require cloning the source repository. Keep `--local` for an unpublished source checkout. The SDK is a pinned runtime dependency. The bridge uses the SDK's [`serveStdio` factory](https://ts.sdk.modelcontextprotocol.io/v2/serving/stdio.html), registers all 21 tools, six prompts, and session resources.
+To use the npm release, run `npx --yes contribolt-mcp@0.1.1 configure codex --project /absolute/path/to/your/project` (or choose `claude` / `cursor`). Without `--local`, the definition uses npx with exact package versions: `contribolt-mcp@0.1.1` and `@modelcontextprotocol/server@2.4.0`. This requires registry access and does not require cloning the source repository. Keep `--local` for an unpublished source checkout. The SDK is a pinned runtime dependency. The bridge uses the SDK's [`serveStdio` factory](https://ts.sdk.modelcontextprotocol.io/v2/serving/stdio.html), registers all 21 tools, six prompts, and session resources.
 
 Normal installations use the official SDK. An incomplete offline development installation can report a stderr warning and use the compatibility JSON-RPC transport (protocol 2025-06-18); run `npm ci` to repair it. CI tests the real SDK using both legacy initialization and protocol 2026-07-28, without allowing fallback. Separate CI checks exercise real Codex tool discovery/calls and Claude Code connection health. Cursor configuration has contract coverage; a real Cursor session and complete model-driven contribution remain user acceptance checks.
 

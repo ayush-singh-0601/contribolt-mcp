@@ -1,6 +1,7 @@
 import { Octokit } from '@octokit/core';
 import type { Credentials } from './auth.js';
 import { SearchBudget } from '../discovery/budget.js';
+import { VERSION } from '../index.js';
 export class ForgeError extends Error {
   constructor(
     message: string,
@@ -30,7 +31,7 @@ export class GitHubClient {
     const octokit = new Octokit({
       auth: await this.auth.token(),
       request: { fetch: this.fetcher },
-      userAgent: 'contribolt/0.1.0',
+      userAgent: `contribolt/${VERSION}`,
     });
     for (let attempt = 0; ; attempt++) {
       this.budget.take(signal);

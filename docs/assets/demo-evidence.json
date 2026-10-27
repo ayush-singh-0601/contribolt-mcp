@@ -1,0 +1,35 @@
+{
+  "ecosystem": "Python",
+  "checkedAt": "2026-10-27T16:06:23.431Z",
+  "forge": "controlled fixture responses",
+  "command": {
+    "executable": "sh",
+    "args": [
+      "test.sh"
+    ]
+  },
+  "baseline": {
+    "status": "FAIL",
+    "exitCode": 1,
+    "output": "Traceback (most recent call last):\n  File \"<workspace>/test.py\", line 2, in <module>\n    assert increment(1) == 2\n           ^^^^^^^^^^^^^^^^^\nAssertionError\n",
+    "capturedOutputHash": "86cdf1a2d08e81c03554f7408a2a8f92046769883bdfffd1251f3ed944344156",
+    "normalizedOutputHash": "5e90caf483a508f4fbd2e87b46ef269f3d3c54e78d0ad55909011bcce659a986"
+  },
+  "fixed": {
+    "status": "PASS",
+    "exitCode": 0,
+    "output": "2 Python regression checks passed\n",
+    "capturedOutputHash": "97e8a3763e219382a5f061af43f1f86e624fc32dcb9c9de760544db22ed99533",
+    "normalizedOutputHash": "97e8a3763e219382a5f061af43f1f86e624fc32dcb9c9de760544db22ed99533"
+  },
+  "stages": [
+    "discovered",
+    "verified",
+    "reproduced",
+    "implemented",
+    "tested",
+    "PR prepared",
+    "dry-run preview"
+  ],
+  "publicWrites": 0
+}
