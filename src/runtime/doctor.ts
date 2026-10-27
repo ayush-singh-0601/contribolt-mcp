@@ -75,7 +75,7 @@ export function stateCapability(directory: string): Diagnostic {
   let temporary: string | undefined;
   try {
     accessSync(parent, constants.W_OK);
-    temporary = mkdtempSync(join(parent, '.mergepilot-doctor-'));
+    temporary = mkdtempSync(join(parent, '.contribolt-doctor-'));
     return {
       id: 'state',
       status: 'PASS',
@@ -87,7 +87,7 @@ export function stateCapability(directory: string): Diagnostic {
       id: 'state',
       status: 'UNAVAILABLE',
       scope: 'local',
-      detail: 'State directory is not writable. Select a private writable MERGEPILOT_DATA_DIR',
+      detail: 'State directory is not writable. Select a private writable CONTRIBOLT_DATA_DIR',
     };
   } finally {
     if (temporary) rmSync(temporary, { recursive: true, force: true });
@@ -166,8 +166,8 @@ export async function inspectEnvironment(options: DoctorOptions = {}): Promise<D
     },
     stateCapability(
       options.dataDirectory ??
-        process.env.MERGEPILOT_DATA_DIR ??
-        join(homedir(), '.local', 'share', 'mergepilot'),
+        process.env.CONTRIBOLT_DATA_DIR ??
+        join(homedir(), '.local', 'share', 'contribolt'),
     ),
     sdkCapability(),
   ];

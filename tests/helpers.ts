@@ -5,7 +5,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 const exec = promisify(execFile);
 export function fixture(files: Record<string, string> = {}) {
-  const root = mkdtempSync(join(tmpdir(), 'mergepilot-test-'));
+  const root = mkdtempSync(join(tmpdir(), 'contribolt-test-'));
   for (const [name, content] of Object.entries(files)) {
     const file = join(root, name);
     mkdirSync(dirname(file), { recursive: true });

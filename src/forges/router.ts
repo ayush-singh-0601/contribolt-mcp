@@ -44,8 +44,8 @@ export function forgeConfigurations(store: Store): ForgeConfig[] {
     .array(ForgeConfigSchema)
     .max(10)
     .parse(
-      process.env.MERGEPILOT_FORGES
-        ? JSON.parse(process.env.MERGEPILOT_FORGES)
+      process.env.CONTRIBOLT_FORGES
+        ? JSON.parse(process.env.CONTRIBOLT_FORGES)
         : (store.read('config', 'forges') ?? []),
     )
     .filter((c) => c.enabled);
@@ -55,7 +55,7 @@ export async function provider(store: Store, repo?: Repository): Promise<Provide
     const auth = await credentials();
     if (
       auth.kind === 'app' &&
-      store.read<{ active: boolean }>('app-status', process.env.MERGEPILOT_INSTALLATION_ID ?? '')
+      store.read<{ active: boolean }>('app-status', process.env.CONTRIBOLT_INSTALLATION_ID ?? '')
         ?.active === false
     )
       throw new Error('Maintainer App installation is suspended or deleted');

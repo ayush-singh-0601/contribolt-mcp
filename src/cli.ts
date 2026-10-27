@@ -13,7 +13,7 @@ if (process.argv[2] === 'doctor') {
   });
 } else if (major < 24) {
   console.error(
-    `MergePilot requires Node.js 24 or newer; detected ${process.versions.node}. Select a supported Node runtime, then rebuild and reconfigure the client. Run mergepilot doctor --json for diagnostics.`,
+    `ContriBolt requires Node.js 24 or newer; detected ${process.versions.node}. Select a supported Node runtime, then rebuild and reconfigure the client. Run contribolt doctor --json for diagnostics.`,
   );
   process.exitCode = 1;
 } else {

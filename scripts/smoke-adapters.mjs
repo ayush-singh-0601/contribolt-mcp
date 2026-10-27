@@ -14,7 +14,7 @@ if (!example)
   throw new Error(
     'Specify one native adapter: ' + fixtures.map((fixture) => fixture.id).join(', '),
   );
-const root = await mkdtemp(join(tmpdir(), 'mergepilot-adapter-'));
+const root = await mkdtemp(join(tmpdir(), 'contribolt-adapter-'));
 const records = [];
 async function run(command, expected = 'PASS') {
   const result = await runProcess(command);
@@ -69,7 +69,7 @@ try {
   for (const [file, content] of Object.entries(example.fix))
     await writeFile(join(root, file), content);
   for (const command of commands) await run(command);
-  const target = resolve(process.env.MERGEPILOT_NATIVE_EVIDENCE_DIR ?? 'qualification/native');
+  const target = resolve(process.env.CONTRIBOLT_NATIVE_EVIDENCE_DIR ?? 'qualification/native');
   await mkdir(target, { recursive: true });
   await writeFile(
     join(target, requested + '.json'),

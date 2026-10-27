@@ -163,7 +163,7 @@ export class GitLabEngine {
     const paths = tree.items.filter(
       (f) =>
         f.type === 'blob' &&
-        (f.path === '.mergepilot/policy.json' ||
+        (f.path === '.contribolt/policy.json' ||
           /(^|\/)(?:README[^/]*|CONTRIBUTING[^/]*|LICENSE[^/]*|SECURITY[^/]*|CODE_OF_CONDUCT[^/]*|AGENTS\.md|CLAUDE\.md|MAINTAINERS[^/]*|CODEOWNERS|.*instructions.*|.*[Tt]emplate.*)$|^\.gitlab\/(?:merge_request_templates|issue_templates)\//i.test(
             f.path,
           )),

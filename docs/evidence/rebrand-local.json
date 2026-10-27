@@ -1,0 +1,73 @@
+{
+  "product": "ContriBolt MCP",
+  "package": "contribolt-mcp@0.1.0",
+  "recordedAt": "2026-10-27T14:42:36.346887+00:00",
+  "scope": "Local validation of current branding; no CI/CD run and no fresh registry dependency installation.",
+  "ciCd": {
+    "repositoryActionsEnabled": false,
+    "workflowsTriggered": 0,
+    "automaticWorkflowTriggers": false
+  },
+  "runtime": {
+    "node": "24.22.1",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "dashboardVite": "6.4.3",
+    "prettier": "3.9.6",
+    "dependencies": "Existing cached local installation; declared lockfile versions are unchanged."
+  },
+  "checks": {
+    "formatting": "PASS",
+    "serverAndDashboardTypecheck": "PASS",
+    "tests": {
+      "filesPassed": 78,
+      "passed": 118,
+      "skipped": 1,
+      "total": 119,
+      "skip": "Real loopback listener is denied by the managed sandbox (EPERM/EACCES)."
+    },
+    "nativeControlledDryRuns": [
+      "Python",
+      "Rust",
+      "Java",
+      "C",
+      "Shell",
+      "Perl"
+    ],
+    "serverAndDashboardBuild": "PASS",
+    "cliHelpBrandAndTagline": "PASS",
+    "codexConfigurationPreview": "PASS",
+    "stdio": {
+      "status": "PASS",
+      "transport": "compatibility",
+      "protocol": "legacy-handshake",
+      "tools": 21,
+      "prompts": 6,
+      "publicWrites": 0
+    },
+    "pythonScriptSyntax": "PASS",
+    "lockfilePackageAndBinIdentity": "PASS",
+    "extractedArchive": {
+      "status": "PASS",
+      "checks": [
+        "CLI help and exact tagline",
+        "version 0.1.0",
+        "runtime diagnostics",
+        "compatibility STDIO"
+      ],
+      "dependencies": "Existing cached local dependencies; not a fresh npm install."
+    }
+  },
+  "localCheckLogSha256": "db9e76f1604eca1f5287c417c904c7dc5401c0b2521ac006e2f89bb28b5d5f8e",
+  "unavailable": [
+    "Fresh npm installation and publication: registry DNS is blocked in this sandbox.",
+    "Current official SDK smoke: the pinned SDK is not installed locally.",
+    "Browser/container/OS-matrix requalification: not run; CI/CD is disabled."
+  ],
+  "publication": {
+    "newNpmName": "contribolt-mcp",
+    "status": "Prepared for direct publication; not claimed published.",
+    "command": "python3 scripts/publish-local.py",
+    "oldPackageDeprecation": "Only after new public installation and both SDK protocol checks pass."
+  }
+}

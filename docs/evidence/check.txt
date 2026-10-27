@@ -1,3 +1,5 @@
+Historical pre-rebrand transcript; previous product names are redacted. This is not a ContriBolt test run.
+
 Final network-enabled CI check; Node 24.21.0, Linux; source commit dbf7455acb0d11d2693228a0c08a8ba39525c3c0
 ##[group]Run npm run check
 npm run check
@@ -11,21 +13,21 @@ env:
   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
 ##[endgroup]
 
-> mergepilot-mcp@0.1.0 check
+> <prior-brand>-mcp@0.1.0 check
 > npm run format:check && npm run typecheck && npm test && npm run build
 
 
-> mergepilot-mcp@0.1.0 format:check
+> <prior-brand>-mcp@0.1.0 format:check
 > prettier --check src tests scripts dashboard/src *.ts *.json .github/workflows/*.yml
 
 Checking formatting...
 All matched files use Prettier code style!
 
-> mergepilot-mcp@0.1.0 typecheck
+> <prior-brand>-mcp@0.1.0 typecheck
 > tsc -p tsconfig.json --noEmit && tsc -p dashboard/tsconfig.json
 
 
-> mergepilot-mcp@0.1.0 test
+> <prior-brand>-mcp@0.1.0 test
 > vitest run
 
 
@@ -145,19 +147,19 @@ Perl: FAIL baseline -> PASS regression -> PR dry-run preview; zero public writes
              at least ~5.64s faster with isolate: false — reuses workers across files instead of one per file
 
 
-> mergepilot-mcp@0.1.0 build
+> <prior-brand>-mcp@0.1.0 build
 > npm run build:server && npm run build:dashboard && node scripts/package-dashboard.mjs
 
 
-> mergepilot-mcp@0.1.0 build:server
+> <prior-brand>-mcp@0.1.0 build:server
 > tsc -p tsconfig.json
 
 
-> mergepilot-mcp@0.1.0 build:dashboard
-> npm run build --workspace=@mergepilot/dashboard
+> <prior-brand>-mcp@0.1.0 build:dashboard
+> npm run build --workspace=@<prior-brand>/dashboard
 
 
-> @mergepilot/dashboard@0.1.0 build
+> @<prior-brand>/dashboard@0.1.0 build
 > vite build
 
 vite v6.4.5 building for production...

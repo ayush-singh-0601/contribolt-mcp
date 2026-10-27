@@ -2,7 +2,7 @@
 node_modules
 dist
 dashboard/dist
-.mergepilot
+.contribolt
 .env
 **/.env
 **/*.sqlite*

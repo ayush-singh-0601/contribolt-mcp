@@ -76,7 +76,7 @@ export async function serveStdio(
         result = {
           protocolVersion: '2025-06-18',
           capabilities: { tools: {}, resources: {}, prompts: {} },
-          serverInfo: { name: 'mergepilot', version: '0.1.0' },
+          serverInfo: { name: 'contribolt', version: '0.1.0' },
           instructions:
             'Use start_contribution. Follow nextAction. Public writes require a recorded human approval.',
         };

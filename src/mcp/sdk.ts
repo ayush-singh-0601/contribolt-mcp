@@ -23,7 +23,7 @@ export function officialServer(registry: Registry, sdk: Record<string, unknown>)
   const Server = sdk.McpServer as new (info: unknown, options?: unknown) => SdkServer,
     Template = sdk.ResourceTemplate as new (uri: string, options: unknown) => unknown;
   const server = new Server(
-    { name: 'mergepilot', version: VERSION },
+    { name: 'contribolt', version: VERSION },
     {
       instructions:
         'Start with start_contribution, follow nextAction, and obtain exact human action approval before public writes.',
@@ -63,7 +63,7 @@ export function officialServer(registry: Registry, sdk: Record<string, unknown>)
   if (registry.readResource) {
     server.registerResource(
       'sessions',
-      new Template('mergepilot://session/{sessionId}', {
+      new Template('contribolt://session/{sessionId}', {
         list: async () => ({ resources: registry.resources?.() ?? [] }),
       }),
       { mimeType: 'application/json' },
@@ -71,7 +71,7 @@ export function officialServer(registry: Registry, sdk: Record<string, unknown>)
     );
     server.registerResource(
       'artifacts',
-      new Template('mergepilot://session/{sessionId}/{artifact}', { list: undefined }),
+      new Template('contribolt://session/{sessionId}/{artifact}', { list: undefined }),
       { mimeType: 'text/plain' },
       async (uri) => redact(await registry.readResource!(uri.href)),
     );

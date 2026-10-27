@@ -76,7 +76,7 @@ export async function officialAuthor(
     'MAINTAINERS.md',
     'MAINTAINERS',
     '.github/MAINTAINERS.md',
-    '.mergepilot/policy.json',
+    '.contribolt/policy.json',
   ]) {
     try {
       const file = await client.request<{
@@ -87,7 +87,7 @@ export async function officialAuthor(
       }>('GET', `/repos/${repo.fullName}/contents/${path}`, { ref: repo.defaultBranch }, signal);
       if (
         file.encoding === 'base64' &&
-        (path === '.mergepilot/policy.json'
+        (path === '.contribolt/policy.json'
           ? AcceptanceManifest.parse(
               JSON.parse(Buffer.from(file.content, 'base64').toString('utf8')),
             ).maintainers.includes(issue.authorLogin)

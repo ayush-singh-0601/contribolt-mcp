@@ -182,14 +182,14 @@ export class Application extends ToolRegistry {
   }
   resources() {
     return this.store.list().map((s) => ({
-      uri: `mergepilot://session/${s.id}`,
+      uri: `contribolt://session/${s.id}`,
       name: s.id,
       mimeType: 'application/json',
     }));
   }
   async readResource(uri: string) {
     const url = new URL(uri);
-    if (url.protocol !== 'mergepilot:' || url.hostname !== 'session')
+    if (url.protocol !== 'contribolt:' || url.hostname !== 'session')
       throw new Error('Unknown resource');
     const parts = url.pathname.split('/').filter(Boolean),
       id = z.uuid().parse(parts[0]);

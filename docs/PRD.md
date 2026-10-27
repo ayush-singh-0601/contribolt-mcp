@@ -1,4 +1,4 @@
-# MergePilot MCP — Product Requirements Document
+# ContriBolt MCP — Product Requirements Document
 
 **Version:** 1.0  
 **Status:** Build-ready product specification  
@@ -13,13 +13,13 @@
 
 ## 1. Executive summary
 
-MergePilot is an **autonomous open-source contribution workflow for AI coding agents**. It starts with **at most three short questions**, requiring the developer to supply **neither a repository nor an issue URL**. Based on those answers, MergePilot independently searches GitHub for relevant repositories and **maintainer-originated, open issues that have zero discussion comments, no assignee, and no known linked or competing pull request**.
+ContriBolt is an **autonomous open-source contribution workflow for AI coding agents**. It starts with **at most three short questions**, requiring the developer to supply **neither a repository nor an issue URL**. Based on those answers, ContriBolt independently searches GitHub for relevant repositories and **maintainer-originated, open issues that have zero discussion comments, no assignee, and no known linked or competing pull request**.
 
-It then examines the project's contribution policies, instructions, architecture, tests, dependencies, issue details, and relevant code. The connected coding agent develops the smallest *clear, correct, well-tested* patch; MergePilot validates it against project conventions and prepares a concise, natural-language pull request. With the developer's explicit authorization, it publishes the PR and follows the project's permitted review-request process. It can continue addressing review feedback after renewed approval for code and public changes.
+It then examines the project's contribution policies, instructions, architecture, tests, dependencies, issue details, and relevant code. The connected coding agent develops the smallest *clear, correct, well-tested* patch; ContriBolt validates it against project conventions and prepares a concise, natural-language pull request. With the developer's explicit authorization, it publishes the PR and follows the project's permitted review-request process. It can continue addressing review feedback after renewed approval for code and public changes.
 
-**Product promise:** *Answer three questions. MergePilot discovers a contribution opportunity and carries your coding agent through a review-ready pull request.*
+**Product promise:** *Answer three questions. ContriBolt discovers a contribution opportunity and carries your coding agent through a review-ready pull request.*
 
-**Non-promise:** No product can guarantee an issue is truly uncontested, a PR will merge, maintainers will review it, or every language toolchain will work on every machine. MergePilot must expose uncertainty and stop when compliance or correctness cannot be established.
+**Non-promise:** No product can guarantee an issue is truly uncontested, a PR will merge, maintainers will review it, or every language toolchain will work on every machine. ContriBolt must expose uncertainty and stop when compliance or correctness cannot be established.
 
 ### Guiding principles
 
@@ -58,7 +58,7 @@ It then examines the project's contribution policies, instructions, architecture
 
 ### Required conversation
 
-When the user types **“Find me an open-source contribution”** (or equivalent), MergePilot asks the following **three questions in a single compact interaction**. All questions support `Any / decide for me` defaults.
+When the user types **“Find me an open-source contribution”** (or equivalent), ContriBolt asks the following **three questions in a single compact interaction**. All questions support `Any / decide for me` defaults.
 
 **Q1 — Which programming languages or stacks are you comfortable contributing to?**  
 Examples: `TypeScript, React`, `Python`, `Rust`, `Java`, `C++`, `Go`, `Anything`.
@@ -78,12 +78,12 @@ The preferences are saved locally with permission for future sessions, so repeat
 ```text
 Developer: Find me an open-source issue I can contribute to.
 
-MergePilot:
+ContriBolt:
 1. Languages/stacks?       TypeScript and Python
 2. Difficulty?             Intermediate
 3. Repository preference?  Active projects, highest merge potential
 
-MergePilot:
+ContriBolt:
 Searching repositories and validating maintainers, comments,
 assignments, linked PRs, contribution policies, and codebase fit...
 
@@ -233,7 +233,7 @@ Inspect relevant files and project sources, as available:
 
 ### FR-06: Implement a minimal, maintainable fix — P0
 
-MergePilot is an **MCP orchestration and verification layer**; the host coding agent edits source files using its normal capabilities. It should not require a second paid model or separate agent backend.
+ContriBolt is an **MCP orchestration and verification layer**; the host coding agent edits source files using its normal capabilities. It should not require a second paid model or separate agent backend.
 
 Implementation standards:
 
@@ -251,7 +251,7 @@ Implementation standards:
 
 ### FR-07: Language-agnostic build and test execution — P0
 
-**Requirement:** The product must *accept repositories written in any programming language*. This does **not** mean every language can automatically be built without its compiler/toolchain installed. MergePilot discovers the environment and delegates to the project's documented commands and/or an adapter.
+**Requirement:** The product must *accept repositories written in any programming language*. This does **not** mean every language can automatically be built without its compiler/toolchain installed. ContriBolt discovers the environment and delegates to the project's documented commands and/or an adapter.
 
 1. Detect language mix from repository metadata and files, **not** GitHub's primary language alone.
 2. Identify build, test, lint, format, and type-check commands from manifests, documentation and CI.
@@ -377,7 +377,7 @@ Coding CLI (Codex / Claude Code / Cursor / other MCP client)
     |
     | MCP tools, prompts, and structured results
     v
-MergePilot MCP server (TypeScript)
+ContriBolt MCP server (TypeScript)
     |
     +-- Session & approval state machine
     +-- GitHub discovery & verification engine
@@ -590,7 +590,7 @@ If no appropriate issue exists, do **not** secretly switch to community-authored
 ### Suggested repository structure
 
 ```text
-mergepilot/
+contribolt/
 ├── src/
 │   ├── index.ts
 │   ├── mcp/

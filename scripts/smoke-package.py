@@ -12,7 +12,7 @@ archive = root / (package["name"] + "-" + package["version"] + ".tgz")
 assert archive.is_file(), "Run npm pack first"
 npm = shutil.which("npm")
 assert npm, "npm is required"
-with tempfile.TemporaryDirectory(prefix="mergepilot-package-") as directory:
+with tempfile.TemporaryDirectory(prefix="contribolt-package-") as directory:
     install = Path(directory)
     (install / "package.json").write_text('{"name":"package-qualification","private":true}')
     subprocess.run([npm, "install", "--ignore-scripts", "--omit=dev", "--no-audit", "--no-fund",
@@ -24,7 +24,7 @@ with tempfile.TemporaryDirectory(prefix="mergepilot-package-") as directory:
                    stdout=subprocess.DEVNULL)
     diagnostic = subprocess.run(["node", str(cli), "doctor", "--json"], check=True,
                                 timeout=30, capture_output=True, text=True,
-                                env=dict(os.environ, MERGEPILOT_DATA_DIR=str(install / "private-state")))
+                                env=dict(os.environ, CONTRIBOLT_DATA_DIR=str(install / "private-state")))
     assert json.loads(diagnostic.stdout)["canStartLocal"], "Installed runtime is not usable"
     subprocess.run([shutil.which("python") or "python3", str(root / "scripts/smoke-stdio.py"),
                     str(cli)], check=True, timeout=90)

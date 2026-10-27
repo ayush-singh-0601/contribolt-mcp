@@ -1,6 +1,6 @@
 # Operations and recovery
 
-Use the same `MERGEPILOT_DATA_DIR` for the MCP server, approval terminal, check wrapper and inspection commands. Generated client configuration uses a project-local ignored directory. The CLI default without that configuration is `~/.local/share/mergepilot`. State consists of a versioned SQLite ledger, artifacts and isolated clones; do not edit approvals or execution records by hand.
+Use the same `CONTRIBOLT_DATA_DIR` for the MCP server, approval terminal, check wrapper and inspection commands. Generated client configuration uses a project-local ignored directory. The CLI default without that configuration is `~/.local/share/contribolt`. State consists of a versioned SQLite ledger, artifacts and isolated clones; do not edit approvals or execution records by hand.
 
 | Situation                                     | Next action                                                                                                                                                                                                                                                 |
 | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -22,6 +22,6 @@ Use the same `MERGEPILOT_DATA_DIR` for the MCP server, approval terminal, check 
 
 Rate-limit errors include a retry time where supplied by the forge. The ledger remains readable offline through `get_status`, `sessions`, `status` and MCP resources. Publication always needs fresh forge access. The bounded `watch` loop stops with Ctrl-C or the session stop control and never automatically replies to feedback.
 
-Negative incidents can be reported locally with `mergepilot record-incident SESSION_ID maintainer_complaint "factual observation and source"`, using `duplicate_attempt` or `policy_violation` for those categories. These are user-reported counts with an audit note, not automatic accusations. Metadata exports/dashboard analytics include the counts separately from successful funnel stages.
+Negative incidents can be reported locally with `contribolt record-incident SESSION_ID maintainer_complaint "factual observation and source"`, using `duplicate_attempt` or `policy_violation` for those categories. These are user-reported counts with an audit note, not automatic accusations. Metadata exports/dashboard analytics include the counts separately from successful funnel stages.
 
 For backup/restore/upgrade, follow [hosting.md](hosting.md) even when using only local state: stop all writers, preserve the entire directory, restore to an empty destination, and use matching binary/schema versions. Keep absolute workspace paths stable or recreate and revalidate them.

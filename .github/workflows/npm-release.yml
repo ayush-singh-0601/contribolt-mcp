@@ -40,15 +40,15 @@ jobs:
       - run: npm run check
       - run: npm audit --audit-level=high
       - run: npm pack --ignore-scripts
-      - run: python scripts/audit-package.py mergepilot-mcp-0.1.0.tgz > npm-release-manifest.json
+      - run: python scripts/audit-package.py contribolt-mcp-0.1.0.tgz > npm-release-manifest.json
       - run: python scripts/smoke-package.py
       - run: python scripts/smoke-stdio.py --require-sdk --modern
-      - run: npm publish ./mergepilot-mcp-0.1.0.tgz --dry-run --ignore-scripts --access public --provenance=false
+      - run: npm publish ./contribolt-mcp-0.1.0.tgz --dry-run --ignore-scripts --access public --provenance=false
       - uses: actions/upload-artifact@v4
         with:
           name: npm-release-candidate
           path: |
-            mergepilot-mcp-0.1.0.tgz
+            contribolt-mcp-0.1.0.tgz
             npm-release-manifest.json
       - name: Require complete CI on this source commit
         if: inputs.publish
@@ -57,7 +57,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: Publish the validated archive
         if: inputs.publish
-        run: npm publish ./mergepilot-mcp-0.1.0.tgz --ignore-scripts --access public --provenance=false
+        run: npm publish ./contribolt-mcp-0.1.0.tgz --ignore-scripts --access public --provenance=false
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Verify download from the public registry

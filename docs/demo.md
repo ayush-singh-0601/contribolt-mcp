@@ -5,7 +5,7 @@ This is a controlled terminal demonstration with fixture forge responses. It sho
 ```sh
 npm run build
 python3 scripts/smoke-stdio.py
-MERGEPILOT_EVIDENCE_DIR=docs/evidence/native npx vitest run tests/multilanguage-e2e.test.ts
+CONTRIBOLT_EVIDENCE_DIR=docs/evidence/native npx vitest run tests/multilanguage-e2e.test.ts
 npx vitest run tests/workflow-e2e.test.ts
 ```
 

@@ -27,23 +27,23 @@ it('merges all three project configurations idempotently and preserves other ser
       expect(configureClient(client, f.root, true).definition.command).toBe(process.execPath);
     }
     expect(readFileSync(f.root + '/.mcp.json', 'utf8')).toContain('// keep this comment');
-    expect(readFileSync(f.root + '/.mergepilot/.gitignore', 'utf8')).toBe('*\n');
+    expect(readFileSync(f.root + '/.contribolt/.gitignore', 'utf8')).toBe('*\n');
   } finally {
     f.cleanup();
   }
 });
 it('forwards Codex credential names without writing secret values to project configuration', () => {
   const f = fixture();
-  vi.stubEnv('MERGEPILOT_GITHUB_TOKEN', 'private-credential-fixture');
+  vi.stubEnv('CONTRIBOLT_GITHUB_TOKEN', 'private-credential-fixture');
   vi.stubEnv(
-    'MERGEPILOT_FORGES',
+    'CONTRIBOLT_FORGES',
     JSON.stringify([{ kind: 'gitlab', host: 'gitlab.com', tokenEnv: 'CUSTOM_FORGE_TOKEN' }]),
   );
   try {
     const result = configureClient('codex', f.root, true),
       text = readFileSync(result.file, 'utf8'),
-      entry = (toml(text).mcp_servers as any).mergepilot;
-    expect(entry.env_vars).toContain('MERGEPILOT_GITHUB_TOKEN');
+      entry = (toml(text).mcp_servers as any).contribolt;
+    expect(entry.env_vars).toContain('CONTRIBOLT_GITHUB_TOKEN');
     expect(entry.env_vars).toContain('CUSTOM_FORGE_TOKEN');
     expect(text).not.toContain('private-credential-fixture');
     expect(text).not.toContain('"token":');
@@ -53,7 +53,7 @@ it('forwards Codex credential names without writing secret values to project con
   }
 });
 it('refuses invalid files and unmanaged conflicting TOML without overwriting them', () => {
-  const text = '[mcp_servers.mergepilot]\ncommand="custom"\n',
+  const text = '[mcp_servers.contribolt]\ncommand="custom"\n',
     f = fixture({ '.codex/config.toml': text, '.mcp.json': '{"mcpServers": []}' });
   try {
     expect(() => configureClient('codex', f.root)).toThrow('unmanaged');

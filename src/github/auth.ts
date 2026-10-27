@@ -16,22 +16,22 @@ export function appJwt(appId: string, key: string, now = Date.now()): string {
   return text + '.' + createSign('RSA-SHA256').update(text).sign(key).toString('base64url');
 }
 export async function credentials(env: NodeJS.ProcessEnv = process.env): Promise<Credentials> {
-  const configured = env.MERGEPILOT_GITHUB_TOKEN ?? env.GH_TOKEN ?? env.GITHUB_TOKEN;
+  const configured = env.CONTRIBOLT_GITHUB_TOKEN ?? env.GH_TOKEN ?? env.GITHUB_TOKEN;
   if (configured) return { kind: 'token', token: async () => configured };
-  if (env.MERGEPILOT_APP_ID && env.MERGEPILOT_APP_KEY && env.MERGEPILOT_INSTALLATION_ID) {
+  if (env.CONTRIBOLT_APP_ID && env.CONTRIBOLT_APP_KEY && env.CONTRIBOLT_INSTALLATION_ID) {
     let cached: { token: string; expires_at: string } | undefined;
     return {
       kind: 'app',
       token: async () => {
         if (cached && Date.parse(cached.expires_at) > Date.now() + 60000) return cached.token;
-        const id = env.MERGEPILOT_INSTALLATION_ID!;
+        const id = env.CONTRIBOLT_INSTALLATION_ID!;
         if (!/^\d+$/.test(id)) throw new Error('Invalid installation id');
         const response = await fetch(
           `https://api.github.com/app/installations/${id}/access_tokens`,
           {
             method: 'POST',
             headers: {
-              Authorization: `Bearer ${appJwt(env.MERGEPILOT_APP_ID!, env.MERGEPILOT_APP_KEY!)}`,
+              Authorization: `Bearer ${appJwt(env.CONTRIBOLT_APP_ID!, env.CONTRIBOLT_APP_KEY!)}`,
               Accept: 'application/vnd.github+json',
             },
             signal: AbortSignal.timeout(15000),

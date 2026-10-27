@@ -15,6 +15,6 @@ it('captures real output and reports missing executables honestly', async () => 
   expect(result.exitCode).toBe(0);
   expect(result.output).toMatch(/^git version /);
   expect(
-    (await runProcess({ ...command, executable: 'mergepilot-missing-compiler' })).unavailable,
+    (await runProcess({ ...command, executable: 'contribolt-missing-compiler' })).unavailable,
   ).toBe(true);
 });

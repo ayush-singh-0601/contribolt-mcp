@@ -101,9 +101,9 @@ it('redacts persisted records, sessions, events and artifacts and refuses secret
 it('disables repository-created hooks and rejects executable local Git configuration', async () => {
   const repo = await gitFixture();
   try {
-    mkdirSync(repo.root + '/.mergepilot-disabled-hooks');
+    mkdirSync(repo.root + '/.contribolt-disabled-hooks');
     writeFileSync(
-      repo.root + '/.mergepilot-disabled-hooks/pre-commit',
+      repo.root + '/.contribolt-disabled-hooks/pre-commit',
       '#!/bin/sh\necho injected > hook-ran\n',
       { mode: 0o700 },
     );

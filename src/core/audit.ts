@@ -4,7 +4,7 @@ const sensitive =
 export function redact(value: unknown): unknown {
   if (typeof value === 'string') {
     let result = value.replace(
-      /(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,}|glpat-[A-Za-z0-9_-]{20,}|mp_[A-Za-z0-9_-]{43}|AKIA[0-9A-Z]{16}|Bearer\s+[^\s"']+|AUTHORIZATION:\s*basic\s+[^\s"']+|-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----)/gi,
+      /(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,}|glpat-[A-Za-z0-9_-]{20,}|cb_[A-Za-z0-9_-]{43}|AKIA[0-9A-Z]{16}|Bearer\s+[^\s"']+|AUTHORIZATION:\s*basic\s+[^\s"']+|-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----)/gi,
       '[REDACTED]',
     );
     for (const [key, secret] of Object.entries(process.env))

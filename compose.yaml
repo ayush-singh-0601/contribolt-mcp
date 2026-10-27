@@ -1,13 +1,13 @@
 services:
-  mergepilot:
+  contribolt:
     build: .
-    command: ["serve", "--host", "0.0.0.0", "--port", "5178", "--origin", "https://${MERGEPILOT_DOMAIN:?Set MERGEPILOT_DOMAIN}", "--trust-proxy"]
+    command: ["serve", "--host", "0.0.0.0", "--port", "5178", "--origin", "https://${CONTRIBOLT_DOMAIN:?Set CONTRIBOLT_DOMAIN}", "--trust-proxy"]
     environment:
-      MERGEPILOT_DATA_DIR: /data
-      MERGEPILOT_WEBHOOK_SECRET: ${MERGEPILOT_WEBHOOK_SECRET:-}
-      MERGEPILOT_INSTALLATION_ID: ${MERGEPILOT_INSTALLATION_ID:-}
+      CONTRIBOLT_DATA_DIR: /data
+      CONTRIBOLT_WEBHOOK_SECRET: ${CONTRIBOLT_WEBHOOK_SECRET:-}
+      CONTRIBOLT_INSTALLATION_ID: ${CONTRIBOLT_INSTALLATION_ID:-}
     volumes:
-      - mergepilot-data:/data
+      - contribolt-data:/data
     expose: ["5178"]
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
@@ -15,15 +15,15 @@ services:
   proxy:
     image: caddy:2-alpine
     environment:
-      MERGEPILOT_DOMAIN: ${MERGEPILOT_DOMAIN:?Set MERGEPILOT_DOMAIN}
+      CONTRIBOLT_DOMAIN: ${CONTRIBOLT_DOMAIN:?Set CONTRIBOLT_DOMAIN}
     ports: ["80:80", "443:443"]
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data
       - caddy-config:/config
-    depends_on: [mergepilot]
+    depends_on: [contribolt]
     restart: unless-stopped
 volumes:
-  mergepilot-data:
+  contribolt-data:
   caddy-data:
   caddy-config:

@@ -52,7 +52,7 @@ export function registerApprovals(app: Application) {
       const request = new Approvals(app.store).request(id, action, payload);
       return {
         request,
-        confirmation: { executable: 'mergepilot', args: ['approve', request.id] },
+        confirmation: { executable: 'contribolt', args: ['approve', request.id] },
         notice:
           'Human confirmation records consent. Review disclosed limitations and satisfy CLA/DCO obligations before approving.',
       };
