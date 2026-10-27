@@ -63,3 +63,17 @@ jobs:
       - name: Verify download from the public registry
         if: inputs.publish
         run: python scripts/smoke-registry.py
+      - name: Select Node 22 for public installation verification
+        if: inputs.publish
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+      - name: Verify public download on Node 22
+        if: inputs.publish
+        run: python scripts/smoke-registry.py
+      - name: Mark the previous npm package as renamed
+        if: inputs.publish
+        run: npm deprecate 'mergepilot-mcp@*' 'Renamed to contribolt-mcp. Install contribolt-mcp instead.' --registry=https://registry.npmjs.org/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

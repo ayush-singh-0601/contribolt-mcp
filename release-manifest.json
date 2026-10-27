@@ -1,7 +1,7 @@
 {
   "files": 341,
-  "bytes": 311389,
-  "sha256": "776b4852b886c648245a26b49ee9d8266543ad7633792c0be48eb08a3470bcc3",
+  "bytes": 311667,
+  "sha256": "1f648d93dd8cec759dc04694f031f782d39dd9c34e4f84bc64fa7e3b9cc24323",
   "requirementsAudited": 236,
   "nativeEcosystems": 6,
   "archiveAndDocumentationChecks": "PASS"

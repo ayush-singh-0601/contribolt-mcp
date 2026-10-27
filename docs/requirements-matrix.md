@@ -2,7 +2,7 @@
 
 The immutable source is [PRD.md](PRD.md). [requirements.json](requirements.json) maps 236 extracted bullets, numbered items and table rows to implementation/test paths and qualification notes. Every row has been reviewed; no row is marked complete merely because a module exists. Original source line numbers are retained. Table headers and sample dialogue/PR text are explicitly illustrative, and section labels ignore code-fenced sample headings.
 
-CI/CD is disabled for the ContriBolt rename. CI records below are historical; current branding is checked locally.
+The linked CI records below are historical. Manual GitHub Actions qualification and npm release are enabled for the current ContriBolt source.
 
 ## Evidence status
 

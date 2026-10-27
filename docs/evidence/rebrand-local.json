@@ -2,7 +2,7 @@
   "product": "ContriBolt MCP",
   "package": "contribolt-mcp@0.1.0",
   "recordedAt": "2026-10-27T14:42:36.346887+00:00",
-  "scope": "Local validation of current branding; no CI/CD run and no fresh registry dependency installation.",
+  "scope": "Historical local validation recorded before CI/CD was re-enabled; check current GitHub Actions for subsequent qualification and npm publication.",
   "ciCd": {
     "repositoryActionsEnabled": false,
     "workflowsTriggered": 0,

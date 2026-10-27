@@ -160,5 +160,5 @@
     "GitLab/Forgejo live-instance checks pending",
     "No production TLS deployment or beta metrics collected"
   ],
-  "qualificationScope": "Historical qualification before the ContriBolt rebrand. No CI/CD is run for this rename at the user's request."
+  "qualificationScope": "Historical qualification before the initial ContriBolt rebrand. Later Node 22 qualification and npm release use separate manually dispatched GitHub Actions runs."
 }
